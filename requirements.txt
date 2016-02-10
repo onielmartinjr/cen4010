@@ -1,0 +1,32 @@
+Pet Adoption Web Service
+
+Overarching Goal-
+	Create an online tool to distribute to humane societies and pet shelters for posting pets up for adoption online.
+
+Requirements-
+-Create a distributable content management system that generates front-end HTML5 code (and possibly personalized CSS code)
+-Create a log-in with different levels of security (admin, staff, user)
+-Search functionality to find certain pets (by gender, breed, animal, name, color, price, size, age)
+-Each pet will be listed with a picture, description, stats, comments, history, vaccinations (if any), rescue, comments, date taken in, price, status (up for adoption, sold, reserved), etc.
+-Users have a cart, wish list, and watch list. Email notifications for status updates on pets if they are in the cart or the wish list, and notifications if the shelter gets in a pet that matches requirements on their watch list. Includes option to turn off notifications.
+-Guests have most limited access including:
+  viewing pets
+  add pet to cart (session)
+  search
+  other basic access, etc.
+-Users have Guest access and:
+  add pet to cart (user)
+  Create wish list
+  Create watch list
+  remove pet from cart
+  remove wish list
+  remove watch list
+  comment on pets
+-Staff have User access and:
+  Remove pet
+  add pet
+  change pet status
+-Admins have Staff access and:
+  remove user
+  add staff 
+  remove staff
