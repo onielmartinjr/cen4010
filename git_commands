@@ -1,0 +1,9 @@
+git branch
+get clone “repository_URL”
+git status
+git push origin
+git checkout repository_name
+git add .
+git commit -m “message”
+git log
+git merge repository_name
