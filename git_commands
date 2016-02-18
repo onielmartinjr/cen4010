@@ -7,3 +7,4 @@ git add .
 git commit -m “message”
 git log
 git merge repository_name
+git pull
