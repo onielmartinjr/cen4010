@@ -8,11 +8,13 @@
 	//The current URL
 	function current_url() {
 		return (!empty($_SERVER['HTTPS'])) ? "https://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] : "http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+
 	}
 	
 	//The current page with $_GET extensions
 	function file_name_with_get() {
 		return pathinfo(current_url() , PATHINFO_BASENAME);
+
 	}
 	
 	//The current page without $_GET extensions
@@ -33,7 +35,7 @@
 	
 	//Get current timestamp
 	function current_timestamp() {
-		return date('Y-m-d G:i:s');	
+		return date("Y-m-d H:i:s");	
 	}
 	
 	//This function redirects you to a certain page - HEAD
