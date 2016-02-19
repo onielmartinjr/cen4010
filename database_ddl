@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1
+-- version 4.5.2
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 18, 2016 at 05:37 AM
+-- Generation Time: Feb 20, 2016 at 12:59 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -33,6 +33,14 @@ CREATE TABLE `breed` (
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `breed`
+--
+
+INSERT INTO `breed` (`breed_wk`, `pet_type_wk`, `name`, `create_dt`) VALUES
+(1, 1, 'Husky', '2016-02-19 13:38:49'),
+(2, 3, 'Lab', '2016-02-19 13:38:49');
+
 -- --------------------------------------------------------
 
 --
@@ -44,6 +52,14 @@ CREATE TABLE `color` (
   `name` varchar(15) NOT NULL,
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `color`
+--
+
+INSERT INTO `color` (`color_wk`, `name`, `create_dt`) VALUES
+(1, 'Red', '2016-02-19 13:33:35'),
+(2, 'Black', '2016-02-19 13:33:35');
 
 -- --------------------------------------------------------
 
@@ -68,11 +84,17 @@ CREATE TABLE `comment` (
 
 CREATE TABLE `image` (
   `image_wk` int(11) NOT NULL,
-  `pet_wk` int(11) NOT NULL,
   `file_name` varchar(255) NOT NULL,
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `image`
+--
+
+INSERT INTO `image` (`image_wk`, `file_name`, `create_dt`, `is_deleted`) VALUES
+(-1, 'default.png', '2016-02-19 15:38:34', 0);
 
 -- --------------------------------------------------------
 
@@ -137,6 +159,13 @@ CREATE TABLE `pet` (
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `pet`
+--
+
+INSERT INTO `pet` (`pet_wk`, `pet_type_wk`, `breed_wk`, `color_wk`, `status_wk`, `image_wk`, `name`, `age`, `weight`, `acquired_dt`, `is_rescued`, `last_update_dt`, `is_deleted`, `create_dt`) VALUES
+(1, 1, 1, 1, 1, -1, 'The Doggy', 1, 2.81, '2016-02-19 14:57:14', 0, '2016-02-19 14:57:14', 0, '2016-02-19 14:57:14');
+
 -- --------------------------------------------------------
 
 --
@@ -162,6 +191,14 @@ CREATE TABLE `pet_type` (
   `name` varchar(15) NOT NULL,
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pet_type`
+--
+
+INSERT INTO `pet_type` (`pet_type_wk`, `name`, `create_dt`) VALUES
+(1, 'Dog', '2016-02-19 13:35:10'),
+(2, 'Cat', '2016-02-19 13:35:10');
 
 -- --------------------------------------------------------
 
@@ -233,7 +270,7 @@ CREATE TABLE `status` (
 --
 
 INSERT INTO `status` (`status_wk`, `name`, `create_dt`) VALUES
-(2, 'blerp', '2016-02-17 22:11:26');
+(1, 'Available', '2016-02-17 22:11:26');
 
 -- --------------------------------------------------------
 
@@ -291,7 +328,7 @@ CREATE TABLE `watch_list` (
 --
 
 CREATE TABLE `watch_list_column` (
-  `watch_list_column_entry_wk` int(11) NOT NULL,
+  `watch_list_column_wk` int(11) NOT NULL,
   `display_name` varchar(20) NOT NULL,
   `column_name` varchar(40) NOT NULL,
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -307,7 +344,7 @@ CREATE TABLE `watch_list_column` (
 CREATE TABLE `watch_list_detail` (
   `watch_list_detail_wk` int(11) NOT NULL,
   `watch_list_wk` int(11) NOT NULL,
-  `watch_list_column_entry_wk` int(11) NOT NULL,
+  `watch_list_column_wk` int(11) NOT NULL,
   `value1` varchar(20) NOT NULL,
   `value2` int(11) DEFAULT NULL,
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -350,7 +387,6 @@ ALTER TABLE `comment`
 ALTER TABLE `image`
   ADD PRIMARY KEY (`image_wk`),
   ADD UNIQUE KEY `file_name` (`file_name`),
-  ADD KEY `pet_wk` (`pet_wk`),
   ADD KEY `create_dt` (`create_dt`),
   ADD KEY `is_deleted` (`is_deleted`);
 
@@ -476,7 +512,7 @@ ALTER TABLE `watch_list`
 -- Indexes for table `watch_list_column`
 --
 ALTER TABLE `watch_list_column`
-  ADD PRIMARY KEY (`watch_list_column_entry_wk`),
+  ADD PRIMARY KEY (`watch_list_column_wk`),
   ADD UNIQUE KEY `display_name` (`display_name`),
   ADD KEY `create_dt` (`create_dt`),
   ADD KEY `is_deleted` (`is_deleted`);
@@ -487,7 +523,7 @@ ALTER TABLE `watch_list_column`
 ALTER TABLE `watch_list_detail`
   ADD PRIMARY KEY (`watch_list_detail_wk`),
   ADD KEY `watch_list_wk` (`watch_list_wk`),
-  ADD KEY `watch_list_column_entry_wk` (`watch_list_column_entry_wk`),
+  ADD KEY `watch_list_column_entry_wk` (`watch_list_column_wk`),
   ADD KEY `create_dt` (`create_dt`);
 
 --
@@ -498,12 +534,12 @@ ALTER TABLE `watch_list_detail`
 -- AUTO_INCREMENT for table `breed`
 --
 ALTER TABLE `breed`
-  MODIFY `breed_wk` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `breed_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `color`
 --
 ALTER TABLE `color`
-  MODIFY `color_wk` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `color_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `comment`
 --
@@ -528,7 +564,7 @@ ALTER TABLE `page`
 -- AUTO_INCREMENT for table `pet`
 --
 ALTER TABLE `pet`
-  MODIFY `pet_wk` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pet_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `pet_to_vaccination`
 --
@@ -538,7 +574,7 @@ ALTER TABLE `pet_to_vaccination`
 -- AUTO_INCREMENT for table `pet_type`
 --
 ALTER TABLE `pet_type`
-  MODIFY `pet_type_wk` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pet_type_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `pet_wish_list`
 --
@@ -583,7 +619,7 @@ ALTER TABLE `watch_list`
 -- AUTO_INCREMENT for table `watch_list_column`
 --
 ALTER TABLE `watch_list_column`
-  MODIFY `watch_list_column_entry_wk` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `watch_list_column_wk` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `watch_list_detail`
 --
