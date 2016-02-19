@@ -9,7 +9,6 @@
 	
 	
 	
-	
 	//close connection
 	$database->close_connection();
 

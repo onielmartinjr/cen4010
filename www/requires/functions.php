@@ -64,21 +64,6 @@
     	return($string);
 	}
 	
-	//Checks if a character is within another character
-	function string_within($big_one,$within_one) {
-		$within_string = strpos($big_one,$within_one);
-		return $within_string;
-		
-		/* This is how you execute the script properly
-		$check_url = character_with_character($current_url,"?");
-		if($check_url === false) {
-			 echo "There is not a ? in the URL.";
-		} else {
-			 echo "There is a ? in the URL.";
-		}
-		*/
-	}	
-	
 	//if single line, replace continuous multiple space with 1 space
 	function space_clean($string) {
 		return preg_replace('!\s+!', ' ', $string);
