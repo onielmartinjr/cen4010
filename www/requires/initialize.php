@@ -2,13 +2,14 @@
 
 	/*
 		This page will include all the "libraries" or "classes" that we define for our site.
+		I.E - this page constructs the framework for our site
 	*/
 
-	//get current functions
-	require_once "functions.php";
-	
 	//get constants
 	require_once "constants.php";
+	
+	//get current functions
+	require_once "functions.php";
 	
 	//get session class
 	require_once "session.php";
