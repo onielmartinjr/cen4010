@@ -73,33 +73,8 @@
 	function display_error() {
 		global $session;
 		if ($session->message() != '') 
-			echo $session->message();
+			echo "<p style=\"color:red;\">".$session->message()."</p>";
 	}
-	
-	//validate user input
-	function validate($field, $char_limit = 50) {
-		global $session;
-		
-		//if the name is blank or spaces - do not allow
-		if (!(trim($field) != '' && space_clean(trim($field)) != ' ')) {
-			$session->message("Your field cannot be blank or only spaces.");
-			return false;
-		}
-		
-		//if the ticket name contains double quotes - do not allow
-		if (preg_match('/"/', $field) == 1) {
-			$session->message("Your field cannot have any double quotes.");
-			return false;
-		}
-		
-		//if the name is over 50 characters, do not display
-		if ((strlen(space_clean(trim($field))) > $char_limit)) {
-			$session->message("Your field cannot be more than {$char_limit} characters.");
-			return false;
-		}
-	
-		//passes
-		return true;
-	}
+
 	
 ?>

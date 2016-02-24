@@ -18,7 +18,7 @@
 			
 			if($this->logged_in) {
 			  // actions to take right away if user is logged in
-			  //$user = User::find_by_id($session->user_wk);
+			  $user = User::find_by_id($session->user_wk);
 			} 
 		}
 	

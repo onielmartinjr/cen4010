@@ -7,7 +7,7 @@
 	//Define all the constants for the database connection
 	define("DB_HOST","localhost");
 	define("DB_USER","root");
-	define("DB_PASSWORD","omandcm1");
+	define("DB_PASSWORD","");
 	define("DB_DB","cen4010");
 	define("ROOT_URL","http://localhost/");
 	
