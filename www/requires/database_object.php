@@ -1,6 +1,6 @@
 <?php
 
-class Database_Object {
+abstract class Database_Object {
 
 	//automatically sets the default fields on new object(s)
 	function __construct() {
@@ -128,6 +128,24 @@ class Database_Object {
 		foreach($record as $attribute=>$value){
 		  if($object->has_attribute($attribute)) {
 		    $object->$attribute = $value;
+		    
+		    //if we see an attribute that is greater than 3 characters long
+		    //AND the attribute's last 3 characters are '_wk'
+		    //AND that attribute is not the primary key 
+		    //THEN we are going to instantiate the sub-objects automatically
+		    //this will support our relational DB model in PHP
+		    if(strlen($attribute) > 3) {
+				if(substr($attribute,-3) == '_wk' && 
+					$attribute != static::primary_key_field()) {
+					//the class name will always be the same as the attribute name
+					//with no '_wk', also, with capital letters for new words
+					//this is an architect of the program
+					$class_name = str_replace(' ', '_', ucwords(str_replace('_', ' ', substr($attribute, 0, -3))));
+					
+					//at this point, we are going to instantiate the sub-object
+					$object->$attribute = $class_name::find_by_id($object->$attribute);
+				}
+		    }
 		  }
 		}
 		return $object;
@@ -244,6 +262,11 @@ class Database_Object {
 	//returns a string containing the name of the primary key
 	public static function primary_key_field() {
 		return static::$db_fields[0];
+	}
+	
+	//the to_string method of all of these objects
+	public function __toString() {
+		return $this->{static::primary_key_field()};
 	}
 	
 }

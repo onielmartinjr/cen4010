@@ -1,5 +1,5 @@
 git branch
-get clone “repository_URL”
+git clone “repository_URL”
 git status
 git push origin
 git checkout repository_name
