@@ -10,7 +10,7 @@ git merge repository_name
 git pull
 
 ## to delete a branch on a remote server
-git push origin :remote_branch_name
+git push origin --delete remote_branch_name
 
 ## to delete a branch locally
 git branch -D local_branch_name
