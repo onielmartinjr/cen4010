@@ -36,7 +36,7 @@ class User extends Database_Object {
 		global $session;
 		global $page_file_name_with_get;
 		$username = $database->escape_value($username);
-		$password = $database->escape_value($password);
+		$password = sha1($database->escape_value($password));
 	
 		$sql  = "SELECT * FROM `".self::$table_name."` ";
 		$sql .= "WHERE username = '{$username}' ";

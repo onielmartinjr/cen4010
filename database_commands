@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Feb 24, 2016 at 02:30 AM
--- Server version: 10.1.9-MariaDB
--- PHP Version: 5.6.15
+-- Host: 127.0.0.1
+-- Generation Time: Feb 25, 2016 at 03:08 AM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,10 +14,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Database: `cen4010`
+-- Database: `cen_4010`
 --
 
 -- --------------------------------------------------------
@@ -26,12 +26,16 @@ SET time_zone = "+00:00";
 -- Table structure for table `breed`
 --
 
-CREATE TABLE `breed` (
-  `breed_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `breed` (
+  `breed_wk` int(11) NOT NULL AUTO_INCREMENT,
   `pet_type_wk` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`breed_wk`),
+  UNIQUE KEY `name` (`name`),
+  KEY `pet_type_wk` (`pet_type_wk`),
+  KEY `create_dt` (`create_dt`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `breed`
@@ -72,11 +76,14 @@ INSERT INTO `breed` (`breed_wk`, `pet_type_wk`, `name`, `create_dt`) VALUES
 -- Table structure for table `color`
 --
 
-CREATE TABLE `color` (
-  `color_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `color` (
+  `color_wk` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(15) NOT NULL,
-  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`color_wk`),
+  UNIQUE KEY `name` (`name`),
+  KEY `create_dt` (`create_dt`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `color`
@@ -103,14 +110,19 @@ INSERT INTO `color` (`color_wk`, `name`, `create_dt`) VALUES
 -- Table structure for table `comment`
 --
 
-CREATE TABLE `comment` (
-  `comment_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `comment` (
+  `comment_wk` int(11) NOT NULL AUTO_INCREMENT,
   `user_wk` int(11) NOT NULL,
   `pet_wk` int(11) NOT NULL,
   `body` text NOT NULL,
   `is_flagged` tinyint(1) NOT NULL DEFAULT '0',
-  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`comment_wk`),
+  KEY `user_wk` (`user_wk`),
+  KEY `pet_wk` (`pet_wk`),
+  KEY `create_dt` (`create_dt`),
+  KEY `is_flagged` (`is_flagged`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -118,12 +130,16 @@ CREATE TABLE `comment` (
 -- Table structure for table `image`
 --
 
-CREATE TABLE `image` (
-  `image_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `image` (
+  `image_wk` int(11) NOT NULL AUTO_INCREMENT,
   `file_name` varchar(255) NOT NULL,
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`image_wk`),
+  UNIQUE KEY `file_name` (`file_name`),
+  KEY `create_dt` (`create_dt`),
+  KEY `is_deleted` (`is_deleted`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -131,13 +147,16 @@ CREATE TABLE `image` (
 -- Table structure for table `log`
 --
 
-CREATE TABLE `log` (
-  `log_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `log` (
+  `log_wk` int(11) NOT NULL AUTO_INCREMENT,
   `user_wk` int(11) NOT NULL,
   `url` varchar(255) NOT NULL,
   `ip` varchar(45) NOT NULL,
-  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`log_wk`),
+  KEY `user_wk` (`user_wk`),
+  KEY `create_dt` (`create_dt`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -145,14 +164,19 @@ CREATE TABLE `log` (
 -- Table structure for table `page`
 --
 
-CREATE TABLE `page` (
-  `page_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `page` (
+  `page_wk` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `body` text NOT NULL,
   `last_update_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
-  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`page_wk`),
+  UNIQUE KEY `name` (`name`),
+  KEY `last_update_dt` (`last_update_dt`),
+  KEY `is_deleted` (`is_deleted`),
+  KEY `create_dt` (`create_dt`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -160,8 +184,8 @@ CREATE TABLE `page` (
 -- Table structure for table `pet`
 --
 
-CREATE TABLE `pet` (
-  `pet_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `pet` (
+  `pet_wk` int(11) NOT NULL AUTO_INCREMENT,
   `pet_type_wk` int(11) NOT NULL,
   `breed_wk` int(11) NOT NULL,
   `color_wk` int(11) NOT NULL,
@@ -174,8 +198,15 @@ CREATE TABLE `pet` (
   `is_rescued` tinyint(1) NOT NULL DEFAULT '0',
   `last_update_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
-  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`pet_wk`),
+  KEY `pet_type_wk` (`pet_type_wk`),
+  KEY `breed_wk` (`breed_wk`),
+  KEY `color_wk` (`color_wk`),
+  KEY `status_wk` (`status_wk`),
+  KEY `is_deleted` (`is_deleted`),
+  KEY `create_dt` (`create_dt`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -183,13 +214,18 @@ CREATE TABLE `pet` (
 -- Table structure for table `pet_to_vaccination`
 --
 
-CREATE TABLE `pet_to_vaccination` (
-  `pet_to_vaccination_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `pet_to_vaccination` (
+  `pet_to_vaccination_wk` int(11) NOT NULL AUTO_INCREMENT,
   `pet_wk` int(11) NOT NULL,
   `vaccination_wk` int(11) NOT NULL,
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`pet_to_vaccination_wk`),
+  KEY `pet_wk` (`pet_wk`),
+  KEY `vaccination_wk` (`vaccination_wk`),
+  KEY `is_deleted` (`is_deleted`),
+  KEY `create_dt` (`create_dt`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -197,11 +233,14 @@ CREATE TABLE `pet_to_vaccination` (
 -- Table structure for table `pet_type`
 --
 
-CREATE TABLE `pet_type` (
-  `pet_type_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `pet_type` (
+  `pet_type_wk` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(15) NOT NULL,
-  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`pet_type_wk`),
+  UNIQUE KEY `name` (`name`),
+  KEY `create_dt` (`create_dt`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `pet_type`
@@ -225,13 +264,18 @@ INSERT INTO `pet_type` (`pet_type_wk`, `name`, `create_dt`) VALUES
 -- Table structure for table `pet_wish_list`
 --
 
-CREATE TABLE `pet_wish_list` (
-  `pet_wish_list_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `pet_wish_list` (
+  `pet_wish_list_wk` int(11) NOT NULL AUTO_INCREMENT,
   `user_wk` int(11) NOT NULL,
   `pet_wk` int(11) NOT NULL,
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`pet_wish_list_wk`),
+  KEY `user_wk` (`user_wk`),
+  KEY `pet_wk` (`pet_wk`),
+  KEY `create_dt` (`create_dt`),
+  KEY `is_deleted` (`is_deleted`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -239,13 +283,17 @@ CREATE TABLE `pet_wish_list` (
 -- Table structure for table `reset_password`
 --
 
-CREATE TABLE `reset_password` (
-  `reset_password_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `reset_password` (
+  `reset_password_wk` int(11) NOT NULL AUTO_INCREMENT,
   `user_wk` int(11) NOT NULL,
   `random_key` int(11) NOT NULL,
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_reset` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `is_reset` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`reset_password_wk`),
+  UNIQUE KEY `random_key` (`random_key`),
+  KEY `user_wk` (`user_wk`),
+  KEY `request_dt` (`create_dt`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -253,11 +301,14 @@ CREATE TABLE `reset_password` (
 -- Table structure for table `role`
 --
 
-CREATE TABLE `role` (
-  `role_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `role` (
+  `role_wk` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(15) NOT NULL,
-  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`role_wk`),
+  UNIQUE KEY `name` (`name`),
+  KEY `create_dt` (`create_dt`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `role`
@@ -274,12 +325,14 @@ INSERT INTO `role` (`role_wk`, `name`, `create_dt`) VALUES
 -- Table structure for table `setting`
 --
 
-CREATE TABLE `setting` (
-  `setting_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `setting` (
+  `setting_wk` int(11) NOT NULL AUTO_INCREMENT,
   `variable_name` varchar(50) NOT NULL,
   `variable_value` varchar(255) NOT NULL,
-  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`setting_wk`),
+  UNIQUE KEY `variable_name` (`variable_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `setting`
@@ -295,11 +348,14 @@ INSERT INTO `setting` (`setting_wk`, `variable_name`, `variable_value`, `create_
 -- Table structure for table `status`
 --
 
-CREATE TABLE `status` (
-  `status_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `status` (
+  `status_wk` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(15) NOT NULL,
-  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`status_wk`),
+  UNIQUE KEY `name` (`name`),
+  KEY `create_dt` (`create_dt`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -307,21 +363,27 @@ CREATE TABLE `status` (
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
-  `user_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `user` (
+  `user_wk` int(11) NOT NULL AUTO_INCREMENT,
   `role_wk` int(11) NOT NULL,
   `username` varchar(15) NOT NULL,
   `email_address` varchar(50) NOT NULL,
   `hashed_password` varchar(40) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
-  `phone_number` int(10) NOT NULL,
+  `phone_number` varchar(10) NOT NULL,
   `is_notifications_enabled` bit(1) NOT NULL DEFAULT b'1',
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
-  `deleted_dt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `deleted_dt` datetime DEFAULT NULL,
+  PRIMARY KEY (`user_wk`),
+  UNIQUE KEY `email_address` (`email_address`,`username`),
+  KEY `deleted_dt` (`deleted_dt`),
+  KEY `is_deleted` (`is_deleted`),
+  KEY `create_dt` (`create_dt`),
+  KEY `role_wk` (`role_wk`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -329,11 +391,14 @@ CREATE TABLE `user` (
 -- Table structure for table `vaccination`
 --
 
-CREATE TABLE `vaccination` (
-  `vaccination_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `vaccination` (
+  `vaccination_wk` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
-  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`vaccination_wk`),
+  UNIQUE KEY `name` (`name`),
+  KEY `create_dt` (`create_dt`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -341,14 +406,18 @@ CREATE TABLE `vaccination` (
 -- Table structure for table `watch_list`
 --
 
-CREATE TABLE `watch_list` (
-  `watch_list_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `watch_list` (
+  `watch_list_wk` int(11) NOT NULL AUTO_INCREMENT,
   `user_wk` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `last_update_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`watch_list_wk`),
+  KEY `user_wk` (`user_wk`),
+  KEY `create_dt` (`create_dt`),
+  KEY `is_deleted` (`is_deleted`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -356,13 +425,17 @@ CREATE TABLE `watch_list` (
 -- Table structure for table `watch_list_column`
 --
 
-CREATE TABLE `watch_list_column` (
-  `watch_list_column_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `watch_list_column` (
+  `watch_list_column_wk` int(11) NOT NULL AUTO_INCREMENT,
   `display_name` varchar(20) NOT NULL,
   `column_name` varchar(40) NOT NULL,
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`watch_list_column_wk`),
+  UNIQUE KEY `display_name` (`display_name`),
+  KEY `create_dt` (`create_dt`),
+  KEY `is_deleted` (`is_deleted`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `watch_list_column`
@@ -383,290 +456,19 @@ INSERT INTO `watch_list_column` (`watch_list_column_wk`, `display_name`, `column
 -- Table structure for table `watch_list_detail`
 --
 
-CREATE TABLE `watch_list_detail` (
-  `watch_list_detail_wk` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `watch_list_detail` (
+  `watch_list_detail_wk` int(11) NOT NULL AUTO_INCREMENT,
   `watch_list_wk` int(11) NOT NULL,
   `watch_list_column_wk` int(11) NOT NULL,
   `value1` varchar(20) NOT NULL,
   `value2` int(11) DEFAULT NULL,
-  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`watch_list_detail_wk`),
+  KEY `watch_list_wk` (`watch_list_wk`),
+  KEY `watch_list_column_entry_wk` (`watch_list_column_wk`),
+  KEY `create_dt` (`create_dt`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `breed`
---
-ALTER TABLE `breed`
-  ADD PRIMARY KEY (`breed_wk`),
-  ADD UNIQUE KEY `name` (`name`),
-  ADD KEY `pet_type_wk` (`pet_type_wk`),
-  ADD KEY `create_dt` (`create_dt`);
-
---
--- Indexes for table `color`
---
-ALTER TABLE `color`
-  ADD PRIMARY KEY (`color_wk`),
-  ADD UNIQUE KEY `name` (`name`),
-  ADD KEY `create_dt` (`create_dt`);
-
---
--- Indexes for table `comment`
---
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`comment_wk`),
-  ADD KEY `user_wk` (`user_wk`),
-  ADD KEY `pet_wk` (`pet_wk`),
-  ADD KEY `create_dt` (`create_dt`),
-  ADD KEY `is_flagged` (`is_flagged`);
-
---
--- Indexes for table `image`
---
-ALTER TABLE `image`
-  ADD PRIMARY KEY (`image_wk`),
-  ADD UNIQUE KEY `file_name` (`file_name`),
-  ADD KEY `create_dt` (`create_dt`),
-  ADD KEY `is_deleted` (`is_deleted`);
-
---
--- Indexes for table `log`
---
-ALTER TABLE `log`
-  ADD PRIMARY KEY (`log_wk`),
-  ADD KEY `user_wk` (`user_wk`),
-  ADD KEY `create_dt` (`create_dt`);
-
---
--- Indexes for table `page`
---
-ALTER TABLE `page`
-  ADD PRIMARY KEY (`page_wk`),
-  ADD UNIQUE KEY `name` (`name`),
-  ADD KEY `last_update_dt` (`last_update_dt`),
-  ADD KEY `is_deleted` (`is_deleted`),
-  ADD KEY `create_dt` (`create_dt`);
-
---
--- Indexes for table `pet`
---
-ALTER TABLE `pet`
-  ADD PRIMARY KEY (`pet_wk`),
-  ADD KEY `pet_type_wk` (`pet_type_wk`),
-  ADD KEY `breed_wk` (`breed_wk`),
-  ADD KEY `color_wk` (`color_wk`),
-  ADD KEY `status_wk` (`status_wk`),
-  ADD KEY `is_deleted` (`is_deleted`),
-  ADD KEY `create_dt` (`create_dt`);
-
---
--- Indexes for table `pet_to_vaccination`
---
-ALTER TABLE `pet_to_vaccination`
-  ADD PRIMARY KEY (`pet_to_vaccination_wk`),
-  ADD KEY `pet_wk` (`pet_wk`),
-  ADD KEY `vaccination_wk` (`vaccination_wk`),
-  ADD KEY `is_deleted` (`is_deleted`),
-  ADD KEY `create_dt` (`create_dt`);
-
---
--- Indexes for table `pet_type`
---
-ALTER TABLE `pet_type`
-  ADD PRIMARY KEY (`pet_type_wk`),
-  ADD UNIQUE KEY `name` (`name`),
-  ADD KEY `create_dt` (`create_dt`);
-
---
--- Indexes for table `pet_wish_list`
---
-ALTER TABLE `pet_wish_list`
-  ADD PRIMARY KEY (`pet_wish_list_wk`),
-  ADD KEY `user_wk` (`user_wk`),
-  ADD KEY `pet_wk` (`pet_wk`),
-  ADD KEY `create_dt` (`create_dt`),
-  ADD KEY `is_deleted` (`is_deleted`);
-
---
--- Indexes for table `reset_password`
---
-ALTER TABLE `reset_password`
-  ADD PRIMARY KEY (`reset_password_wk`),
-  ADD UNIQUE KEY `random_key` (`random_key`),
-  ADD KEY `user_wk` (`user_wk`),
-  ADD KEY `request_dt` (`create_dt`);
-
---
--- Indexes for table `role`
---
-ALTER TABLE `role`
-  ADD PRIMARY KEY (`role_wk`),
-  ADD UNIQUE KEY `name` (`name`),
-  ADD KEY `create_dt` (`create_dt`);
-
---
--- Indexes for table `setting`
---
-ALTER TABLE `setting`
-  ADD PRIMARY KEY (`setting_wk`),
-  ADD UNIQUE KEY `variable_name` (`variable_name`);
-
---
--- Indexes for table `status`
---
-ALTER TABLE `status`
-  ADD PRIMARY KEY (`status_wk`),
-  ADD UNIQUE KEY `name` (`name`),
-  ADD KEY `create_dt` (`create_dt`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`user_wk`),
-  ADD UNIQUE KEY `email_address` (`email_address`,`username`),
-  ADD KEY `deleted_dt` (`deleted_dt`),
-  ADD KEY `is_deleted` (`is_deleted`),
-  ADD KEY `create_dt` (`create_dt`),
-  ADD KEY `role_wk` (`role_wk`);
-
---
--- Indexes for table `vaccination`
---
-ALTER TABLE `vaccination`
-  ADD PRIMARY KEY (`vaccination_wk`),
-  ADD UNIQUE KEY `name` (`name`),
-  ADD KEY `create_dt` (`create_dt`);
-
---
--- Indexes for table `watch_list`
---
-ALTER TABLE `watch_list`
-  ADD PRIMARY KEY (`watch_list_wk`),
-  ADD KEY `user_wk` (`user_wk`),
-  ADD KEY `create_dt` (`create_dt`),
-  ADD KEY `is_deleted` (`is_deleted`);
-
---
--- Indexes for table `watch_list_column`
---
-ALTER TABLE `watch_list_column`
-  ADD PRIMARY KEY (`watch_list_column_wk`),
-  ADD UNIQUE KEY `display_name` (`display_name`),
-  ADD KEY `create_dt` (`create_dt`),
-  ADD KEY `is_deleted` (`is_deleted`);
-
---
--- Indexes for table `watch_list_detail`
---
-ALTER TABLE `watch_list_detail`
-  ADD PRIMARY KEY (`watch_list_detail_wk`),
-  ADD KEY `watch_list_wk` (`watch_list_wk`),
-  ADD KEY `watch_list_column_entry_wk` (`watch_list_column_wk`),
-  ADD KEY `create_dt` (`create_dt`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `breed`
---
-ALTER TABLE `breed`
-  MODIFY `breed_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
---
--- AUTO_INCREMENT for table `color`
---
-ALTER TABLE `color`
-  MODIFY `color_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
---
--- AUTO_INCREMENT for table `comment`
---
-ALTER TABLE `comment`
-  MODIFY `comment_wk` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `image`
---
-ALTER TABLE `image`
-  MODIFY `image_wk` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `log`
---
-ALTER TABLE `log`
-  MODIFY `log_wk` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `page`
---
-ALTER TABLE `page`
-  MODIFY `page_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT for table `pet`
---
-ALTER TABLE `pet`
-  MODIFY `pet_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `pet_to_vaccination`
---
-ALTER TABLE `pet_to_vaccination`
-  MODIFY `pet_to_vaccination_wk` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `pet_type`
---
-ALTER TABLE `pet_type`
-  MODIFY `pet_type_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT for table `pet_wish_list`
---
-ALTER TABLE `pet_wish_list`
-  MODIFY `pet_wish_list_wk` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `reset_password`
---
-ALTER TABLE `reset_password`
-  MODIFY `reset_password_wk` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `role`
---
-ALTER TABLE `role`
-  MODIFY `role_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `setting`
---
-ALTER TABLE `setting`
-  MODIFY `setting_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `status`
---
-ALTER TABLE `status`
-  MODIFY `status_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `user_wk` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `vaccination`
---
-ALTER TABLE `vaccination`
-  MODIFY `vaccination_wk` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `watch_list`
---
-ALTER TABLE `watch_list`
-  MODIFY `watch_list_wk` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `watch_list_column`
---
-ALTER TABLE `watch_list_column`
-  MODIFY `watch_list_column_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT for table `watch_list_detail`
---
-ALTER TABLE `watch_list_detail`
-  MODIFY `watch_list_detail_wk` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

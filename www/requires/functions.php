@@ -76,5 +76,22 @@
 			echo "<p style=\"color:red;\">".$session->message()."</p>";
 	}
 
-	
+	// A function to ensure that only authorized users (admin, staff, user) can view respective pages.
+	function page_security() 
+	{
+		global $page;
+		global $user;
+		global $session;
+		
+		if (($page->is_user_only || $page->is_admin_only) && !$session->is_logged_in) 
+		{
+			$session->message("You must be logged in to view this page.");
+			redirect_head(ROOT_URL);
+		}
+		if($page->is_admin_only && ($user->role_wk != "2" && $user->role_wk != "3"))
+		{
+			$session->message("You must be an administrator to view this page.");
+			redirect_head(ROOT_URL);
+		}
+	}
 ?>

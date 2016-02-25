@@ -11,9 +11,6 @@
 	//get current functions
 	require_once "functions.php";
 	
-	//get session class
-	require_once "session.php";
-	
 	//establish database connection
 	require_once "database.php";
 	
@@ -48,6 +45,8 @@
 		END DATABASE CLASSES
 	*******************************/
 	
+	//get session class
+	require_once "session.php";
 	
 	//get checks
 	require_once "checks.php";

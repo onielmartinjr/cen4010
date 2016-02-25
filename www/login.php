@@ -3,9 +3,18 @@
 	//require the framework
 	require_once "requires/initialize.php";
 	
-	$page_var = new Page();
-	$page_var->name = "Login";
+	// create the page
+	$page = new Page();
+	$page->name = "Login";
 	
+	// check to see if a user is already logged in
+	if ($session->is_logged_in) 
+	{
+		$session->message("You are already logged in! To change users please logout first.");
+		redirect_head(ROOT_URL);
+	}
+	
+	// log the user in
 	if(isset($_POST["submit"])) 
 	{ 
 		$username = $_POST["username"];
@@ -14,43 +23,21 @@
 		User::login($username, $password);
 	}
 	
-?>
-<!DOCTYPE html>
-<html>
-<head>
-
-	<title><?php echo $page_var->name;?></title>
-
-</head>
-<body>
-
-	<h1><?php echo $page_var->name;?></h1>
+	// header
+	require_once "requires/template/header.php";
+		
+	?>
 	
-	<nav>
-		<a href="index.php">Homepage</a><br />
-		<a href="login.php">Login Here!</a><br />
-		<a href="public1.php">Public 1</a><br />
-		<a href="member1.php">Member 1</a><br />
-		<a href="admin1.php">Admin 1</a><br />
-	</nav> 
-
-	<br />
-	
-	<?php display_error(); ?>
-	
+	<!-- login form -->
 	<form id="login" action="login.php" method="post">
 		username<input type="text" name="username" /> <br />
 		password<input type="password" name="password" /> <br />
 		<input type="submit" value="submit" name="submit"/>
-		
 	</form>
-
-</body>
-</html>
-
+	
 <?php
 
-	//close connection
-	$database->close_connection();
+	//footer
+	require_once "requires/template/footer.php";
 
 ?>
