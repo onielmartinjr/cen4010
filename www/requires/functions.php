@@ -73,33 +73,25 @@
 	function display_error() {
 		global $session;
 		if ($session->message() != '') 
-			echo $session->message();
+			echo "<p style=\"color:red;\">".$session->message()."</p>";
 	}
-	
-	//validate user input
-	function validate($field, $char_limit = 50) {
+
+	// A function to ensure that only authorized users (admin, staff, user) can view respective pages.
+	function page_security() 
+	{
+		global $page;
+		global $user;
 		global $session;
 		
-		//if the name is blank or spaces - do not allow
-		if (!(trim($field) != '' && space_clean(trim($field)) != ' ')) {
-			$session->message("Your field cannot be blank or only spaces.");
-			return false;
+		if (($page->is_user_only || $page->is_admin_only) && !$session->is_logged_in) 
+		{
+			$session->message("You must be logged in to view this page.");
+			redirect_head(ROOT_URL);
 		}
-		
-		//if the ticket name contains double quotes - do not allow
-		if (preg_match('/"/', $field) == 1) {
-			$session->message("Your field cannot have any double quotes.");
-			return false;
+		if($page->is_admin_only && ($user->role_wk != "2" && $user->role_wk != "3"))
+		{
+			$session->message("You must be an administrator to view this page.");
+			redirect_head(ROOT_URL);
 		}
-		
-		//if the name is over 50 characters, do not display
-		if ((strlen(space_clean(trim($field))) > $char_limit)) {
-			$session->message("Your field cannot be more than {$char_limit} characters.");
-			return false;
-		}
-	
-		//passes
-		return true;
 	}
-	
 ?>

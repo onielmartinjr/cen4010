@@ -45,8 +45,8 @@ abstract class Database_Object {
 			//this is because these values will not be retained in the database
 			//because all database stored pages will be public
 			//so we are only going to track this manually for other pages
-			$this->is_user_only = 0;
-			$this->is_admin_only = 0;
+			$this->is_user_only = false;
+			$this->is_admin_only = false;
 		}
 			
 	}

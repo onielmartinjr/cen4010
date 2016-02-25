@@ -7,26 +7,21 @@
 
 	class Session {
 		
-		public $logged_in = false;
+		public $is_logged_in = false;
 		public $user_wk;
 		public $message;
 		
 		function __construct() {
 			session_start();
 			$this->check_message();
-			$this->check_login();
-			
-			if($this->logged_in) {
-			  // actions to take right away if user is logged in
-			  //$user = User::find_by_id($session->user_wk);
-			} 
+			$this->check_login(); 
 		}
 	
 		public function login($user) {
 			// database should find user based on username/password
 			if($user){
 				$this->user_wk = $_SESSION['user_wk'] = $user->user_wk;
-				$this->logged_in = true;
+				$this->is_logged_in = true;
 				//if the user was trying to view a page before, go there, if not, go to dashboard
 				if (isset($_GET['url'])) 
 					redirect_head(ROOT_URL.$_GET['url']); //go to previous location
@@ -51,10 +46,10 @@
 		private function check_login() {
 			if(isset($_SESSION['user_wk'])) {
 				$this->user_wk = $_SESSION['user_wk'];
-				$this->logged_in = true;
+				$this->is_logged_in = true;
 			} else {
 				unset($this->user_wk);
-				$this->logged_in = false;
+				$this->is_logged_in = false;
 			}
 		}
 	  
@@ -71,8 +66,9 @@
 		
 		public function logout() {
 			unset($_SESSION['user_wk']);
-			$this->logged_in = false;
+			$this->is_logged_in = false;
 			unset($this->user_wk);
+			$this->message("You were successfully logged out.");
 			redirect_head(ROOT_URL."index.php");
 		}
 		
@@ -80,5 +76,11 @@
 
 	//create a new message
 	$session = new Session();
+
+	// Create user if logged in
+	if($session->is_logged_in) {
+	  // actions to take right away if user is logged in
+	  $user = User::find_by_id($session->user_wk);
+	}
 
 ?>
