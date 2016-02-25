@@ -9,7 +9,7 @@
 			// Guest Only Pages
 			if (!$session->is_logged_in)
 			{
-				echo "<a href=\"login.php\">Login Here!</a><br />";
+				echo "<a href=\"login.php\">Login</a><br />";
 			}
 		
 			else {

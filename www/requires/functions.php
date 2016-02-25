@@ -85,12 +85,12 @@
 		
 		if (($page->is_user_only || $page->is_admin_only) && !$session->is_logged_in) 
 		{
-			$session->message("You must be logged in to view this page.");
+			$session->message("You must be logged in to view that page.");
 			redirect_head(ROOT_URL);
 		}
 		if($page->is_admin_only && ($user->role_wk != "2" && $user->role_wk != "3"))
 		{
-			$session->message("You must be an administrator to view this page.");
+			$session->message("You must be an administrator to view that page.");
 			redirect_head(ROOT_URL);
 		}
 	}
