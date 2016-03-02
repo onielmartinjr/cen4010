@@ -1,2 +1,2 @@
-/www/requires/constants.php
-
+#ignore the default constants file
+constants.php
