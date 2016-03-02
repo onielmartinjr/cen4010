@@ -14,6 +14,7 @@
 		$new_page->name = $_POST["page_name"];
 		$new_page->body = $_POST["page_content"];
 
+		// if the page is successfully created, go to the page
 		if ($new_page->save())
 		{
 			$session->message("Your new page was created successfully!");
@@ -32,7 +33,7 @@
 	<form id="create_page" action="admin_create_page.php" method="post">
 		Page Name: <input type="text" name="page_name" /> <br /> <br />
 		Page Content: <textarea rows="5" cols="40" name="page_content"></textarea> <br /> <br />
-		<input type="submit" value="submit" name="submit" />
+		<input type="submit" value="Submit" name="submit" />
 	</form>
 	
 
