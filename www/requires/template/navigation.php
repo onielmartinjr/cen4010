@@ -30,7 +30,7 @@
 				// Admin and Staff Only Pages 
 				if ($user->role_wk == "2" || $user->role_wk == "3")
 				{
-					echo "<a href=\"admin1.php\">Admin 1</a><br />";
+					echo "<a href=\"admin_create_page.php\">Create a New Page</a><br />";
 				}
 			
 			
