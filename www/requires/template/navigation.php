@@ -1,10 +1,17 @@
 <nav>
 		<!-- Common Pages -->
 		<a href="index.php">Homepage</a><br />
-		<a href="public1.php">Public 1</a><br />
 		
 		
 		<?php
+			// get all of the pages in the database and create
+			// links for them in the nav section
+			$pages_array = Page::find_all();
+			foreach($pages_array as $value)
+			{
+				echo "<a href=\"view_page.php?page_wk=" . $value->page_wk . "\">" . 
+						$value->name . "</a><br />";
+			}
 		
 			// Guest Only Pages
 			if (!$session->is_logged_in)
