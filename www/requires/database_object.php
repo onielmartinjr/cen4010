@@ -79,7 +79,15 @@ abstract class Database_Object {
 	
 	//find object by key
 	public static function find_by_id($id=0) {
+		global $session;
 		global $database;
+		
+		// check that the id is an int
+		if (!is_numeric($id))
+		{
+			$session->message("There is an error with the page you were trying to access.");
+			redirect_head(ROOT_URL);
+		}
 		$sql = "SELECT `".static::$table_name."`.* FROM `".
 			static::$table_name."` WHERE `".static::primary_key_field()."`={$id} LIMIT 1;";
 		$result_array = static::find_by_sql($sql);
