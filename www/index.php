@@ -8,7 +8,7 @@
 	$page->body = "This is the body";
 	
 	require_once "requires/template/header.php";
-		
+	
 	echo $page->body;
 
 	require_once "requires/template/footer.php";
