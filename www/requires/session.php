@@ -72,6 +72,11 @@
 			redirect_head(ROOT_URL."index.php");
 		}
 		
+		public function remove_message() {
+			unset($_SESSION['message']);
+			unset($this->message);
+		}
+		
 	}
 
 	//create a new message

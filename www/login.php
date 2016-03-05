@@ -34,6 +34,7 @@
 		password: <input type="password" name="password" /> <br />
 		<input type="submit" value="submit" name="submit"/>
 	</form>
+	<p>No account? <a href="create_new_user.php">Create a new account!</a></p>
 	
 <?php
 
