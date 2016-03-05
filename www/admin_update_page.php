@@ -19,6 +19,7 @@
 		{
 			$session->message("Your page was updated successfully!");
 			redirect_head(ROOT_URL . "view_page.php?page_wk=" . $update_page->page_wk);
+			die();
 		}
 		else
 		{
@@ -28,6 +29,14 @@
 	
 	// grab the page so it's content can be pre-loaded into the form
 	$update_page = Page::find_by_id($_GET["page_wk"]);
+	
+	// check that the page_wk exists
+	if (!$update_page) 
+	{
+		$session->message("There is an error with the page you were trying to access.");
+		redirect_head(ROOT_URL);
+		die();
+	}
 	
 	require_once "requires/template/header.php";
 	
