@@ -116,11 +116,7 @@ abstract class Database_Object {
 		global $database;
 		$name = $database->escape_value($name);
 		$column_name = $database->escape_value($column_name);
-		$sql = "SELECT * FROM `".static::$table_name."` WHERE {$column_name} = '{$name}'";
-		//if the table contains is_deleted, make sure to include WHERE is_deleted = 0
-		if(in_array("is_deleted", static::$db_fields)) 
-			$sql .= " AND `is_deleted` = 0";
-		$sql .= ";";
+		$sql = "SELECT * FROM `".static::$table_name."` WHERE {$column_name} = '{$name}';";
 		$result_array = static::find_by_sql($sql);
 		
 		if ($result_array != null)
@@ -253,9 +249,17 @@ abstract class Database_Object {
 				$sql .= ", `last_update_dt` = '".$database->escape_value($this->last_update_dt)."'";
 			}
 			
+			//also - update deleted_dt if the object contains it
+			if(in_array("deleted_dt", static::$db_fields)) {
+				$this->deleted_dt = current_timestamp();
+				$sql .= ", `deleted_dt` = '".$database->escape_value($this->deleted_dt)."'";
+			}
+			
 			$sql .= " WHERE `".static::primary_key_field()."`=". $database->escape_value($this->{static::primary_key_field()});
 			$sql .= " LIMIT 1;";
-		} else {
+		} 
+		else 
+		{
 			//if we're here, then the table does not have an is_deleted field
 			//so we have to hard delete it
 			$sql = "DELETE FROM `".static::$table_name."`";
