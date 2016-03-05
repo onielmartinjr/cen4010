@@ -11,8 +11,10 @@
 		die();
 	}
 	
+	
 	$page_wk = $_GET["page_wk"];
 	$page = Page::find_by_id($page_wk);	
+
 	
 	// check that the page_wk exists
 	if (!$page) 
@@ -30,16 +32,17 @@
 		die();
 	}
 
-
 	require_once "requires/template/header.php";
 	
 	echo $page->body;
 	
-	if ($user->role_wk == "2" || $user->role_wk == "3")
-	{
-		echo "<br /><br /><br />";
-		echo "<a href=\"admin_update_page.php?page_wk=" . $page->page_wk . "\">Edit Page</a><br />";
-		echo "<a href=\"admin_delete_page.php?page_wk=" . $page->page_wk . "\">Delete Page</a>";
+	if(isset($user)) {
+		if ($user->role_wk == "2" || $user->role_wk == "3")
+		{
+			echo "<br /><br /><br />";
+			echo "<a href=\"admin_update_page.php?page_wk=" . $page->page_wk . "\">Edit Page</a><br />";
+			echo "<a href=\"admin_delete_page.php?page_wk=" . $page->page_wk . "\">Delete Page</a>";
+		}
 	}
 	
 	require_once "requires/template/footer.php";

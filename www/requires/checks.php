@@ -7,11 +7,9 @@
 		This page is included in the initialize page, so it will be called upon EVERY page load.	
 	*/
 	
-	// Nested if statements for PHP version control
-	/* 	
-		This check will log a user out and redirect them if they are currently
-		logged in and that user's is_deleted status changes to 1.
-	*/
+		
+	//This check will log a user out and redirect them if they are currently
+	//logged in and that user's is_deleted status changes to 1.
 	if(isset($user) && $session->is_logged_in)
 	{
 		 if($user->is_deleted == 1) 
@@ -21,4 +19,15 @@
 			redirect_head(ROOT_URL);
 		}
 	}
+	
+	
+	//create a log entry for ever page a user visits
+	$log = new Log();
+	//only set a user_wk if it's in the system
+	if(isset($user))
+		$log->user_wk = $user;
+	$log->url = current_url();
+	$log->ip = users_current_ip();
+	$log->save();
+	
 ?>

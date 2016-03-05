@@ -7,7 +7,7 @@
 
 class Log extends Database_Object {
 	
-	protected static $table_name = 'image';
+	protected static $table_name = 'log';
 	protected static $db_fields = array('log_wk', 'user_wk', 'url', 'ip', 'create_dt');
 	
 	public $log_wk;
