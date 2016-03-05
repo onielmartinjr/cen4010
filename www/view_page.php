@@ -6,8 +6,9 @@
 	// check if page_wk is set
 	if (!isset($_GET["page_wk"])) 
 	{
-		$session->message("e0: There is an error with the page you were trying to access.");
+		$session->message("There is an error with the page you were trying to access.");
 		redirect_head(ROOT_URL);
+		die();
 	}
 	
 	$page_wk = $_GET["page_wk"];
@@ -16,15 +17,17 @@
 	// check that the page_wk exists
 	if (!$page) 
 	{
-		$session->message("e1: There is an error with the page you were trying to access.");
+		$session->message("There is an error with the page you were trying to access.");
 		redirect_head(ROOT_URL);
+		die();
 	}
 	
 	// check if the page is deleted
 	if ($page->is_deleted == "1") 
 	{
-		$session->message("e2: The page you are trying to view has been deleted.");
+		$session->message("The page you are trying to view has been deleted.");
 		redirect_head(ROOT_URL);
+		die();
 	}
 
 
@@ -35,7 +38,8 @@
 	if ($user->role_wk == "2" || $user->role_wk == "3")
 	{
 		echo "<br /><br /><br />";
-		echo "<a href=\"admin_update_page.php?page_wk=" . $page->page_wk . "\">Edit Page</a>";
+		echo "<a href=\"admin_update_page.php?page_wk=" . $page->page_wk . "\">Edit Page</a><br />";
+		echo "<a href=\"admin_delete_page.php?page_wk=" . $page->page_wk . "\">Delete Page</a>";
 	}
 	
 	require_once "requires/template/footer.php";
