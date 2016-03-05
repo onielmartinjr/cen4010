@@ -5,7 +5,7 @@
 	
 	// create the page
 	$page = new Page();
-	$page->name = "Delete Account";
+	$page->name = "Delete User";
 	$page->is_user_only = true;
 	
 	// check if user wants to delete their account
@@ -40,7 +40,7 @@
 	
 ?>	
 	
-	<form id="confirm_delete" action="delete_account.php" method="post">
+	<form id="confirm_delete" action="delete_user.php" method="post">
 		<label>Are you sure you want to delete your account?</label> <br />
 		<input type="submit" value="No, keep my account!" name="deny" />
 		<input type="submit" value="Yes, delete my account" name="confirm" />

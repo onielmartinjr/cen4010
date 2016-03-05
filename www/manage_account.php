@@ -13,9 +13,10 @@
 	
 ?>	
 	
-<br /><br />
-<a href="delete_account.php">Delete Account</a>
-<!-- Other account management links here -->
+	<br /><br />
+	<a href="delete_user.php">Delete Account</a> <br />
+	<a href="update_user.php">Update Account</a> <br />
+	<!-- Other account management links here -->
 	
 <?php
 	
