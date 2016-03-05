@@ -64,12 +64,15 @@
 			}
 		}
 		
-		public function logout() {
+		public function logout($bypass_redirect=false) {
 			unset($_SESSION['user_wk']);
 			$this->is_logged_in = false;
 			unset($this->user_wk);
-			$this->message("You were successfully logged out.");
-			redirect_head(ROOT_URL."index.php");
+			if ($bypass_redirect == false) 
+			{
+				$this->message("You were successfully logged out.");
+				redirect_head(ROOT_URL."index.php");
+			}
 		}
 		
 		public function remove_message() {

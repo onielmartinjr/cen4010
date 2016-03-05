@@ -18,15 +18,8 @@
 			{
 				echo "<a href=\"login.php\">Login</a><br />";
 			}
-		
-			else {
-				// User Only Pages
-				if ($user->role_wk >= "1")
-				{
-					echo "<a href=\"member1.php\">Member 1</a><br />";
-				}
-			
-			
+			else 
+			{
 				// Admin and Staff Only Pages 
 				if ($user->role_wk == "2" || $user->role_wk == "3")
 				{
@@ -34,7 +27,9 @@
 				}
 			
 			
-				// Logout
+				// Users, Admin and Staff Only Pages
+				echo "<a href=\"manage_account.php\">Manage Your Account</a><br />";
+				echo "<a href=\"member1.php\">Member 1</a><br />";
 				echo "<a href=\"logout.php\">Logout</a><br />";
 			}
 			
