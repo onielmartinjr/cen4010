@@ -75,6 +75,11 @@
 			}
 		}
 		
+		public function remove_message() {
+			unset($_SESSION['message']);
+			unset($this->message);
+		}
+		
 	}
 
 	//create a new message
