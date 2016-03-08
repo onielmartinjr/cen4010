@@ -15,15 +15,42 @@
 	if (isset($_GET["delete_color_wk"]))
 	{
 		$delete_color = Color::find_by_id($_GET["delete_color_wk"]);
-		if($delete_color->delete())
+		
+		// check if any pets are referencing this color key
+		// if they are, reassign them to 'color_wk' = 1
+		// which should be reserved for default "undefined" color
+		while ($pet = Pet::find_by_name($delete_color->color_wk, "color_wk"))
 		{
-			$session->message($session->message."The color " . $delete_color->name . " was successfully deleted! ");
-			redirect_head(ROOT_URL."manage_colors.php");
-			die();
+			$failed = false;  // tracks if any of the color reassignments were not successful
+			$pet->color_wk = 1;
+			if ($pet->save())
+			{
+				$session->message($session->message. $pet->name . "'s color changed to " . $pet->color_wk . ". ");
+			}
+			else
+			{
+				$session->message($session->message. "Unable to reassign " . $pet->name . "'s color at this time. ");
+				$failed = true;
+			}
 		}
-		else
+		
+		// try to delete the color
+		if (!$failed) // if all color reassignments were successful
 		{
-			$session->message("The color " . $delete_color->name . " cannot be deleted at this time. ");
+			if ($delete_color->delete())
+			{
+				$session->message($session->message."The color " . $delete_color->name . " was successfully deleted! ");
+				redirect_head(ROOT_URL."manage_colors.php");
+				die();
+			}
+			else
+			{
+				$session->message("The color " . $delete_color->name . " cannot be deleted at this time. ");
+			}
+		}
+		else // if there were unsuccessful color reassignments
+		{
+			$session->message($session->message. $pet->name . "'s color needs to be reassigned before this color can be deleted. ");
 		}
 	}
 	
@@ -35,7 +62,7 @@
 		// color name, update to the new color name.
 		$colors_array = Color::find_all();
 		$count = count($colors_array); 
-		for($i = 0; $i < $count; $i++) // i == color_wk TODO change logic. consider deleted colors and foreach not in order
+		for($i = 0; $i < $count; $i++)
 		{
 			if ($colors_array[$i]->name != $_POST["{$i}"])
 			{
@@ -106,10 +133,12 @@
 		$colors_array = Color::find_all();
 		$count = count($colors_array); 
 
-		for($i = 0; $i < $count; $i++)
+		for ($i = 0; $i < $count; $i++)
 		{
 			echo $i+1 . ": <input type=\"text\" name=\"" . $i . "\" value=\"" . $colors_array[$i]->name . "\">";
-			echo "<a href=\"manage_colors.php?delete_color_wk=" . $colors_array[$i]->color_wk . "\">Delete</a><br />";
+			if ($colors_array[$i]->color_wk != 1) // do not delete default "undefined" color
+				echo "<a href=\"manage_colors.php?delete_color_wk=" . $colors_array[$i]->color_wk . "\">Delete</a>";
+			echo "<br />";
 		}
 		?>
 		Add new color:<input type="text" name="new_color" value=""><br />
