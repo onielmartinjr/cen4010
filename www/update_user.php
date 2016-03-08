@@ -9,7 +9,7 @@
 	$page->is_user_only = true;
 	
 	if(isset($_POST["submit"])) 
-	{	
+	{			
 		$email_address = $_POST['email_address'];
 		if ($_POST["password"] != "")
 			$hashed_password = sha1($database->escape_value($_POST['password']));
