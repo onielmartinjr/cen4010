@@ -29,6 +29,7 @@
 			
 				// Users, Admin and Staff Only Pages
 				echo "<a href=\"manage_account.php\">Manage Your Account</a><br />";
+				echo "<a href=\"manage_colors.php\">Manage Colors</a><br />";
 				echo "<a href=\"member1.php\">Member 1</a><br />";
 				echo "<a href=\"logout.php\">Logout</a><br />";
 			}
