@@ -69,6 +69,13 @@
 		return preg_replace('!\s+!', ' ', $string);
 	}
 	
+	//return all numeric characters only
+	function return_numeric($string="") {
+		return preg_replace("/[^0-9 ]/", '', $string);
+	}
+	
+	/////////////////////////////////////////////
+	
 	//display error
 	function display_error() {
 		global $session;

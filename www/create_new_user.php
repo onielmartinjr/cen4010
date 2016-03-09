@@ -25,7 +25,7 @@
 		$confirmed_password = sha1($database->escape_value($_POST['confirmed_password']));
 		$new_user->first_name = $_POST['first_name'];
 		$new_user->last_name = $_POST['last_name'];
-		$new_user->phone_number = $_POST['phone_number'];
+		$new_user->phone_number = return_numeric($_POST['phone_number']);
 		$new_user->is_notifications_enabled = $_POST['email_notifications'];
 		
 		//make sure the username does not already exist
