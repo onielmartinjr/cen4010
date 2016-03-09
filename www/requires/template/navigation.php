@@ -1,6 +1,6 @@
 <nav>
-		<!-- Common Pages -->
-		<a href="index.php">Homepage</a><br />
+		<!-- Display the Home Page -->
+		<a href="index.php">Home Page</a><br />
 		
 		
 		<?php
@@ -9,8 +9,10 @@
 			$pages_array = Page::find_all();
 			foreach($pages_array as $value)
 			{
-				echo "<a href=\"view_page.php?page_wk=" . $value->page_wk . "\">" . 
-						$value->name . "</a><br />";
+				if($value != '1' && $value != '2') { //excludes home page and about us page
+					echo "<a href=\"view_page.php?page_wk=" . $value->page_wk . "\">" . 
+							$value->name . "</a><br />";
+				}
 			}
 		
 			// Guest Only Pages
@@ -21,7 +23,7 @@
 			else 
 			{
 				// Admin and Staff Only Pages 
-				if ($user->role_wk == "2" || $user->role_wk == "3")
+				if ($user->role_wk == '2' || $user->role_wk == '3')
 				{
 					echo "<a href=\"admin_create_page.php\">Create a New Page</a><br />";
 				}
@@ -33,6 +35,9 @@
 				echo "<a href=\"member1.php\">Member 1</a><br />";
 				echo "<a href=\"logout.php\">Logout</a><br />";
 			}
+			
+			//about us page
+			echo "<a href=\"view_page.php?page_wk=2\">About Us</a><br />";
 			
 		?>
 		

@@ -43,10 +43,14 @@
 ?>
 
 	<!-- Update a page form -->
-	<form id="update_page" action="admin_update_page.php?page_wk=<?php echo $update_page->page_wk ?>" method="post">
-		Page Name: <input type="text" name="page_name" value="<?php echo $update_page->name ?>"/> <br /> <br />
-		Page Content: <textarea rows="5" cols="40" name="page_content"><?php echo $update_page->body ?></textarea> <br /> <br />
-		<input type="hidden" value="<?php echo $update_page->page_wk ?>" name="page_wk" />
+	<form id="update_page" action="admin_update_page.php?page_wk=<?php echo $update_page->page_wk; ?>" method="post">
+		Page Name: <input type="text" name="page_name" value="<?php echo $update_page->name; ?>"<?php
+			//if looking at home page or about us page, disable this field
+			if($update_page == '1' || $update_page == '2')
+				echo ' readonly';
+		?>/> <br /> <br />
+		Page Content: <textarea rows="5" cols="40" name="page_content"><?php echo $update_page->body; ?></textarea> <br /> <br />
+		<input type="hidden" value="<?php echo $update_page->page_wk; ?>" name="page_wk" />
 		<input type="submit" value="Submit" name="submit" />
 	</form>
 
