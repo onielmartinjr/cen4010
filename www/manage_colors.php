@@ -17,12 +17,12 @@
 		$delete_color = Color::find_by_id($_GET["delete_color_wk"]);
 		
 		// check if any pets are referencing this color key
-		// if they are, reassign them to 'color_wk' = 1
+		// if they are, reassign them to 'color_wk' = 0
 		// which should be reserved for default "undefined" color
 		while ($pet = Pet::find_by_name($delete_color->color_wk, "color_wk"))
 		{
 			$failed = false;  // tracks if any of the color reassignments were not successful
-			$pet->color_wk = 1;
+			$pet->color_wk = 0;
 			if ($pet->save())
 			{
 				$session->message($session->message. $pet->name . "'s color changed to " . $pet->color_wk . ". ");
@@ -57,7 +57,14 @@
 	
 	// if renaming a color and/or adding a new color
 	if (isset($_POST["submit"]))
-	{
+	{	
+
+		//debug
+		foreach ($_POST as $value)
+		{
+			echo $value . "<br />";
+		}
+
 		// if there are differences between the actual color name and the submitted
 		// color name, update to the new color name.
 		$colors_array = Color::find_all();
@@ -74,10 +81,8 @@
 				else
 				{
 					// update color with the new name
-					$updated_color = new Color();
-					$updated_color->color_wk = $colors_array[$i]->color_wk;
-					$updated_color->name = $_POST["{$i}"];
-					if($updated_color->save())
+					$colors_array[$i]->name = $_POST["{$i}"];
+					if($colors_array[$i]->save())
 					{
 						$session->message($session->message."The color " . $_POST["{$i}"] . " successfully updated! ");
 					}
@@ -132,13 +137,11 @@
 		<?php
 		$colors_array = Color::find_all();
 		$count = count($colors_array); 
-
+		
 		for ($i = 0; $i < $count; $i++)
 		{
 			echo $i+1 . ": <input type=\"text\" name=\"" . $i . "\" value=\"" . $colors_array[$i]->name . "\">";
-			if ($colors_array[$i]->color_wk != 1) // do not delete default "undefined" color
-				echo "<a href=\"manage_colors.php?delete_color_wk=" . $colors_array[$i]->color_wk . "\">Delete</a>";
-			echo "<br />";
+			echo "<a href=\"manage_colors.php?delete_color_wk=" . $colors_array[$i]->color_wk . "\">Delete</a><br />";
 		}
 		?>
 		Add new color:<input type="text" name="new_color" value=""><br />
