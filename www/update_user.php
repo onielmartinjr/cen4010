@@ -11,11 +11,11 @@
 	if(isset($_POST["submit"])) 
 	{			
 		$email_address = $_POST['email_address'];
-		if ($_POST["password"] != "")
+		if (empty($_POST["password"]))
 			$hashed_password = sha1($database->escape_value($_POST['password']));
 		else
 			$hashed_password = $user->hashed_password;
-		if ($_POST["confirmed_password"] != "")
+		if (empty($_POST["confirmed_password"]))
 			$confirmed_password = sha1($database->escape_value($_POST['confirmed_password']));
 		else
 			$confirmed_password = $user->hashed_password;
@@ -37,7 +37,7 @@
 			}
 		}
 		
-		//make sure passwords are the same
+		//make sure passwords (first and confirmed) are the same
 		if ($user->hashed_password != $hashed_password)
 		{
 			if($hashed_password != $confirmed_password) {

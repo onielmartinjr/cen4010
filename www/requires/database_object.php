@@ -54,10 +54,10 @@ abstract class Database_Object {
 	//returns count of all active rows
 	public static function count_all() {
 		global $database;
-		$sql = "SELECT COUNT(*) FROM `".static::$table_name."`";
+		$sql = "SELECT COUNT(*) FROM `".static::$table_name."` WHERE `" . static::primary_key_field() . "` >= 1";
 		//if the table contains is_deleted, make sure to include WHERE is_deleted = 0
 		if(in_array("is_deleted", static::$db_fields)) 
-			$sql .= " WHERE `is_deleted` = 0";
+			$sql .= " AND `is_deleted` = 0";
 		$sql .= ";";
 		
    		$result_set = $database->query($sql);
@@ -100,10 +100,10 @@ abstract class Database_Object {
 	
 	//returns an array of all objects in the database
 	public static function find_all() {
-		$sql = "SELECT * FROM `".static::$table_name."`";
+		$sql = "SELECT * FROM `".static::$table_name."` WHERE `" . static::primary_key_field() . "` >= 1";
 		//if the table contains is_deleted, make sure to include WHERE is_deleted = 0
 		if(in_array("is_deleted", static::$db_fields)) 
-			$sql .= " WHERE `is_deleted` = 0";
+			$sql .= " AND `is_deleted` = 0";
 		$sql = $sql.";";
 
 		return self::find_by_sql($sql);
