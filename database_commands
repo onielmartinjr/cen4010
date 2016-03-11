@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 11, 2016 at 04:47 AM
+-- Generation Time: Mar 11, 2016 at 05:54 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -83,7 +83,7 @@ CREATE TABLE `color` (
 --
 
 INSERT INTO `color` (`color_wk`, `name`, `create_dt`) VALUES
-(1, 'undefined', '2016-03-08 18:09:23'),
+(0, 'undefined', '2016-03-08 18:09:23'),
 (2, 'blue', '2016-02-16 20:31:17'),
 (3, 'green', '2016-02-16 20:31:48'),
 (4, 'brown', '2016-02-16 20:32:28'),
@@ -125,6 +125,13 @@ CREATE TABLE `image` (
   `create_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `image`
+--
+
+INSERT INTO `image` (`image_wk`, `file_name`, `create_dt`, `is_deleted`) VALUES
+(0, 'default.png', '2016-03-10 23:53:03', 0);
 
 -- --------------------------------------------------------
 
@@ -1072,7 +1079,13 @@ INSERT INTO `log` (`log_wk`, `user_wk`, `url`, `ip`, `create_dt`) VALUES
 (924, 4, 'http://localhost/cen4010/www/update_user.php', '::1', '2016-03-10 22:45:58'),
 (925, 4, 'http://localhost/cen4010/www/update_user.php', '::1', '2016-03-10 22:45:58'),
 (926, 4, 'http://localhost/cen4010/www/update_user.php', '::1', '2016-03-10 22:45:58'),
-(927, 4, 'http://localhost/cen4010/www/update_user.php', '::1', '2016-03-10 22:45:58');
+(927, 4, 'http://localhost/cen4010/www/update_user.php', '::1', '2016-03-10 22:45:58'),
+(928, 4, 'http://localhost/cen4010/www/update_user.php', '::1', '2016-03-10 22:47:29'),
+(929, 4, 'http://localhost/cen4010/www/update_user.php', '::1', '2016-03-10 22:47:29'),
+(930, 4, 'http://localhost/cen4010/www/update_user.php', '::1', '2016-03-10 22:47:31'),
+(931, 4, 'http://localhost/cen4010/www/update_user.php', '::1', '2016-03-10 22:47:31'),
+(932, 4, 'http://localhost/cen4010/www/update_user.php', '::1', '2016-03-10 22:47:33'),
+(933, 4, 'http://localhost/cen4010/www/update_user.php', '::1', '2016-03-10 22:47:33');
 
 -- --------------------------------------------------------
 
@@ -1106,7 +1119,6 @@ INSERT INTO `page` (`page_wk`, `name`, `body`, `last_update_dt`, `is_deleted`, `
 
 CREATE TABLE `pet` (
   `pet_wk` int(11) NOT NULL,
-  `pet_type_wk` int(11) NOT NULL,
   `breed_wk` int(11) NOT NULL,
   `color_wk` int(11) NOT NULL,
   `status_wk` int(11) NOT NULL,
@@ -1152,16 +1164,17 @@ CREATE TABLE `pet_type` (
 --
 
 INSERT INTO `pet_type` (`pet_type_wk`, `name`, `create_dt`) VALUES
-(1, 'dog', '2016-02-16 20:14:28'),
+(0, 'undefined', '2016-02-16 20:14:28'),
 (2, 'cat', '2016-02-16 20:14:44'),
-(3, 'rabbit', '2016-02-16 20:15:30'),
+(3, 'dog', '2016-02-16 20:15:30'),
 (4, 'bird', '2016-02-16 20:16:19'),
 (5, 'lizards', '2016-02-16 20:19:56'),
 (6, 'fish', '2016-02-16 20:20:08'),
 (7, 'frog', '2016-02-16 20:20:24'),
 (8, 'snake', '2016-02-16 20:20:39'),
 (9, 'horse', '2016-02-16 20:22:00'),
-(10, 'duck', '2016-02-16 20:22:10');
+(10, 'duck', '2016-02-16 20:22:10'),
+(11, 'rabbit', '2016-03-10 23:51:47');
 
 -- --------------------------------------------------------
 
@@ -1410,7 +1423,6 @@ ALTER TABLE `page`
 --
 ALTER TABLE `pet`
   ADD PRIMARY KEY (`pet_wk`),
-  ADD KEY `pet_type_wk` (`pet_type_wk`),
   ADD KEY `breed_wk` (`breed_wk`),
   ADD KEY `color_wk` (`color_wk`),
   ADD KEY `status_wk` (`status_wk`),
@@ -1547,12 +1559,12 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `image_wk` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `image_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `log_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=928;
+  MODIFY `log_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=934;
 --
 -- AUTO_INCREMENT for table `page`
 --
@@ -1572,7 +1584,7 @@ ALTER TABLE `pet_to_vaccination`
 -- AUTO_INCREMENT for table `pet_type`
 --
 ALTER TABLE `pet_type`
-  MODIFY `pet_type_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `pet_type_wk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `pet_wish_list`
 --
