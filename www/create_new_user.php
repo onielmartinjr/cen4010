@@ -78,7 +78,7 @@
 	?>
 	
 	<!-- create new user form -->
-	<form id="create_new_user" action="create_new_user.php" method="post">
+	<form id="create_new_user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 		username: <input type="text" name="username" value="<?php if(isset($new_user)) echo $new_user->username; ?>" /> <br />
 		email address: <input type="text" name="email_address" value="<?php if(isset($new_user)) echo $new_user->email_address; ?>" /> <br />
 		password: <input type="password" name="password" /> <br />
@@ -87,7 +87,7 @@
 		last name: <input type="text" name="last_name" value="<?php if(isset($new_user)) echo $new_user->last_name; ?>" /> <br />
 		phone number: <input type="text" name="phone_number" value="<?php if(isset($new_user)) echo $new_user->phone_number; ?>" /> <br />
 		receive email notifications: <input type="radio" name="email_notifications" value="0"<?php if(isset($new_user)) { if($new_user->is_notifications_enabled == "0") echo " checked"; } ?>>No
-			<input type="radio" name="email_notifications" value="1"<?php if(isset($new_user)) { if($new_user->is_notifications_enabled == "1") echo " checked"; } else echo " checked"; ?>>Yes<br>
+			<input type="radio" name="email_notifications" value="1"<?php if(isset($new_user)) { if($new_user->is_notifications_enabled == "1") echo " checked"; } else echo " checked"; ?>>Yes<br />
 		<input type="submit" value="submit" name="submit"/>
 	</form>
 	

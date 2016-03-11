@@ -23,7 +23,7 @@
 		}
 		else
 		{
-			$session->message("Unable to update the page at this time.");
+			$session->message("The page was not updated.");
 		}
 	}
 	
@@ -43,7 +43,7 @@
 ?>
 
 	<!-- Update a page form -->
-	<form id="update_page" action="admin_update_page.php?page_wk=<?php echo $update_page->page_wk; ?>" method="post">
+	<form id="update_page" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 		Page Name: <input type="text" name="page_name" value="<?php echo $update_page->name; ?>"<?php
 			//if looking at home page or about us page, disable this field
 			if($update_page == '1' || $update_page == '2')

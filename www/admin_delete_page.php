@@ -63,7 +63,7 @@
 	
 ?>	
 	
-	<form id="confirm_delete" action="admin_delete_page.php?page_wk=<?php echo $page_found; ?>" method="post">
+	<form id="confirm_delete" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 		<label>Are you sure you want to delete the <b><?php echo $page_found->name; ?></b> page?</label> <br />
 		<input type="submit" value="No, this was a mistake!" name="deny" />
 		<input type="submit" value="Yes, delete the page." name="confirm" />

@@ -29,7 +29,7 @@
 	?>
 	
 	<!-- login form -->
-	<form id="login" action="login.php" method="post">
+	<form id="login" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 		username: <input type="text" name="username" /> <br />
 		password: <input type="password" name="password" /> <br />
 		<input type="submit" value="submit" name="submit"/>

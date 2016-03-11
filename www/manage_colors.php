@@ -133,7 +133,7 @@
 	
 	<!-- form to rename and add colors -->
 	<h2>Colors:</h2>
-	<form id="color_management" action="manage_colors.php" method="post">
+	<form id="color_management" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 		<?php
 		$colors_array = Color::find_all();
 		$count = count($colors_array); 
