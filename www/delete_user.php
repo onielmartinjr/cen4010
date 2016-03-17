@@ -19,7 +19,6 @@
 			{
 				$session->message("You are the last " . $user->role_wk->name . "! Another " . $user->role_wk->name . " account must be created before this one can be deleted.");
 				redirect_head(ROOT_URL . "manage_account.php");
-				die();
 			}
 		}
 		
@@ -40,7 +39,7 @@
 	
 ?>	
 	
-	<form id="confirm_delete" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+	<form id="confirm_delete" action="<?php echo file_name_with_get(); ?>" method="post">
 		<label>Are you sure you want to delete your account?</label> <br />
 		<input type="submit" value="No, keep my account!" name="deny" />
 		<input type="submit" value="Yes, delete my account" name="confirm" />

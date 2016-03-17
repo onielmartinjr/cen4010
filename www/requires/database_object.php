@@ -208,19 +208,19 @@ abstract class Database_Object {
 		//updates status to database
 		global $database;
 		
-		//cleanse the attributes
-		$attributes = $this->sanitized_attributes();
-		
 		//update the last_update_dt if the database has that field
 		if(in_array("last_update_dt", static::$db_fields)) 
 			$this->last_update_dt = current_timestamp();
+		
+		//cleanse the attributes
+		$attributes = $this->sanitized_attributes();
 		
 		//form everything into a string
 		$attribute_pairs = array();
 		foreach($attributes as $key => $value) {
 			$attribute_pairs[] = "`{$key}`='{$value}'";
 		}
-		
+
 		//dynamically create the query
 		$sql = "UPDATE `".static::$table_name."` SET ";
 		$sql .= join(", ", $attribute_pairs);

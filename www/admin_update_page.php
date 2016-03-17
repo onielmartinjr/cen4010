@@ -19,7 +19,6 @@
 		{
 			$session->message("Your page was updated successfully!");
 			redirect_head(ROOT_URL . "view_page.php?page_wk=" . $update_page->page_wk);
-			die();
 		}
 		else
 		{
@@ -35,7 +34,6 @@
 	{
 		$session->message("There is an error with the page you were trying to access.");
 		redirect_head(ROOT_URL);
-		die();
 	}
 	
 	require_once "requires/template/header.php";
@@ -43,7 +41,7 @@
 ?>
 
 	<!-- Update a page form -->
-	<form id="update_page" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+	<form id="update_page" action="<?php echo file_name_with_get(); ?>" method="post">
 		Page Name: <input type="text" name="page_name" value="<?php echo $update_page->name; ?>"<?php
 			//if looking at home page or about us page, disable this field
 			if($update_page == '1' || $update_page == '2')

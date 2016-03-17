@@ -5,11 +5,11 @@
 		I.E - this page constructs the framework for our site
 	*/
 
-	//get constants
-	require_once "constants.php";
-	
 	//get current functions
 	require_once "functions.php";
+	
+	//get constants
+	require_once "constants.php";
 	
 	//establish database connection
 	require_once "database.php";

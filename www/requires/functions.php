@@ -43,6 +43,7 @@
 	function redirect_head( $location = NULL ) {
 		if ($location != NULL) {
 			header("location: {$location}");
+			die();
 		}
 	}
 	
@@ -101,4 +102,13 @@
 			redirect_head(ROOT_URL);
 		}
 	}
+	
+	//determines whether or not we should send e-mail
+	//used mostly for debugging
+	if(strpos(current_url(), 'localhost') == true) {
+		$am_i_local = true;
+	} else {
+		$am_i_local = false;
+	}
+	
 ?>

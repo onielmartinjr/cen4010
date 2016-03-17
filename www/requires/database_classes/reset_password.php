@@ -16,10 +16,8 @@ class Reset_Password extends Database_Object {
 	public $create_dt;
 	public $is_reset;
 	
-	
-	function __construct($user_wk) {
-		global $database;
-		
+	//set a new random key
+	public function set_new_key() {
 		//now we're going to set the random key
 		$this->random_key = random_key(20);
 		
@@ -30,14 +28,9 @@ class Reset_Password extends Database_Object {
 			//random keys until it already exists
 			$this->random_key = random_key(20);
 		}
-		
-		//set defaults
-		$this->create_dt = current_timestamp();
-		$this->is_reset = 0;
-		$this->user_wk = $user_wk;
 	}
 	
-	//boolean functions that returns true or false if key is being used
+	//boolean function that returns true or false if key is being used
 	public static function is_random_key_being_used($key) {
 		global $database;	
 	

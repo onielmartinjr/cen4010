@@ -63,7 +63,7 @@
 ?>
 	
 	<!-- update user form -->
-	<form id="update_user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+	<form id="update_user" action="<?php echo file_name_with_get(); ?>" method="post">
 		email address: <input type="text" name="email_address" value="<?php echo $user->email_address; ?>" /> <br />
 		password: <input type="password" name="password" value=""/> <br />
 		confirm password: <input type="password" name="confirmed_password" value=""/> <br />

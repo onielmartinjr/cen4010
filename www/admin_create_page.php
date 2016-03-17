@@ -30,7 +30,7 @@
 ?>
 	
 	<!-- Create a page form -->
-	<form id="create_page" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+	<form id="create_page" action="<?php echo file_name_with_get(); ?>" method="post">
 		Page Name: <input type="text" name="page_name" /> <br /> <br />
 		Page Content: <textarea rows="5" cols="40" name="page_content"></textarea> <br /> <br />
 		<input type="submit" value="Submit" name="submit" />

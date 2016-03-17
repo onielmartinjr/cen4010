@@ -10,7 +10,7 @@
 	// check to see if a user is already logged in
 	if ($session->is_logged_in) 
 	{
-		$session->message("You are already logged in! To use the <b>Forgot my Password</b> feature, please logout first.");
+		$session->message("You are already logged in! To use the Forgot my Password feature, please logout first.");
 		redirect_head(ROOT_URL);
 	}
 	
@@ -33,32 +33,59 @@
 		
 		//only execute here if there was an account found, AND it is not soft-deleted
 		if(empty($session->message())) {
-			$new_request = new Reset_Password($found_user->user_wk);
-			//create the record
+			$new_request = new Reset_Password();
+			$new_request->set_new_key();
+			$new_request->user_wk = $found_user->user_wk;
+			//save the record
 			$new_request->save();
 			
 			//send e-mail here
+			//only if we're not in a local environment
+			if(!$am_i_local) {
+				$to = $found_user->email_address;
+				$subject = "Password Reset Request";
+
+				$message = "
+				<html>
+					<head>
+						<title>".$subject."</title>
+					</head>
+					<body>
+						<p>Please the link below to reset your password.</p>
+						<p><a href=\"".ROOT_URL."reset_my_password.php?reset_key=".$new_request->random_key."\">".ROOT_URL."reset_my_password.php?reset_key=".$new_request->random_key."</a></p>
+					</body>
+				</html>
+				";
+
+				// Always set content-type when sending HTML email
+				$headers = "MIME-Version: 1.0" . "\r\n";
+				$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+				// More headers
+				$headers .= 'From: <support@pet_adoption.com>' . "\r\n";
 			
+				//send out the email
+				mail($to,$subject,$message,$headers);
+			}
 			
 			//redirect
 			$session->message("Success! Please check your e-mail for instructions on how to reset your password.");
 			redirect_head(ROOT_URL."forgot_my_password.php");
-			die();
 		}
 	}
 	
 	// header
 	require_once "requires/template/header.php";
-		
-	?>
+
+?>
 	
 	<!-- form -->
-	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+	<form action="<?php echo file_name_with_get(); ?>" method="post">
 		<p>Please enter the Email Address associated with your account.</p>
 		<input type="text" name="email_address" value="<?php if(isset($_POST['submit'])) echo $_POST['email_address']; ?>"/> <br />
 		<input type="submit" value="submit" name="submit"/>
 	</form>
-	
+
 <?php
 
 	//this is a special instance, remove the message, if it's set, since we set the messages in this form

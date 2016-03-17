@@ -1,5 +1,4 @@
 <nav>
-		<!-- Display the Home Page -->
 		<a href="index.php">Home Page</a><br />
 		
 		
