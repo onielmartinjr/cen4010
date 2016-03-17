@@ -7,7 +7,7 @@
 
 class Breed extends Database_Object {
 	
-	protected static $table_name = 'breed';
+	public static $table_name = 'breed';
 	protected static $db_fields = array('breed_wk', 'pet_type_wk', 'name', 'create_dt');
 	
 	public $breed_wk;
