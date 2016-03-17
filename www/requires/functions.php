@@ -56,7 +56,7 @@
 	//This functions creates random keys
 	function random_key($length) {
     	srand(date("s"));
-		$possible_characters = "1234567890abcdefghijklmnopqrstuvwxyz";
+		$possible_characters = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     	$string = "";
     	while(strlen($string)<$length) {
 			$string .= substr($possible_characters, rand()%(strlen($possible_characters)),1);

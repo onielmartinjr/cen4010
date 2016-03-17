@@ -29,12 +29,13 @@
 	?>
 	
 	<!-- login form -->
-	<form id="login" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 		username: <input type="text" name="username" /> <br />
 		password: <input type="password" name="password" /> <br />
 		<input type="submit" value="submit" name="submit"/>
 	</form>
 	<p>No account? <a href="create_new_user.php">Create a new account!</a></p>
+	<p><a href="forgot_my_password.php">Forgot my Password</a></p>
 	
 <?php
 

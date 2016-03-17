@@ -16,6 +16,44 @@ class Reset_Password extends Database_Object {
 	public $create_dt;
 	public $is_reset;
 	
+	
+	function __construct($user_wk) {
+		global $database;
+		
+		//now we're going to set the random key
+		$this->random_key = random_key(20);
+		
+		//before we can set that random key to the object
+		//we NEED to make sure it doesn't exist
+		while(Reset_Password::is_random_key_being_used($this->random_key)) {
+			//while this key does it exist, keep looping through and generating new 
+			//random keys until it already exists
+			$this->random_key = random_key(20);
+		}
+		
+		//set defaults
+		$this->create_dt = current_timestamp();
+		$this->is_reset = 0;
+		$this->user_wk = $user_wk;
+	}
+	
+	//boolean functions that returns true or false if key is being used
+	public static function is_random_key_being_used($key) {
+		global $database;	
+	
+		$sql = "SELECT COUNT(*) FROM `reset_password` WHERE `random_key` = '{$key}'";
+		$result_set = $database->query($sql);
+		//return the total # of rows
+		$row = $database->fetch_array($result_set);
+
+		//if 1 record was returned, then it is already being used
+		if(array_shift($row) == '1')
+			return true;
+		
+		//else, it's not being used
+		return false;
+	}
+	
 }
 
 ?>

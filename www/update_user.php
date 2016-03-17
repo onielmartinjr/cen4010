@@ -77,7 +77,7 @@
 
 <?php
 	
-	//this is a special instance, remove the message, if it's set since we set the messages in this form
+	//this is a special instance, remove the message, if it's set, since we set the messages in this form
 	$session->remove_message();
 	
 	//footer
