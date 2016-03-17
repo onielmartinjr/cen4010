@@ -2,6 +2,9 @@
 
 abstract class Database_Object {
 
+	//array containing column names NOT to auto-set to lowercase
+	protected static $fields_to_ignore = array('username','body','file_name','url','random_key','variable_value','vaccination_name');
+
 	//automatically sets the default fields on new object(s)
 	function __construct() {
 		//only do this if the table contains a field create_dt
@@ -131,7 +134,12 @@ abstract class Database_Object {
 		// More dynamic, short-form approach:
 		foreach($record as $attribute=>$value){
 		  if($object->has_attribute($attribute)) {
-		    $object->$attribute = $value;
+		  
+		  	//auto-default all to uppercase first letter of each word unless if in ignore field
+			if(in_array($attribute, static::$fields_to_ignore))
+				$object->$attribute = $value;
+			else
+				$object->$attribute = ucwords($value);
 		    
 		    //if we see an attribute that is greater than 3 characters long
 		    //AND the attribute's last 3 characters are '_wk'
@@ -172,7 +180,11 @@ abstract class Database_Object {
 		// sanitize the values before submitting
 		// Note: does not alter the actual value of each attribute
 		foreach($this->attributes() as $key => $value){
-	    	$clean_attributes[$key] = $database->escape_value($value);
+			//auto-default all to lowercase EXCEPT the ones defined above
+			if(in_array($key, static::$fields_to_ignore))
+				$clean_attributes[$key] = $database->escape_value($value);
+			else
+				$clean_attributes[$key] = strtolower($database->escape_value($value));
 		}
 		return $clean_attributes;
 	}
@@ -218,7 +230,11 @@ abstract class Database_Object {
 		//form everything into a string
 		$attribute_pairs = array();
 		foreach($attributes as $key => $value) {
-			$attribute_pairs[] = "`{$key}`='{$value}'";
+			//auto-default all to lowercase EXCEPT username
+			if(in_array($key, static::$fields_to_ignore))
+				$attribute_pairs[] = "`{$key}`='{$value}'";
+			else
+				$attribute_pairs[] = "`{$key}`='".strtolower($value)."'";
 		}
 
 		//dynamically create the query
