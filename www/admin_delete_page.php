@@ -35,6 +35,13 @@
 		die();
 	}
 	
+	//make sure we're not deleting the home page or about us page
+	if ($page_found == '1' || $page_found == '2') {
+		$session->message("You cannot delete the following page: ".$page_found->name.".");
+		redirect_head(ROOT_URL."view_page.php?page_wk=".$page_found);
+		die();
+	}
+	
 	// if the user confirmd we're deleting the page
 	if (isset($_POST["confirm"]))
 	{	

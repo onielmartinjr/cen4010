@@ -41,7 +41,10 @@
 		{
 			echo "<br /><br /><br />";
 			echo "<a href=\"admin_update_page.php?page_wk=" . $page->page_wk . "\">Edit Page</a><br />";
-			echo "<a href=\"admin_delete_page.php?page_wk=" . $page->page_wk . "\">Delete Page</a>";
+			
+			//if we're not looking at the home page or about us page, display the option to delete this page
+			if($page != '1' && $page != '2')
+				echo "<a href=\"admin_delete_page.php?page_wk=" . $page->page_wk . "\">Delete Page</a>";
 		}
 	}
 	

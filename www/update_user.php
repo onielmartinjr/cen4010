@@ -21,7 +21,7 @@
 			$confirmed_password = $user->hashed_password;
 		$first_name = $_POST['first_name'];
 		$last_name = $_POST['last_name'];
-		$phone_number = $_POST['phone_number'];
+		$phone_number = return_numeric($_POST['phone_number']);
 		$is_notifications_enabled = $_POST['email_notifications'];
 	
 	

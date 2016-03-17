@@ -3,14 +3,14 @@
 	//require the framework
 	require_once "requires/initialize.php";
 	
-	$page = new Page();
-	$page->name = "Homepage";
-	$page->body = "This is the body";
+	//just in case there is a message, copy it over
+	if(!empty($session->message))
+		$session->message($session->message);
+				
+	//redirect to view home page
+	redirect_head(ROOT_URL."view_page.php?page_wk=1");
 	
-	require_once "requires/template/header.php";
+	//close connection
+	$database->close_connection();
 	
-	echo $page->body;
-
-	require_once "requires/template/footer.php";
-
 ?>

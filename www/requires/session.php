@@ -85,7 +85,7 @@
 	//create a new message
 	$session = new Session();
 
-	// Create user if logged in
+	// create user if logged in
 	if($session->is_logged_in) {
 	  // actions to take right away if user is logged in
 	  $user = User::find_by_id($session->user_wk);

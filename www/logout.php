@@ -1,4 +1,4 @@
-<<?php
+<?php
 
 	//require the framework
 	require_once "requires/initialize.php";
