@@ -218,13 +218,13 @@ abstract class Database_Object {
 		//form everything into a string
 		$attribute_pairs = array();
 		foreach($attributes as $key => $value) {
-			$attribute_pairs[] = "{$key}='{$value}'";
+			$attribute_pairs[] = "`{$key}`='{$value}'";
 		}
 		
 		//dynamically create the query
 		$sql = "UPDATE `".static::$table_name."` SET ";
 		$sql .= join(", ", $attribute_pairs);
-		$sql .= " WHERE `".static::primary_key_field()."`=".$database->escape_value($this->{static::primary_key_field()}).";";
+		$sql .= " WHERE `".static::$table_name."`.`".static::primary_key_field()."`='".$database->escape_value($this->{static::primary_key_field()})."';";
 		$database->query($sql);
 		
 		return ($database->affected_rows() == 1) ? true : false;

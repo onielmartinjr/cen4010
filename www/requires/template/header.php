@@ -7,6 +7,13 @@
 <head>
 
 	<title><?php echo $page->name;?></title>
+	<style>
+		a:link{color:#3522f4}
+		a:active{color:#3522f4}
+		a:visited{color:#3522f4}
+		a:hover{color:#3522f4}
+
+	</style>
 
 </head>
 <body>

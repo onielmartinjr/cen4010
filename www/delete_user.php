@@ -40,7 +40,7 @@
 	
 ?>	
 	
-	<form id="confirm_delete" action="delete_user.php" method="post">
+	<form id="confirm_delete" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 		<label>Are you sure you want to delete your account?</label> <br />
 		<input type="submit" value="No, keep my account!" name="deny" />
 		<input type="submit" value="Yes, delete my account" name="confirm" />
