@@ -80,7 +80,7 @@
 	//display error
 	function display_error() {
 		global $session;
-		if ($session->message() != '') 
+		if (!empty($session->message())) 
 			echo "<p style=\"color:red;\">".$session->message()."</p>";
 	}
 

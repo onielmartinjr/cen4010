@@ -4,11 +4,6 @@
 		Defines the Setting class.
 		**NOTE: make sure to always make the first item in $db_fields as the primary_key
 		
-		
-		*****IMPORTANT*****
-		-Whenever we code new settings, we NEED to make sure we define the default values.
-			-This is in case the user decided not to set any value, we need to have an override.
-		-The default values are stored in a static array called $default_values.
 	*/
 
 class Setting extends Database_Object {
@@ -21,17 +16,9 @@ class Setting extends Database_Object {
 	public $variable_value;
 	public $create_dt;
 	
-	//define the default variable_values
-	public static $default_values = array('site_name' => 'Default Thing', 'time_zone' => 'US/Eastern');
-	
 	//function to return variable_value by variable_name
 	public static function find_by_variable_name($variable_name) {
 		global $database;
-		
-		//first we check to make sure there is a default value for the item being passed
-		//if there's not, return false
-		if(!array_key_exists($variable_name, self::$default_values))
-			return false;
 		
 		$variable_name = $database->escape_value($variable_name);
 		$sql = "SELECT `".static::$table_name."`.* FROM `".
@@ -42,21 +29,20 @@ class Setting extends Database_Object {
 		if(isset($object))
 			return $object->variable_value;
 		else {
-			//if we're in here, then we did not find a value
-			//in the database - override the output
-			//with the pre-defined default value
-			
-			//return the default
-			return self::$default_values[$variable_name];
+			return false;
 		}
 	}	
 }
 
-//get the site name
-$site_name = Setting::find_by_variable_name('site_name');
+//get all the website settings
+$temp_website_settings = Setting::find_all();
+$website_settings = array();
+foreach($temp_website_settings AS $value) {
+	$website_settings[$value->variable_name] =  $value->variable_value;
+}
 
 //set default timezone
-date_default_timezone_set(Setting::find_by_variable_name('time_zone'));
-
-
+if(isset($website_settings['time_zone'])) 
+	date_default_timezone_set($website_settings['time_zone']);
+	
 ?>

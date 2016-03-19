@@ -27,8 +27,14 @@
 		{
 			echo "<p>".$user->username."</p>";
 		} 
-	
+		
+		//include the navigation
 		require_once "navigation.php"; 
 	
+		//display all errors if there are any set
 		display_error();
+		
+		//if there is no error message, display a page break
+		if(empty($session->message()))
+			echo "<br />";
 	?>

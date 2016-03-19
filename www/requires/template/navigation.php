@@ -1,7 +1,5 @@
 <nav>
 		<a href="index.php">Home Page</a><br />
-		
-		
 		<?php
 			// get all of the pages in the database and create
 			// links for them in the nav section
@@ -27,6 +25,7 @@
 					echo "<a href=\"admin_create_page.php\">Create a New Page</a><br />";
 					echo "<a href=\"manage_colors.php\">Manage Colors</a><br />";
 					echo "<a href=\"manage_breeds.php\">Manage Breeds and Types</a><br />";
+					echo "<a href=\"admin_manage_website_settings.php\">Manage Web Site Settings</a><br />";
 				}
 			
 			
@@ -37,8 +36,8 @@
 			}
 			
 			//about us page
-			echo "<a href=\"view_page.php?page_wk=2\">About Us</a><br />";
+			echo "<a href=\"view_page.php?page_wk=2\">About Us</a>";
 			
 		?>
 		
-</nav> <br />
+</nav>
