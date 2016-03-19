@@ -58,7 +58,7 @@
 ?>	
 	
 	<form id="confirm_delete" action="<?php echo file_name_with_get(); ?>" method="post">
-		<label>Are you sure you want to delete the <b><?php echo $page_found->name; ?></b> page?</label> <br />
+		<label>Are you sure you want to delete the <strong><?php echo $page_found->name; ?></strong> page?</label> <br />
 		<input type="submit" value="No, this was a mistake!" name="deny" />
 		<input type="submit" value="Yes, delete the page." name="confirm" />
 	</form>
