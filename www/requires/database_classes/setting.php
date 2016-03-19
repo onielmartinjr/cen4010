@@ -35,6 +35,8 @@ class Setting extends Database_Object {
 }
 
 //get all the website settings
+//flatten into an associated array
+//where the keys are the indexes
 $temp_website_settings = Setting::find_all();
 $website_settings = array();
 foreach($temp_website_settings AS $value) {

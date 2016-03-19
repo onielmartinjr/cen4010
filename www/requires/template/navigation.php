@@ -26,6 +26,7 @@
 					echo "<a href=\"manage_colors.php\">Manage Colors</a><br />";
 					echo "<a href=\"manage_breeds.php\">Manage Breeds and Types</a><br />";
 					echo "<a href=\"admin_manage_website_settings.php\">Manage Web Site Settings</a><br />";
+					echo "<a href=\"admin_manage_vaccinations.php\">Manage Vaccinations</a><br />";
 				}
 			
 			

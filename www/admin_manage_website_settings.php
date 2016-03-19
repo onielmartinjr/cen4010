@@ -118,8 +118,8 @@
 					  <option value="America/Phoenix" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/Phoenix') echo 'selected'; } ?>>Mountain no DST</option>
 					  <option value="America/Los_Angeles" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/Los_Angeles') echo 'selected'; } ?>>Pacific</option>
 				  </select><br />
-		Contact Us E-mail Address:<input type="text" name="email_address" value="<?php echo isset($website_settings['email_address']) ? $website_settings['email_address'] : ''; ?>"><br />
-		Contact Us Phone Number:<input type="text" name="phone_number" value="<?php echo isset($website_settings['phone_number']) ? $website_settings['phone_number'] : ''; ?>"><br />
+		E-mail Address:<input type="text" name="email_address" value="<?php echo isset($website_settings['email_address']) ? $website_settings['email_address'] : ''; ?>"><br />
+		Phone Number:<input type="text" name="phone_number" value="<?php echo isset($website_settings['phone_number']) ? $website_settings['phone_number'] : ''; ?>"><br />
 		FaceBook Link:<input type="text" name="facebook_link" value="<?php echo isset($website_settings['facebook_link']) ? $website_settings['facebook_link'] : ''; ?>"><br />
 		Twitter Link:<input type="text" name="twitter_link" value="<?php echo isset($website_settings['twitter_link']) ? $website_settings['twitter_link'] : ''; ?>"><br />
 		Instagram Link:<input type="text" name="instagram_link" value="<?php echo isset($website_settings['instagram_link']) ? $website_settings['instagram_link'] : ''; ?>"><br />
