@@ -58,7 +58,37 @@
 		}
 	}
 	
-	//since we're here - we're good to resume
+	//FLAG NEW COMMENTS HERE
+	if(isset($_GET['flag_comment_wk'])) {
+		//make sure user has access to do this
+		if(!is_admin_or_staff()) {
+			$session->message("You do not have sufficient rights to flag this comment.");
+			redirect_head(file_name_without_get()."?pet_wk=".$_GET['pet_wk']);
+		}
+		
+		//first, make sure the comment exists
+		$comment_to_flag = Comment::find_by_id($_GET['flag_comment_wk']);
+		if(!$comment_to_flag) {
+			//if the item does not exist in the database
+			$session->message("You must've clicked on a bad URL; please try again.");
+			redirect_head(file_name_without_get()."?pet_wk=".$_GET['pet_wk']);
+		}
+		
+		//now we make sure the comment is not already flagged
+		if($comment_to_flag->is_flagged == '1') {
+			$session->message("That comment is already flagged.");
+			redirect_head(file_name_without_get()."?pet_wk=".$_GET['pet_wk']);
+		}
+		
+		//if we're here, go ahead and flag the comment
+		$comment_to_flag->is_flagged = 1;
+		if($comment_to_flag->save()) {
+			$session->message("The comment was successfully flagged.");
+			redirect_head(file_name_without_get()."?pet_wk=".$_GET['pet_wk']);
+		}
+	}
+	
+	//since we're here - we're good to resume heavy processing
 	//get all the vaccinations for the pet
 	$pet->get_my_vaccinations();
 	//get all the comments for the pet
@@ -96,13 +126,10 @@
 <?php
 	
 	//display the links to update the pet for admins/staff
-	if(isset($user)) {
-		if ($user->role_wk == "2" || $user->role_wk == "3")
-		{
-			echo "<br /><br />";
-			echo "<a href=\"admin_update_pet.php?pet_wk=" . $pet->pet_wk . "\">Edit Pet</a><br />";
-			echo "<a href=\"admin_delete_pet.php?pet_wk=" . $pet->pet_wk . "\">Delete Pet</a>";
-		}
+	if(is_admin_or_staff()) {
+		echo "<br /><br />";
+		echo "<a href=\"admin_update_pet.php?pet_wk=" . $pet->pet_wk . "\">Edit Pet</a><br />";
+		echo "<a href=\"admin_delete_pet.php?pet_wk=" . $pet->pet_wk . "\">Delete Pet</a>";
 	}
 	
 
@@ -115,13 +142,21 @@
 		//if there are no comments for this pet
 		echo "<p><em>There are no comments.</em></p>";
 	} else {
+		//loop through each comment
 		foreach($pet->comment AS $value) {
 			echo "<p><strong>".$value->user_wk->username."</strong> @ ".date('m/d/y - h:i:s A', strtotime($value->create_dt));
+			
+			//flag comments section
+			//display the links to update the pet for admins/staff
+			if(is_admin_or_staff())	{
+				echo " <a href=\"".file_name_with_get()."&flag_comment_wk=".$value->comment_wk."\"><img src=\"".ROOT_URL."requires/template/flag.png\" atl=\"Flag\"></a>";
+			}
+			
 			echo "<br />".$value->body;
 			echo "<p>";
 		}
 	}
-		
+	
 	
 	//now we're displaying the form to create new comments
 	//only display this form if the user is logged in
