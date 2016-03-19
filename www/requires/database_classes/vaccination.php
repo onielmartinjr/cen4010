@@ -13,6 +13,7 @@ class Vaccination extends Database_Object {
 	public $vaccination_wk;
 	public $vaccination_name;
 	public $create_dt;
+
 	
 }
 

@@ -17,6 +17,7 @@ class Comment extends Database_Object {
 	public $is_flagged;
 	public $create_dt;
 	
+	
 }
 
 ?>
