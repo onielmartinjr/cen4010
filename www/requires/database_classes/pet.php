@@ -9,7 +9,7 @@ class Pet extends Database_Object {
 	
 	protected static $table_name = 'pet';
 	protected static $db_fields = array('pet_wk', 'breed_wk', 'color_wk', 'status_wk', 'image_wk',
-										'name', 'age', 'weight', 'acquired_dt', 'is_rescued', 'last_update_dt',
+										'name', 'age', 'weight', 'is_rescued', 'last_update_dt',
 										'is_deleted', 'create_dt');
 	
 	public $pet_wk;
@@ -20,7 +20,6 @@ class Pet extends Database_Object {
 	public $name;
 	public $age;
 	public $weight;
-	public $acquired_dt;
 	public $is_rescued;
 	public $last_update_dt;
 	public $is_deleted;

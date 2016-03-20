@@ -100,7 +100,7 @@
 
 	<h3><?php echo $pet->name; ?></h3>
 	<p><em>IMAGE TO COME LATER</em><br /></p>
-	<p><strong>Pet Type:</strong> <?php echo $pet->breed_wk->pet_type_wk->name; ?><br />
+	<strong>Pet Type:</strong> <?php echo $pet->breed_wk->pet_type_wk->name; ?><br />
 	<strong>Breed:</strong> <?php echo $pet->breed_wk->name; ?><br />
 	<strong>Color:</strong> <?php echo $pet->color_wk->name; ?><br />
 	<strong>Status:</strong> <?php echo $pet->status_wk->name; ?><br />
@@ -119,7 +119,7 @@
 		}
 	
 	 ?><br />
-	<strong>Date Acquired:</strong> <?php echo date('F d, Y h:i:s A', strtotime($pet->acquired_dt)); ?><br />
+	<strong>Date Added:</strong> <?php echo date('F d, Y h:i:s A', strtotime($pet->create_dt)); ?><br />
 	<strong>Is it Rescued?:</strong> <?php echo ($pet->is_rescued == '1' ? 'Yes' : 'No'); ?><br />
 	
 
@@ -128,8 +128,8 @@
 	//display the links to update the pet for admins/staff
 	if(is_admin_or_staff()) {
 		echo "<br /><br />";
-		echo "<a href=\"".ROOT_URL."admin/admin_update_pet.php?pet_wk=" . $pet->pet_wk . "\">Edit Pet</a><br />";
-		echo "<a href=\"".ROOT_URL."admin/admin_delete_pet.php?pet_wk=" . $pet->pet_wk . "\">Delete Pet</a>";
+		echo "<a href=\"".ROOT_URL."admin/update_pet.php?pet_wk=" . $pet->pet_wk . "\">Update Pet</a><br />";
+		echo "<a href=\"".ROOT_URL."admin/delete_pet.php?pet_wk=" . $pet->pet_wk . "\">Delete Pet</a>";
 	}
 	
 

@@ -19,10 +19,6 @@ abstract class Database_Object {
 		if(in_array("last_update_dt", static::$db_fields)) 
 			$this->last_update_dt = current_timestamp();
 			
-		//only do this if the table contains a field acquired_dt
-		if(in_array("acquired_dt", static::$db_fields)) 
-			$this->acquired_dt = current_timestamp();
-			
 		//only do this if the table contains a field requested_dt
 		if(in_array("requested_dt", static::$db_fields)) 
 			$this->acquired_dt = current_timestamp();
@@ -87,6 +83,7 @@ abstract class Database_Object {
 			$session->message("There is an error with the page you were trying to access.");
 			redirect_head(ROOT_URL);
 		}
+		
 		$sql = "SELECT `".static::$table_name."`.* FROM `".
 			static::$table_name."` WHERE `".static::primary_key_field()."`={$id} LIMIT 1;";
 		$result_array = static::find_by_sql($sql);
@@ -103,6 +100,11 @@ abstract class Database_Object {
 		//if the table contains is_deleted, make sure to include WHERE is_deleted = 0
 		if(in_array("is_deleted", static::$db_fields)) 
 			$sql .= " AND `is_deleted` = 0";
+			
+		//if the table has a `name` column, order the records by the name
+		if(in_array('name', static::$db_fields))
+			$sql .= " ORDER BY `name` ASC";
+		
 		$sql = $sql.";";
 
 		return self::find_by_sql($sql);
