@@ -34,6 +34,7 @@
 	//1. Make sure that the request entered does not belong to a user who's deleted.
 	//2. Make sure that the request entered is the latest request for that user.
 	//3. Make sure that the request entered has not already been used.
+	//4. Make sure that the request entered is less than 24 hours old.
 	
 	//check #1
 	if($the_key->user_wk->is_deleted == '1') {
@@ -51,6 +52,12 @@
 	//check #3
 	if($the_key->is_reset == '1') {
 		$session->message("This reset password request has already been used. Please request a new password.");
+		redirect_head(ROOT_URL."forgot_my_password.php");
+	}
+	
+	//check #4
+	if((time() - strtotime($the_key->create_dt)) >= 86400) {
+		$session->message("This reset password request is older than 24 hours. Please request a new password.");
 		redirect_head(ROOT_URL."forgot_my_password.php");
 	}
 	

@@ -9,8 +9,7 @@
 	$page->is_admin_only = true;
 	
 	//for efficiencie's sake, here's the order of execution for this page:
-	//1. Delete the record if it needs to be deleted. 
-		//we need to delete all pets vaccinations before deleting
+	//1. Delete the record if it needs to be deleted. updating/inserting
 	//2. Grab all vaccinations for comparison.
 	//3. Update the vaccinations as needed
 	
@@ -27,7 +26,7 @@
 		if($to_delete->delete()) 
 			$session->message("<strong>".$to_delete->vaccination_name."</strong> was deleted successfully.");
 		else
-			$session->message("<strong>".$to_delete->vaccination_name."</strong> was not deleted successfully.");
+			$session->message("<strong>".$to_delete->vaccination_name."</strong> was not deleted successfully.<br />".$database->last_error;);
 			
 		//redirect back to itself without the ?delete_vaccination_wk in the URL
 		//so the system does not try to delete something again
@@ -66,10 +65,11 @@
 					if($row_to_update->save()) 
 						//if the item was changed successfully, add to array
 						$changes[] = "<strong>".$value."</strong> was updated successfully.";
-					else
+					else {
 						//if the item was changed successfully, add to array
 						$changes[] = "<strong>".$value."</strong> was not updated successfully.";
-
+						$changes[] = $database->last_error;
+					}
 				}
 			}
 		}	
@@ -84,9 +84,11 @@
 		
 			//try to save
 			if($new_vaccination->save()) 
-				$changes[] = "<strong>".$new_vaccination->vaccination_name."</strong> was created successfully!";
-			else
-				$changes[] = "<strong>".$new_vaccination->vaccination_name."</strong> was not created successfully!";
+				$changes[] = "<strong>".$new_vaccination->vaccination_name."</strong> was created successfully.";
+			else {
+				$changes[] = "<strong>".$new_vaccination->vaccination_name."</strong> was not created successfully.";
+				$changes[] = $database->last_error;
+			}
 		}
 		
 		

@@ -39,10 +39,6 @@ abstract class Database_Object {
 		if(in_array("is_reset", static::$db_fields)) 
 			$this->is_reset = 0;
 			
-		//only do this if the table contains a field role_wk
-		if(in_array("role_wk", static::$db_fields)) 
-			$this->role_wk = 1;
-			
 		//if we're in the Page class, set these default values
 		if(get_class($this) == "Page") {
 			//this is because these values will not be retained in the database

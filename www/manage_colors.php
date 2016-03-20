@@ -129,9 +129,7 @@
 	
 ?>	
 	
-	<!-- form to rename and add colors -->
-	<h2>Colors:</h2>
-	<form id="color_management" action="<?php echo file_name_with_get(); ?>" method="post">
+	<form action="<?php echo file_name_with_get(); ?>" method="post">
 		<?php
 		$colors_array = Color::find_all();
 		$count = count($colors_array); 

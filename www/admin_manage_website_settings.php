@@ -40,9 +40,11 @@
 						if($setting_item->delete())
 							//if the item was changed successfully, add to array
 							$changes[] = "<strong>".$field_name."</strong> was deleted successfully.";
-						else
+						else {
 							//if the item was changed successfully, add to array
 							$changes[] = "<strong>".$field_name."</strong> was not deleted successfully.";
+							$changes[] = $database->last_error;
+						}
 							
 					} //else, it does not exist in the database, do nothing
 				} else {
@@ -69,9 +71,11 @@
 							if($setting_item->save()) 
 								//if the item was changed successfully, add to array
 								$changes[] = "<strong>".$field_name."</strong> was updated successfully.";
-							else
+							else {
 								//if the item was changed successfully, add to array
 								$changes[] = "<strong>".$field_name."</strong> was not updated successfully.";
+								$changes[] = $database->last_error;	
+							}
 						} 
 					} else {
 						//it does not currently exist in the database
@@ -84,9 +88,11 @@
 							if($setting_item->save()) 
 								//if the item was changed successfully, add to array
 								$changes[] = "<strong>".$field_name."</strong> was updated successfully.";
-							else
+							else {
 								//if the item was changed successfully, add to array
 								$changes[] = "<strong>".$field_name."</strong> was not updated successfully.";
+								$changes[] = $database->last_error;	
+							}
 					}
 				}
 	

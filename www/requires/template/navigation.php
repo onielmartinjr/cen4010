@@ -31,6 +31,7 @@
 					echo "<a style=\"padding-left:1.45em;\" href=\"admin_create_page.php\">Create a New Page</a><br />";
 					echo "<a style=\"padding-left:1.45em;\" href=\"manage_breeds.php\">Manage Breeds and Types</a><br />";
 					echo "<a style=\"padding-left:1.45em;\" href=\"manage_colors.php\">Manage Colors</a><br />";
+					echo "<a style=\"padding-left:1.45em;\" href=\"admin_manage_pet_status.php\">Manage Pet Status</a><br />";
 					echo "<a style=\"padding-left:1.45em;\" href=\"admin_manage_vaccinations.php\">Manage Vaccinations</a><br />";
 					echo "<a style=\"padding-left:1.45em;\" href=\"admin_manage_website_settings.php\">Manage Web Site Settings</a><br />";
 				}
