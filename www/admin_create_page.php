@@ -20,9 +20,8 @@
 			$session->message("Your new page was created successfully!");
 			redirect_head(ROOT_URL . "view_page.php?page_wk=" . $database->insert_id());
 		}
-		else
-		{
-			$session->message("Unable to create a new page at this time.");
+		else {
+			$session->message("There was an issue with your request. ".$database->last_error);
 		}
 	}
 	
@@ -30,15 +29,19 @@
 ?>
 	
 	<!-- Create a page form -->
-	<form id="create_page" action="<?php echo file_name_with_get(); ?>" method="post">
-		Page Name: <input type="text" name="page_name" /> <br /> <br />
-		Page Content: <textarea rows="5" cols="40" name="page_content"></textarea> <br /> <br />
+	<form id="create_page" action="<?php echo file_name_without_get(); ?>" method="post">
+		Page Name: <input type="text" name="page_name" value="<?php echo (isset($new_page) ? $new_page->name : ''); ?>" /> <br /> <br />
+		Page Content: <textarea rows="5" cols="40" name="page_content"><?php echo (isset($new_page) ? $new_page->body : ''); ?></textarea> <br /> <br />
 		<input type="submit" value="Submit" name="submit" />
 	</form>
 	
 
 <?php
-
+	
+	//this is a special instance, remove the message, if it's set, since we set the messages in this form
+	$session->remove_message();
+	
+	//footer
 	require_once "requires/template/footer.php";
 
 ?>

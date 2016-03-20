@@ -209,7 +209,7 @@ abstract class Database_Object {
 		$sql .= join("', '", array_values($attributes));
 		$sql .= "');";
 		$database->query($sql);
-		return ($database->insert_id()) ? true : false;
+		return ($database->affected_rows() == 1) ? true : false;
 	}
 	
 	public function update() {
