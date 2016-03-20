@@ -1,7 +1,7 @@
 <?php
 
 	//require the framework
-	require_once "requires/initialize.php";
+	require_once "../requires/initialize.php";
 	
 	$page = new Page();
 	$page->name = "Create a New Page";
@@ -25,7 +25,9 @@
 		}
 	}
 	
-	require_once "requires/template/header.php";
+	//header template
+	require_once ("../requires/template/header.php");
+	
 ?>
 	
 	<!-- Create a page form -->
@@ -41,7 +43,7 @@
 	//this is a special instance, remove the message, if it's set, since we set the messages in this form
 	$session->remove_message();
 	
-	//footer
-	require_once "requires/template/footer.php";
+	//footer template
+	require_once "../requires/template/footer.php";
 
 ?>

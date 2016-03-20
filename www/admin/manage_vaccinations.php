@@ -1,7 +1,7 @@
 <?php
 
 	//require the framework
-	require_once "requires/initialize.php";
+	require_once "../requires/initialize.php";
 	
 	// create the page
 	$page = new Page();
@@ -102,8 +102,8 @@
 
 	}
 	
-	// header
-	require_once "requires/template/header.php";
+	//header template
+	require_once ("../requires/template/header.php");
 	
 ?>
 	
@@ -127,7 +127,7 @@
 	
 <?php
 	
-	// footer
-	require_once "requires/template/footer.php";
+	//footer template
+	require_once "../requires/template/footer.php";
 
 ?>

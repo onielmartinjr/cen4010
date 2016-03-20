@@ -1,7 +1,7 @@
 <?php
 
 	//require the framework
-	require_once "requires/initialize.php";
+	require_once "../requires/initialize.php";
 	
 	// create the page
 	$page = new Page();
@@ -53,7 +53,8 @@
 		redirect_head(ROOT_URL . "view_page.php?page_wk={$page_found}");
 	}
 	
-	require_once "requires/template/header.php";
+	//header template
+	require_once ("../requires/template/header.php");
 	
 ?>	
 	
@@ -65,6 +66,7 @@
 	
 <?php
 	
-	require_once "requires/template/footer.php";
+	//footer template
+	require_once "../requires/template/footer.php";
 	
 ?>

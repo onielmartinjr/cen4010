@@ -63,7 +63,7 @@
 		//make sure user has access to do this
 		if(!is_admin_or_staff()) {
 			$session->message("You do not have sufficient rights to flag this comment.");
-			redirect_head(file_name_without_get()."?pet_wk=".$_GET['pet_wk']);
+			redirect_head(ROOT_URL.file_name_without_get()."?pet_wk=".$_GET['pet_wk']);
 		}
 		
 		//first, make sure the comment exists
@@ -71,20 +71,20 @@
 		if(!$comment_to_flag) {
 			//if the item does not exist in the database
 			$session->message("You must've clicked on a bad URL; please try again.");
-			redirect_head(file_name_without_get()."?pet_wk=".$_GET['pet_wk']);
+			redirect_head(ROOT_URL.file_name_without_get()."?pet_wk=".$_GET['pet_wk']);
 		}
 		
 		//now we make sure the comment is not already flagged
 		if($comment_to_flag->is_flagged == '1') {
 			$session->message("That comment is already flagged.");
-			redirect_head(file_name_without_get()."?pet_wk=".$_GET['pet_wk']);
+			redirect_head(ROOT_URL.file_name_without_get()."?pet_wk=".$_GET['pet_wk']);
 		}
 		
 		//if we're here, go ahead and flag the comment
 		$comment_to_flag->is_flagged = 1;
 		if($comment_to_flag->save()) {
 			$session->message("The comment was successfully flagged.");
-			redirect_head(file_name_without_get()."?pet_wk=".$_GET['pet_wk']);
+			redirect_head(ROOT_URL.file_name_without_get()."?pet_wk=".$_GET['pet_wk']);
 		}
 	}
 	
@@ -128,8 +128,8 @@
 	//display the links to update the pet for admins/staff
 	if(is_admin_or_staff()) {
 		echo "<br /><br />";
-		echo "<a href=\"admin_update_pet.php?pet_wk=" . $pet->pet_wk . "\">Edit Pet</a><br />";
-		echo "<a href=\"admin_delete_pet.php?pet_wk=" . $pet->pet_wk . "\">Delete Pet</a>";
+		echo "<a href=\"".ROOT_URL."admin/admin_update_pet.php?pet_wk=" . $pet->pet_wk . "\">Edit Pet</a><br />";
+		echo "<a href=\"".ROOT_URL."admin/admin_delete_pet.php?pet_wk=" . $pet->pet_wk . "\">Delete Pet</a>";
 	}
 	
 

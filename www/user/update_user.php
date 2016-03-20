@@ -1,7 +1,7 @@
 <?php
 
 	//require the framework
-	require_once "requires/initialize.php";
+	require_once "../requires/initialize.php";
 		
 	// create the page
 	$page = new Page();
@@ -52,13 +52,13 @@
 			else 
 				$session->message("Your account was not updated.");
 			
-			redirect_head(ROOT_URL."update_user.php");
+			redirect_head(ROOT_URL."user/update_user.php");
 			die();
 		}
 	}
 	
-	// header
-	require_once "requires/template/header.php";
+	//header template
+	require_once ("../requires/template/header.php");
 
 ?>
 	
@@ -80,7 +80,7 @@
 	//this is a special instance, remove the message, if it's set, since we set the messages in this form
 	$session->remove_message();
 	
-	//footer
-	require_once "requires/template/footer.php";
+	//footer template
+	require_once "../requires/template/footer.php";
 	
 ?>
