@@ -42,8 +42,7 @@
 							$changes[] = "<strong>".$field_name."</strong> was deleted successfully.";
 						else {
 							//if the item was changed successfully, add to array
-							$changes[] = "<strong>".$field_name."</strong> was not deleted successfully.";
-							$changes[] = $database->last_error;
+							$changes[] = "<strong>".$field_name."</strong> was not deleted successfully. ".$database->last_error;
 						}
 							
 					} //else, it does not exist in the database, do nothing
@@ -73,8 +72,7 @@
 								$changes[] = "<strong>".$field_name."</strong> was updated successfully.";
 							else {
 								//if the item was changed successfully, add to array
-								$changes[] = "<strong>".$field_name."</strong> was not updated successfully.";
-								$changes[] = $database->last_error;	
+								$changes[] = "<strong>".$field_name."</strong> was not updated successfully. ".$database->last_error;
 							}
 						} 
 					} else {
@@ -90,8 +88,7 @@
 								$changes[] = "<strong>".$field_name."</strong> was updated successfully.";
 							else {
 								//if the item was changed successfully, add to array
-								$changes[] = "<strong>".$field_name."</strong> was not updated successfully.";
-								$changes[] = $database->last_error;	
+								$changes[] = "<strong>".$field_name."</strong> was not updated successfully. ".$database->last_error;
 							}
 					}
 				}

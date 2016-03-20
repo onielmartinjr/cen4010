@@ -26,7 +26,7 @@
 		if($to_delete->delete()) 
 			$session->message("<strong>".$to_delete->vaccination_name."</strong> was deleted successfully.");
 		else
-			$session->message("<strong>".$to_delete->vaccination_name."</strong> was not deleted successfully.<br />".$database->last_error;);
+			$session->message("<strong>".$to_delete->vaccination_name."</strong> was not deleted successfully.<br />".$database->last_error);
 			
 		//redirect back to itself without the ?delete_vaccination_wk in the URL
 		//so the system does not try to delete something again
