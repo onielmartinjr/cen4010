@@ -62,13 +62,6 @@ class User extends Database_Object {
 		return false;
 	}
 	
-	//checks if a username is already taken
-	public static function is_username_taken($username="") {
-		global $database;
-		global $session;
-		
-		
-	}
 }
 
 ?>

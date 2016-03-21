@@ -43,6 +43,7 @@
 	function redirect_head( $location = NULL ) {
 		if ($location != NULL) {
 			header("location: {$location}");
+			die();
 		}
 	}
 	
@@ -79,11 +80,11 @@
 	//display error
 	function display_error() {
 		global $session;
-		if ($session->message() != '') 
+		if (!empty($session->message())) 
 			echo "<p style=\"color:red;\">".$session->message()."</p>";
 	}
 
-	// A function to ensure that only authorized users (admin, staff, user) can view respective pages.
+	// ensures that only authorized users (admin, staff, user) can view respective pages.
 	function page_security() 
 	{
 		global $page;
@@ -101,4 +102,27 @@
 			redirect_head(ROOT_URL);
 		}
 	}
+	
+	//returns true if logged in and of admin or staff status
+	function is_admin_or_staff() {
+		global $user;
+		
+		if(!isset($user))
+			return false;
+			
+		if($user->role_wk == "2" || $user->role_wk == "3")
+			return true;
+		
+		//default
+		return false;
+	}
+	
+	//determines whether or not we should send e-mail
+	//used mostly for debugging
+	if(strpos(current_url(), 'localhost') == true) {
+		$am_i_local = true;
+	} else {
+		$am_i_local = false;
+	}
+	
 ?>

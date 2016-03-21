@@ -8,7 +8,6 @@
 	{
 		$session->message("There is an error with the page you were trying to access.");
 		redirect_head(ROOT_URL);
-		die();
 	}
 	
 	
@@ -21,7 +20,6 @@
 	{
 		$session->message("There is an error with the page you were trying to access.");
 		redirect_head(ROOT_URL);
-		die();
 	}
 	
 	// check if the page is deleted
@@ -29,23 +27,19 @@
 	{
 		$session->message("The page you are trying to view has been deleted.");
 		redirect_head(ROOT_URL);
-		die();
 	}
 
 	require_once "requires/template/header.php";
 	
 	echo $page->body;
 	
-	if(isset($user)) {
-		if ($user->role_wk == "2" || $user->role_wk == "3")
-		{
-			echo "<br /><br /><br />";
-			echo "<a href=\"admin_update_page.php?page_wk=" . $page->page_wk . "\">Edit Page</a><br />";
-			
-			//if we're not looking at the home page or about us page, display the option to delete this page
-			if($page != '1' && $page != '2')
-				echo "<a href=\"admin_delete_page.php?page_wk=" . $page->page_wk . "\">Delete Page</a>";
-		}
+	if(is_admin_or_staff()) {
+		echo "<br /><br /><br />";
+		echo "<a href=\"".ROOT_URL."admin/update_page.php?page_wk=" . $page->page_wk . "\">Update Page</a><br />";
+		
+		//if we're not looking at the home page or about us page, display the option to delete this page
+		if($page != '1' && $page != '2')
+			echo "<a href=\"".ROOT_URL."admin/delete_page.php?page_wk=" . $page->page_wk . "\">Delete Page</a>";
 	}
 	
 	require_once "requires/template/footer.php";

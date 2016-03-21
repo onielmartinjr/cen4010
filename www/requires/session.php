@@ -22,11 +22,6 @@
 			if($user){
 				$this->user_wk = $_SESSION['user_wk'] = $user->user_wk;
 				$this->is_logged_in = true;
-				//if the user was trying to view a page before, go there, if not, go to dashboard
-				if (isset($_GET['url'])) 
-					redirect_head(ROOT_URL.$_GET['url']); //go to previous location
-				else 
-					redirect_head("dashboard.php?type=".$user->last_ticket_view); //if not, go to dashboard
 			}
 		}
 	  

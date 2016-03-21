@@ -16,20 +16,17 @@
 	
 	// log the user in
 	if(isset($_POST["submit"])) 
-	{ 
-		$username = $_POST["username"];
-		$password = $_POST["password"];
-
-		User::login($username, $password);
+	{
+		User::login($_POST["username"], $_POST["password"]);
 	}
 	
 	// header
 	require_once "requires/template/header.php";
 		
-	?>
+?>
 	
-	<!-- login form -->
-	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+	<!-- form -->
+	<form action="<?php echo file_name_with_get(); ?>" method="post">
 		username: <input type="text" name="username" /> <br />
 		password: <input type="password" name="password" /> <br />
 		<input type="submit" value="submit" name="submit"/>

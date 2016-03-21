@@ -1,7 +1,7 @@
 <?php
 
 	//require the framework
-	require_once "requires/initialize.php";
+	require_once "../requires/initialize.php";
 	
 	// create the page
 	$page = new Page();
@@ -18,8 +18,7 @@
 			if (count($user_array) <= 1) // if last ADMIN of last STAFF account...
 			{
 				$session->message("You are the last " . $user->role_wk->name . "! Another " . $user->role_wk->name . " account must be created before this one can be deleted.");
-				redirect_head(ROOT_URL . "manage_account.php");
-				die();
+				redirect_head(ROOT_URL);
 			}
 		}
 		
@@ -33,14 +32,15 @@
 	elseif (isset($_POST["deny"]))
 	{
 		$session->message("Your account was not deleted.");
-		redirect_head(ROOT_URL . "manage_account.php");
+		redirect_head(ROOT_URL);
 	}
 	
-	require_once "requires/template/header.php";
+	//header template
+	require_once ("../requires/template/header.php");
 	
 ?>	
 	
-	<form id="confirm_delete" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+	<form id="confirm_delete" action="<?php echo file_name_with_get(); ?>" method="post">
 		<label>Are you sure you want to delete your account?</label> <br />
 		<input type="submit" value="No, keep my account!" name="deny" />
 		<input type="submit" value="Yes, delete my account" name="confirm" />
@@ -48,6 +48,7 @@
 	
 <?php
 	
-	require_once "requires/template/footer.php";
+	//footer template
+	require_once "../requires/template/footer.php";
 	
 ?>

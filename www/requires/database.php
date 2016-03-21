@@ -15,6 +15,7 @@
 		public $last_query;
 		private $magic_quotes_active;
 		private $real_escape_string_exists;
+		public $last_error;
 		
 		//constructor
 		function __construct() {
@@ -85,9 +86,9 @@
 
 		private function confirm_query($result) {
 			if (!$result) {
-				$output = "Database query failed: " . mysqli_error($this->connection);
+				$output = mysqli_error($this->connection);
 				//$output .= "Last SQL query: " . $this->last_query;
-				die( $output );
+				$this->last_error = $output;
 			}
 		}
 	
