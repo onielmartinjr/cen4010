@@ -38,7 +38,7 @@
 		// delete the pet
 		$pet_found->delete();
 		$session->message("The pet was successfully deleted!");
-		redirect_head(ROOT_URL . "index.php");
+		redirect_head(ROOT_URL . "search_pets.php");
 	}
 	else if (isset($_POST["deny"]))
 	{

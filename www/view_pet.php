@@ -164,7 +164,7 @@
 		echo "<br />
 	<!-- form -->
 	<form action=\"".file_name_with_get()."\" method=\"post\">
-		<textarea name=\"body\" cols=\"45\" rows=\"5\" placeholder=\"enter a new comment!\"/></textarea><br />
+		<textarea name=\"body\" cols=\"45\" rows=\"5\" placeholder=\"enter a new comment\"/></textarea><br />
 		<input type=\"submit\" value=\"submit\" name=\"submit\"/>
 	</form>";
 	}

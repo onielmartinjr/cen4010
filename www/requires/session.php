@@ -10,10 +10,15 @@
 		public $is_logged_in = false;
 		public $user_wk;
 		public $message;
+		public $pet_where;
+		public $pet_order_by;
+		public $user_where;
+		public $user_order_by;
 		
 		function __construct() {
 			session_start();
 			$this->check_message();
+			$this->check_filters();
 			$this->check_login(); 
 		}
 	
@@ -57,6 +62,33 @@
 			} else {
 				$this->message = "";
 			}
+		}
+		
+		private function check_filters() {
+			//do this for all 4 different filter types
+			if(isset($_SESSION['pet_where'])) {
+				// Add it as an attribute and erase the stored version
+				$this->pet_where = $_SESSION['pet_where'];
+				unset($_SESSION['pet_where']);
+			} 
+			
+			if(isset($_SESSION['pet_order_by'])) {
+				// Add it as an attribute and erase the stored version
+				$this->pet_order_by = $_SESSION['pet_order_by'];
+				unset($_SESSION['pet_order_by']);
+			} 
+			
+			if(isset($_SESSION['user_where'])) {
+				// Add it as an attribute and erase the stored version
+				$this->user_where = $_SESSION['user_where'];
+				unset($_SESSION['user_where']);
+			} 
+			
+			if(isset($_SESSION['user_order_by'])) {
+				// Add it as an attribute and erase the stored version
+				$this->user_order_by = $_SESSION['user_order_by'];
+				unset($_SESSION['user_order_by']);
+			} 
 		}
 		
 		public function logout($bypass_redirect=false) {
