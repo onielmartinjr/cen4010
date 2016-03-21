@@ -136,7 +136,7 @@
 		$update_pet->status_wk = $_POST["status"];
 		$update_pet->age = $_POST["age"];
 		$update_pet->weight = $_POST["weight"];
-		$update_pet->create_dt = $_POST["create_dt"];
+		$update_pet->create_dt = date("Y-m-d H:i:s", strtotime($_POST["create_dt"]));
 		$update_pet->is_rescued = $_POST["rescued"];
 		
 		// if the object successfully updates, go to view it
@@ -160,7 +160,7 @@
 	<!-- form -->
 	<form id="update_page" action="<?php echo file_name_with_get(); ?>" method="post">
 		Name: <input type="text" name="name" value="<?php echo $update_pet->name; ?>"><br />
-		<em>IMAGE TO COME LATER</em><br />
+		<p><em>IMAGE TO COME LATER</em></p>
 		Breed: <select name="breed">
 				  <option value="0" <?php if($update_pet->breed_wk == '0') echo 'selected'; ?>>Undefined</option>
 				  <?php

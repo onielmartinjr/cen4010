@@ -110,23 +110,56 @@
 ?>
 	
 	<form action="<?php echo file_name_with_get(); ?>" method="post">
-		Organization Name:<input type="text" name="organization_name" value="<?php echo isset($website_settings['organization_name']) ? $website_settings['organization_name'] : ''; ?>"><br />
-		Time Zone:<select name="time_zone">
+		Organization Name: <input type="text" name="organization_name" value="<?php echo isset($website_settings['organization_name']) ? $website_settings['organization_name'] : ''; ?>"><br />
+		Time Zone: <select name="time_zone">
+					  <option value="" <?php if(!isset($website_settings['time_zone'])) echo 'selected'; ?>> </option>
 					  <option value="America/Anchorage" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/Anchorage') echo 'selected'; } ?>>Alaska</option>
 					  <option value="America/Chicago" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/Chicago') echo 'selected'; } ?>>Central</option>
-					  <option value="America/New_York" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/New_York') echo 'selected'; } else echo 'selected'; ?>>Eastern</option>
+					  <option value="America/New_York" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/New_York') echo 'selected'; } ?>>Eastern</option>
 					  <option value="America/Adak" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/Adak') echo 'selected'; } ?>>Hawaii</option>
 					  <option value="Pacific/Honolulu" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'Pacific/Honolulu') echo 'selected'; } ?>>Hawaii no DST</option>
 					  <option value="America/Denver" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/Denver') echo 'selected'; } ?>>Mountain</option>
 					  <option value="America/Phoenix" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/Phoenix') echo 'selected'; } ?>>Mountain no DST</option>
 					  <option value="America/Los_Angeles" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/Los_Angeles') echo 'selected'; } ?>>Pacific</option>
 				  </select><br />
-		E-mail Address:<input type="text" name="email_address" value="<?php echo isset($website_settings['email_address']) ? $website_settings['email_address'] : ''; ?>"><br />
-		Phone Number:<input type="text" name="phone_number" value="<?php echo isset($website_settings['phone_number']) ? $website_settings['phone_number'] : ''; ?>"><br />
-		FaceBook Link:<input type="text" name="facebook_link" value="<?php echo isset($website_settings['facebook_link']) ? $website_settings['facebook_link'] : ''; ?>"><br />
-		Twitter Link:<input type="text" name="twitter_link" value="<?php echo isset($website_settings['twitter_link']) ? $website_settings['twitter_link'] : ''; ?>"><br />
-		Instagram Link:<input type="text" name="instagram_link" value="<?php echo isset($website_settings['instagram_link']) ? $website_settings['instagram_link'] : ''; ?>"><br />
-		YouTube Link:<input type="text" name="youtube_link" value="<?php echo isset($website_settings['youtube_link']) ? $website_settings['youtube_link'] : ''; ?>"><br />
+		Address: <input type="text" name="address" value="<?php echo isset($website_settings['address']) ? $website_settings['address'] : ''; ?>"><br />
+		City: <input type="text" name="city" value="<?php echo isset($website_settings['city']) ? $website_settings['city'] : ''; ?>"><br />
+		State: <select name="state">
+					  <option value="" <?php if(!isset($website_settings['state'])) echo 'selected'; ?>> </option>
+					  <?php
+					  		
+					  		//for easier typing, make an associative array with all the states
+					  		$state_list = ARRAY('AL'=>"Alabama",'AK'=>"Alaska",'AZ'=>"Arizona",'AR'=>"Arkansas",'CA'=>"California",'CO'=>"Colorado",
+					  			'CT'=>"Connecticut",'DE'=>"Delaware",'DC'=>"District Of Columbia",'FL'=>"Florida",'GA'=>"Georgia",'HI'=>"Hawaii",
+					  			'ID'=>"Idaho",'IL'=>"Illinois",'IN'=>"Indiana",'IA'=>"Iowa",'KS'=>"Kansas",'KY'=>"Kentucky",'LA'=>"Louisiana",
+					  			'ME'=>"Maine",'MD'=>"Maryland",'MA'=>"Massachusetts",'MI'=>"Michigan",'MN'=>"Minnesota",'MS'=>"Mississippi",
+					  			'MO'=>"Missouri",'MT'=>"Montana",'NE'=>"Nebraska",'NV'=>"Nevada",'NH'=>"New Hampshire",'NJ'=>"New Jersey",
+					  			'NM'=>"New Mexico",'NY'=>"New York",'NC'=>"North Carolina",'ND'=>"North Dakota",'OH'=>"Ohio",'OK'=>"Oklahoma",
+					  			'OR'=>"Oregon",'PA'=>"Pennsylvania",'RI'=>"Rhode Island",'SC'=>"South Carolina",'SD'=>"South Dakota",
+					  			'TN'=>"Tennessee",'TX'=>"Texas",'UT'=>"Utah",'VT'=>"Vermont",'VA'=>"Virginia",'WA'=>"Washington",
+					  			'WV'=>"West Virginia",'WI'=>"Wisconsin",'WY'=>"Wyoming");
+					  		
+					  		//loop through all the states, display to screen
+					  		foreach($state_list AS $key => $value) {
+					  			echo "<option value=\"".$key."\" ";
+					  			
+					  			//if the value is selected, display it
+					  			if(isset($website_settings['state'])) { 
+					  				if($website_settings['state'] == $value) 
+					  					echo 'selected'; 
+					  			} 
+					  			
+					  			echo ">".$value."</option>";
+					  		}
+					  ?>
+				  </select><br />
+		Zip Code: <input type="text" name="zip_code" value="<?php echo isset($website_settings['zip_code']) ? $website_settings['zip_code'] : ''; ?>"><br />
+		E-mail Address: <input type="text" name="email_address" value="<?php echo isset($website_settings['email_address']) ? $website_settings['email_address'] : ''; ?>"><br />
+		Phone Number: <input type="text" name="phone_number" value="<?php echo isset($website_settings['phone_number']) ? $website_settings['phone_number'] : ''; ?>"><br />
+		FaceBook Link: <input type="text" name="facebook_link" value="<?php echo isset($website_settings['facebook_link']) ? $website_settings['facebook_link'] : ''; ?>"><br />
+		Twitter Link: <input type="text" name="twitter_link" value="<?php echo isset($website_settings['twitter_link']) ? $website_settings['twitter_link'] : ''; ?>"><br />
+		Instagram Link: <input type="text" name="instagram_link" value="<?php echo isset($website_settings['instagram_link']) ? $website_settings['instagram_link'] : ''; ?>"><br />
+		YouTube Link: <input type="text" name="youtube_link" value="<?php echo isset($website_settings['youtube_link']) ? $website_settings['youtube_link'] : ''; ?>"><br />
 		
 		<input type="submit" value="submit" name="submit"/>
 	</form>
