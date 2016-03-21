@@ -26,6 +26,7 @@
 				if ($user->role_wk == '2' || $user->role_wk == '3')
 				{
 					echo "<a href=\"admin_create_page.php\">Create a New Page</a><br />";
+					echo "<a href=\"add_pets.php\">Manage Pets</a><br />";
 					echo "<a href=\"manage_colors.php\">Manage Colors</a><br />";
 					echo "<a href=\"manage_breeds.php\">Manage Breeds and Types</a><br />";
 				}

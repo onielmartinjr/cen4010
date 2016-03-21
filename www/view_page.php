@@ -8,7 +8,6 @@
 	{
 		$session->message("There is an error with the page you were trying to access.");
 		redirect_head(ROOT_URL);
-		die();
 	}
 	
 	
@@ -21,7 +20,6 @@
 	{
 		$session->message("There is an error with the page you were trying to access.");
 		redirect_head(ROOT_URL);
-		die();
 	}
 	
 	// check if the page is deleted
@@ -29,7 +27,6 @@
 	{
 		$session->message("The page you are trying to view has been deleted.");
 		redirect_head(ROOT_URL);
-		die();
 	}
 
 	require_once "requires/template/header.php";
