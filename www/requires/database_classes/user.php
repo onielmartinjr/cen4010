@@ -48,17 +48,24 @@ class User extends Database_Object {
 			$user = array_shift($result_array);
 			if ($user->is_deleted == 1) {
 				$session->message($user->username.", your account has been disabled. If you feel this is an error please contact the administrator.");
-				redirect_head(ROOT_URL."login.php");
+				redirect_head(ROOT_URL."login.php?username=".$username);
 				return false;
 			} else
 				//successfully logged in
 				$session->message("Successfully logged in!");
 				$session->login($user);
-				redirect_head(ROOT_URL);
-				return $user;
+				
+				//this will determine where we redirect to
+				//depending on whether or not there is a $_GET['url'] superglobal set
+				if(isset($_GET['url'])) 
+					redirect_head($_GET['url']);
+				else
+					redirect_head(ROOT_URL);
 		}
 		$session->message("The username and password combination does not exist.");
-		redirect_head(ROOT_URL."login.php");
+		$redirect = ROOT_URL."login.php?username=".$username;
+		$redirect .= (isset($_GET['url']) ? "&url=".$_GET['url'] : '');
+		redirect_head($redirect);
 		return false;
 	}
 	

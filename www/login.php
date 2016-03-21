@@ -26,8 +26,8 @@
 ?>
 	
 	<!-- form -->
-	<form action="<?php echo file_name_with_get(); ?>" method="post">
-		username: <input type="text" name="username" /> <br />
+	<form action="<?php echo current_url(); ?>" method="post">
+		username: <input type="text" name="username" value="<?php if(isset($_GET['username'])) echo $_GET['username']; ?>" /> <br />
 		password: <input type="password" name="password" /> <br />
 		<input type="submit" value="submit" name="submit"/>
 	</form>

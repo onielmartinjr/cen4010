@@ -42,8 +42,15 @@
 								<th>Status</th>
 								<th>Age</th>
 								<th>Weight</th>
-								<th>Date Added</th>
-							</tr>";
+								<th>Date Added</th>";
+		
+		//if you're an admin or staff, display the ability to
+		//immediately update the pet
+		if(is_admin_or_staff())	{
+			$page->body .= "<th>Update?</th>";
+		}
+			
+		$page->body .= "</tr>";
 							
 		//loop through all pets
 		foreach($pets as $value) {
@@ -55,8 +62,15 @@
 								<td>".$value->status_wk->name."</td>		
 								<td>".$value->age."</td>
 								<td>".$value->weight."</td>
-								<td>".date("m/d/Y h:i A", strtotime($value->create_dt))."</td>
-							</tr>";
+								<td>".date("m/d/Y h:i A", strtotime($value->create_dt))."</td>";
+			
+			//if you're an admin or staff, display the ability to
+			//immediately update the pet
+			if(is_admin_or_staff())	{
+				$page->body .= "<td><a href=\"".ROOT_URL."admin/update_pet.php?pet_wk=".$value->pet_wk."\">Update</a><td>";
+			}
+								
+			$page->body .= "</tr>";
 		}
 							
 		$page->body .= "</table>";
@@ -72,8 +86,29 @@
 <form action="<?php echo file_name_with_get(); ?>" method="post">
 	<fieldset>
 		<legend>Filter</legend>
-		Pet Type: <input type="text"><br>
-		Breed: <input type="text"><br>
+		Breed: <?php
+				  		
+				  		//we need to display all available items
+				  		//do a concatenation of the pet type and the breed
+				  		$sql = "SELECT `b`.`breed_wk`, `b`.`pet_type_wk`, CONCAT(`p`.`name`,' - ',`b`.`name`) AS `name`, ";
+						$sql .= "`b`.`create_dt` FROM `breed` AS `b` INNER JOIN `pet_type` AS `p` ON `p`.`pet_type_wk` = `b`.`pet_type_wk` ";
+						$sql .= "WHERE `b`.`breed_wk` > 0 ORDER BY `p`.`name` ASC, `b`.`name` ASC";
+				  		$to_display = Breed::find_by_sql($sql);
+				  		
+				  		//loop through all items
+				  		foreach($to_display AS $value) {
+				  			//echo "<option value=\"".$value->breed_wk."\"";
+				  			
+				  			/*
+				  			//if the value is selected
+				  			if($value->breed_wk == $update_pet->breed_wk)
+				  				echo " selected";
+				  			*/
+				  			
+				  			//echo ">".$value->name."</option>";
+				  		}
+				  		
+				  ?><br>
 		Color: <input type="text"><br>
 		Status: <input type="text"><br>
 		Age: <input type="text"><br>

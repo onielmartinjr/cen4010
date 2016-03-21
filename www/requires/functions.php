@@ -94,7 +94,7 @@
 		if (($page->is_user_only || $page->is_admin_only) && !$session->is_logged_in) 
 		{
 			$session->message("You must be logged in to view that page.");
-			redirect_head(ROOT_URL);
+			redirect_head(ROOT_URL."login.php?url=".str_replace(ROOT_URL, '', current_url()));
 		}
 		if($page->is_admin_only && ($user->role_wk != "2" && $user->role_wk != "3"))
 		{
