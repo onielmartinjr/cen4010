@@ -1,6 +1,7 @@
 <nav>
 		<?php
-			//get all pages in the database
+			// get all of the pages in the database and create
+			// links for them in the nav section
 			$pages_array = Page::find_all();
 			
 			//display static pages
@@ -19,8 +20,9 @@
 			//display other static page
 			echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."view_page.php?page_wk=2\">About Us</a><br />";
 		
-			// guest-only page
-			if (!$session->is_logged_in) {
+			// Guest Only Pages
+			if (!$session->is_logged_in)
+			{
 				echo "<a href=\"login.php\">Login</a><br />";
 			}
 			else 
@@ -29,6 +31,7 @@
 				if (is_admin_or_staff()) {
 					echo 'Admin/Staff Only<br />';
 					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/create_page.php\">Create a New Page</a><br />";
+					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/add_pet.php\">Add a New Pet</a><br />";
 					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_breeds.php\">Manage Breeds and Types</a><br />";
 					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_colors.php\">Manage Colors</a><br />";
 					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_pet_status.php\">Manage Pet Status</a><br />";
