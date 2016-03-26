@@ -134,4 +134,73 @@ class User extends Database_Object {
 	
 }
 
+//function to create the SQL where statement
+function generate_user_where() {
+	global $session;
+
+	//create the dictionary for all the different types
+	$dictionary = array();
+	$dictionary['all'] = "";
+	$dictionary['users'] = " AND `r`.`name` = 'user' AND `u`.`is_deleted` = 0 ";
+	$dictionary['admin'] = " AND `r`.`name` = 'admin' AND `u`.`is_deleted` = 0 ";
+	$dictionary['staff'] = " AND `r`.`name` = 'staff' AND `u`.`is_deleted` = 0 ";
+	$dictionary['is_deleted'] = " AND `u`.`is_deleted` = 1 ";
+	
+	//if the where clause is not set, return all
+	if(!isset($session->user_where))
+		return $dictionary['all'];
+	
+	//if the where clause is set, but empty, return all
+	if(empty($session->user_where))
+		return $dictionary['all'];
+		
+	//if the URL was altered and the filter type doesn't exist,
+	//default here
+	if(!array_key_exists($session->user_where, $dictionary))
+		return $dictionary['all'];
+	
+	//if we're here, then we are actually
+	//going to return the value based on the key
+	return $dictionary[$session->user_where];
+}
+
+//function to create the SQL order by statement
+function generate_user_order_by() {
+	global $session;
+	
+	$default = "ORDER BY `u`.`username` ";
+	
+	//if the order by condition is not set, return default
+	if(!isset($session->user_order_by))
+		return $default;
+	
+	//if the order by condition is set, but empty, return default
+	if(empty($session->user_order_by))
+		return $default;
+	
+	//if we're here, then we are actually
+	//going to process it and generate SQL code
+	$sql = "ORDER BY ";
+	
+	//get the column name
+	if($session->user_order_by['column'] == 'username') 
+		$sql .= "`u`.`username` ";
+	else if($session->user_order_by['column'] == 'first_name') 
+		$sql .= "`u`.`first_name` ";
+	else if($session->user_order_by['column'] == 'last_name') 
+		$sql .= "`u`.`last_name` ";
+	else if($session->user_order_by['column'] == 'email_address') 
+		$sql .= "`u`.`email_address` ";
+	else if($session->user_order_by['column'] == 'role') 
+		$sql .= "`r`.`name` ";
+	else if($session->user_order_by['column'] == 'is_deleted') 
+		$sql .= "`u`.`is_deleted` ";
+		
+	//get the order
+	$sql .= $session->user_order_by['order']." ";
+	
+	return $sql;
+}
+
+
 ?>

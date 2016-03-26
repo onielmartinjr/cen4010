@@ -34,6 +34,7 @@
 					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_pet_status.php\">Manage Pet Status</a><br />";
 					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_vaccinations.php\">Manage Vaccinations</a><br />";
 					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_website_settings.php\">Manage Web Site Settings</a><br />";
+					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/search_users.php\">Search Users</a><br />";
 				}
 			
 			
