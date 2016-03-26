@@ -21,13 +21,6 @@
 		$session->message("There is an error with the page you were trying to access.");
 		redirect_head(ROOT_URL);
 	}
-	
-	// check if the page is deleted
-	if ($page->is_deleted == "1") 
-	{
-		$session->message("The page you are trying to view has been deleted.");
-		redirect_head(ROOT_URL);
-	}
 
 	require_once "requires/template/header.php";
 	

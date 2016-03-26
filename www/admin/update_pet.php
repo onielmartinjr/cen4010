@@ -245,7 +245,7 @@
 		  		}
 	
 			 ?>
-		Date Added: <input type="text" name="create_dt" value="<?php echo date('F d, Y h:i:s A', strtotime($update_pet->create_dt)); ?>"><br />
+		Date Added: <input type="text" name="create_dt" value="<?php echo date('m/d/Y h:i:s A', strtotime($update_pet->create_dt)); ?>"><br />
 		Is it Rescued?: 
 			<input type="radio" name="rescued" value="1"<?php if($update_pet->is_rescued == '1') echo 'checked="checked"'; ?>> Yes 
 			<input type="radio" name="rescued" value="0"<?php if($update_pet->is_rescued == '0') echo 'checked="checked"'; ?>> No<br />
@@ -256,7 +256,7 @@
 <?php
 
 	//this is a special instance, remove the message, if it's set since we set the messages in this form
-	$session->remove_message();
+	$session->unset_variable('message');
 
 	//footer template
 	require_once "../requires/template/footer.php";

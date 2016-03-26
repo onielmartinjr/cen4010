@@ -57,4 +57,127 @@ class Pet extends Database_Object {
 	
 }
 
+//function to create the SQL where statement
+function generate_pet_where() {
+	global $session;
+	
+	//if the where clause is not set, return all
+	if(!isset($session->pet_where))
+		return "";
+	
+	//if the where clause is set, but empty, return all
+	if(empty($session->pet_where))
+		return "";
+	
+	//if we're here, then we are actually
+	//going to process it and generate SQL code
+	$sql = "";
+	
+	//first, do the pet type
+	if(isset($session->pet_where['pet_type'])) {
+		if(!empty($session->pet_where['pet_type'])) {
+			$sql .= "AND `pt`.`pet_type_wk` IN (";
+			$sql .= implode (',', $session->pet_where['pet_type']);
+			$sql .= ") ";
+		}
+	}
+	
+	//then the breed
+	if(isset($session->pet_where['breed'])) {
+		if(!empty($session->pet_where['breed'])) {
+			$sql .= "AND `b`.`breed_wk` IN (";
+			$sql .= implode (',', $session->pet_where['breed']);
+			$sql .= ") ";
+		}
+	}
+	
+	//then the color
+	if(isset($session->pet_where['color'])) {
+		if(!empty($session->pet_where['color'])) {
+			$sql .= "AND `c`.`color_wk` IN (";
+			$sql .= implode (',', $session->pet_where['color']);
+			$sql .= ") ";
+		}
+	}
+	
+	//then the status
+	if(isset($session->pet_where['status'])) {
+		if(!empty($session->pet_where['status'])) {
+			$sql .= "AND `s`.`status_wk` IN (";
+			$sql .= implode (',', $session->pet_where['status']);
+			$sql .= ") ";
+		}
+	}
+	
+	//then the weight minimum
+	if(isset($session->pet_where['age_min'])) {
+		if(!empty($session->pet_where['age_min'])) {
+			$sql .= "AND `p`.`age` >= ".$session->pet_where['age_min']." ";
+		}
+	}
+	
+	//then the weight maximum
+	if(isset($session->pet_where['age_max'])) {
+		if(!empty($session->pet_where['age_max'])) {
+			$sql .= "AND `p`.`age` <= ".$session->pet_where['age_max']." ";
+		}
+	}
+	
+	//then the weight minimum
+	if(isset($session->pet_where['weight_min'])) {
+		if(!empty($session->pet_where['weight_min'])) {
+			$sql .= "AND `p`.`weight` >= ".$session->pet_where['weight_min']." ";
+		}
+	}
+	
+	//then the weight maximum
+	if(isset($session->pet_where['weight_max'])) {
+		if(!empty($session->pet_where['weight_max'])) {
+			$sql .= "AND `p`.`weight` <= ".$session->pet_where['weight_max']." ";
+		}
+	}
+	
+	return $sql;
+}
+
+//function to create the SQL order by statement
+function generate_pet_order_by() {
+	global $session;
+	$default = "ORDER BY `p`.`name` ";
+	
+	//if the order by condition is not set, return default
+	if(!isset($session->pet_order_by))
+		return $default;
+	
+	//if the order by condition is set, but empty, return default
+	if(empty($session->pet_order_by))
+		return $default;
+	
+	//if we're here, then we are actually
+	//going to process it and generate SQL code
+	$sql = "ORDER BY ";
+	
+	//get the column name
+	if($session->pet_order_by['column'] == 'name') 
+		$sql .= "`p`.`name` ";
+	else if($session->pet_order_by['column'] == 'pet_type') 
+		$sql .= "`pt`.`name` ";
+	else if($session->pet_order_by['column'] == 'breed') 
+		$sql .= "`b`.`name` ";
+	else if($session->pet_order_by['column'] == 'color') 
+		$sql .= "`c`.`name` ";
+	else if($session->pet_order_by['column'] == 'status') 
+		$sql .= "`s`.`name` ";
+	else if($session->pet_order_by['column'] == 'age') 
+		$sql .= "`p`.`age` ";
+	else if($session->pet_order_by['column'] == 'weight') 
+		$sql .= "`p`.`weight` ";
+	else if($session->pet_order_by['column'] == 'date_added') 
+		$sql .= "`p`.`create_dt` ";
+		
+	//get the order
+	$sql .= $session->pet_order_by['order']." ";
+	
+	return $sql;
+}
 ?>

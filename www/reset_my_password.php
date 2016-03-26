@@ -107,7 +107,7 @@
 	require_once "requires/template/header.php";
 		
 ?>
-	
+	<p>Your username is: <strong><?php echo $the_key->user_wk->username; ?></strong></p>
 	<!-- form -->
 	<form action="<?php echo file_name_with_get(); ?>" method="post">
 		<p>Please enter and confirm your new password.</p>

@@ -61,7 +61,7 @@
 	//FLAG NEW COMMENTS HERE
 	if(isset($_GET['flag_comment_wk'])) {
 		//make sure user has access to do this
-		if(!is_admin_or_staff()) {
+		if(!$session->is_logged_in) {
 			$session->message("You do not have sufficient rights to flag this comment.");
 			redirect_head(ROOT_URL.file_name_without_get()."?pet_wk=".$_GET['pet_wk']);
 		}
@@ -148,7 +148,7 @@
 			
 			//flag comments section
 			//display the links to update the pet for admins/staff
-			if(is_admin_or_staff())	{
+			if($session->is_logged_in)	{
 				echo " <a href=\"".file_name_with_get()."&flag_comment_wk=".$value->comment_wk."\"><img src=\"".ROOT_URL."requires/template/flag.png\" atl=\"Flag\"></a>";
 			}
 			
@@ -164,7 +164,7 @@
 		echo "<br />
 	<!-- form -->
 	<form action=\"".file_name_with_get()."\" method=\"post\">
-		<textarea name=\"body\" cols=\"45\" rows=\"5\" placeholder=\"enter a new comment!\"/></textarea><br />
+		<textarea name=\"body\" cols=\"45\" rows=\"5\" placeholder=\"enter a new comment\"/></textarea><br />
 		<input type=\"submit\" value=\"submit\" name=\"submit\"/>
 	</form>";
 	}

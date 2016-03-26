@@ -15,6 +15,13 @@
 		a:hover{color:#3522f4}
 
 	</style>
+	<?php
+		if(isset($page->style)) {
+			if(!empty($page->style)) {
+				echo $page->style;
+			}
+		}
+	?>
 
 </head>
 <body>

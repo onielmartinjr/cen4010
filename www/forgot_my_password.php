@@ -51,6 +51,7 @@
 						<title>".$subject."</title>
 					</head>
 					<body>
+						<p>Your username is: <strong>".$found_user->username."</strong></p>
 						<p>Please the link below to reset your password. The link will be acive for 24 hours.</p>
 						<p><a href=\"".ROOT_URL."reset_my_password.php?reset_key=".$new_request->random_key."\">".ROOT_URL."reset_my_password.php?reset_key=".$new_request->random_key."</a></p>
 					</body>
@@ -89,7 +90,7 @@
 <?php
 
 	//this is a special instance, remove the message, if it's set, since we set the messages in this form
-	$session->remove_message();
+	$session->unset_variable('message');
 
 	//footer
 	require_once "requires/template/footer.php";
