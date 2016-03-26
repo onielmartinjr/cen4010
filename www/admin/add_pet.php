@@ -16,11 +16,6 @@
 	// Add the pet if the form is submitted
 	if(isset($_POST["submit"])) 
 	{ 
-		// debug
-		echo "<pre>";
-		print_r($_POST);
-		echo "</pre>";
-		
 		// create the new pet 
 		$new_pet = new Pet();
 		
@@ -59,19 +54,22 @@
 		}
 		
 		// add appropriate vaccinations to the pet
-		echo $database->insert_id();
+		$sql = "INSERT INTO `pet_to_vaccination` (`pet_to_vaccination_wk`, `pet_wk`, `vaccination_wk`, `create_dt`) VALUES ";
+		$vacs = "";
 		foreach ($_POST["vaccination"] as $vac)
 		{
-			echo $vac."<br />";
-			$sql = "INSERT INTO `pet_to_vaccination` (`pet_to_vaccination_wk`, `pet_wk`, `vaccination_wk`, `create_dt`) ";
-			$sql .= "VALUES (NULL, '".$new_pet_wk."', '".$vac."', CURRENT_TIMESTAMP);";
+			$vacs["{$vac}"] = "(NULL, '".$new_pet_wk."', '".$vac."', CURRENT_TIMESTAMP)";
 		}
+		$all_vacs = implode(",", $vacs);
+		$sql .= $all_vacs.";";
 		
 		//if there is an issue updating, immediately redirect
 		if(!$database->query($sql)) {
 			$session->message("There was an issue adding the pet; please try again.");
 			redirect_head(ROOT_URL."admin/".file_name_with_get());
 		}
+		
+		redirect_head(ROOT_URL."view_pet.php?pet_wk={$new_pet_wk}");
 	}
 	
 	
