@@ -180,4 +180,66 @@ function generate_pet_order_by() {
 	
 	return $sql;
 }
+
+//function to display the pet table based on results
+function display_pet_table($sql) {
+	global $database;
+	global $session;
+	$return = "";
+	
+	$pets = Pet::find_by_sql($sql);
+	
+	//only display the table with results if
+	//there are more than 0 pets
+	if(count($pets) > 0) {
+		//there are pets to display
+		$return = "<table style=\"width:100%\">
+							<tr>
+								<th></th>
+								<th><a href=\"".file_name_without_get()."?toggle=name\">Name</a></th>
+								<th><a href=\"".file_name_without_get()."?toggle=pet_type\">Pet Type</a></th>		
+								<th><a href=\"".file_name_without_get()."?toggle=breed\">Breed</a></th>
+								<th><a href=\"".file_name_without_get()."?toggle=color\">Color</a></th>
+								<th><a href=\"".file_name_without_get()."?toggle=status\">Status</a></th>
+								<th><a href=\"".file_name_without_get()."?toggle=age\">Age</a></th>
+								<th><a href=\"".file_name_without_get()."?toggle=weight\">Weight</a></th>
+								<th><a href=\"".file_name_without_get()."?toggle=date_added\">Date Added</a></th>";
+		
+		//if you're an admin or staff, display the ability to
+		//immediately update the pet
+		if(is_admin_or_staff())	{
+			$return .= "<th>Update</th>";
+		}
+			
+		$return .= "</tr>";
+							
+		//loop through all pets
+		foreach($pets as $value) {
+			$return .= "<tr>
+								<td><img src=\"uploads/".$value->image_wk->filename."\" style=\"width:75px;height:75px;\" ></td>
+								<td><a href=\"".ROOT_URL."view_pet.php?pet_wk=".$value->pet_wk."\">".$value->name."</a></td>
+								<td>".$value->breed_wk->pet_type_wk->name."</td>		
+								<td>".$value->breed_wk->name."</td>
+								<td>".$value->color_wk->name."</td>
+								<td>".$value->status_wk->name."</td>		
+								<td>".$value->age."</td>
+								<td>".$value->weight."</td>
+								<td>".date("m/d/Y h:i A", strtotime($value->create_dt))."</td>";
+			
+			//if you're an admin or staff, display the ability to
+			//immediately update the pet
+			if(is_admin_or_staff())	{
+				$return .= "<td><a href=\"".ROOT_URL."admin/update_pet.php?pet_wk=".$value->pet_wk."\">Update</a></td>";
+			}
+								
+			$return .= "</tr>";
+		}
+							
+		$return .= "</table>";
+	}
+	$return .= "<p><em>Your search returned ".count($pets)." pet(s).</em></p>";
+	
+	return $return;
+}
+
 ?>

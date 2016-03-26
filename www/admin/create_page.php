@@ -4,7 +4,7 @@
 	require_once "../requires/initialize.php";
 	
 	$page = new Page();
-	$page->name = "Create a New Page";
+	$page->name = "Add a New Page";
 	$page->is_admin_only = true;
 		
 	// create the page if the form is submitted
