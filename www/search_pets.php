@@ -93,55 +93,9 @@
 	$sql .= generate_pet_where()." ";
 	$sql .= generate_pet_order_by(). " ";
 	$sql .= ";";
-	$pets = Pet::find_by_sql($sql);
 	
-	//only display the table with results if
-	//there are more than 0 pets
-	if(count($pets) > 0) {
-		//there are pets to display
-		$page->body = "<table style=\"width:100%\">
-							<tr>
-								<th><a href=\"".file_name_without_get()."?toggle=name\">Name</a></th>
-								<th><a href=\"".file_name_without_get()."?toggle=pet_type\">Pet Type</a></th>		
-								<th><a href=\"".file_name_without_get()."?toggle=breed\">Breed</a></th>
-								<th><a href=\"".file_name_without_get()."?toggle=color\">Color</a></th>
-								<th><a href=\"".file_name_without_get()."?toggle=status\">Status</a></th>
-								<th><a href=\"".file_name_without_get()."?toggle=age\">Age</a></th>
-								<th><a href=\"".file_name_without_get()."?toggle=weight\">Weight</a></th>
-								<th><a href=\"".file_name_without_get()."?toggle=date_added\">Date Added</a></th>";
-		
-		//if you're an admin or staff, display the ability to
-		//immediately update the pet
-		if(is_admin_or_staff())	{
-			$page->body .= "<th>Update</th>";
-		}
-			
-		$page->body .= "</tr>";
-							
-		//loop through all pets
-		foreach($pets as $value) {
-			$page->body .= "<tr>
-								<td><a href=\"".ROOT_URL."view_pet.php?pet_wk=".$value->pet_wk."\">".$value->name."</a></td>
-								<td>".$value->breed_wk->pet_type_wk->name."</td>		
-								<td>".$value->breed_wk->name."</td>
-								<td>".$value->color_wk->name."</td>
-								<td>".$value->status_wk->name."</td>		
-								<td>".$value->age."</td>
-								<td>".$value->weight."</td>
-								<td>".date("m/d/Y h:i A", strtotime($value->create_dt))."</td>";
-			
-			//if you're an admin or staff, display the ability to
-			//immediately update the pet
-			if(is_admin_or_staff())	{
-				$page->body .= "<td><a href=\"".ROOT_URL."admin/update_pet.php?pet_wk=".$value->pet_wk."\">Update</a></td>";
-			}
-								
-			$page->body .= "</tr>";
-		}
-							
-		$page->body .= "</table>";
-	}
-	$page->body .= "<p><em>Your search returned ".count($pets)." pet(s).</em></p>";
+	//grab the body of pets
+	$page->body = display_pet_table($sql);
 	
 	//include the header
 	require_once "requires/template/header.php";

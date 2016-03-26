@@ -42,6 +42,34 @@
 		// check for rescued
 		$new_pet->is_rescued = $_POST["rescued"];
 		
+		
+		
+		//proces the image
+		$default_image = new Image();
+		$default_image->get_form_data($_FILES['file_upload']);
+		
+		//if there is no file, that is fine - we can set to 0 for default
+		if(!(Image::$error_dictionary[$default_image->error] == 'No file.')) {
+			$default_image->check_errors(true);
+			//save the image record to the database
+			if(!$default_image->save()) {
+				$session->message("There was an issue: ".$database->last_error);
+				redirect_head(current_url());
+			}
+			//get the key, and associate it to the image record
+			$default_image->image_wk = $database->insert_id();
+			//now we move the file and save
+			$default_image->move_file();
+		
+			//if the image changed, set it
+			if($default_image) {
+				$new_pet->image_wk = $default_image->image_wk;
+			}
+		} else
+			$new_pet->image_wk = 0;
+		
+		
+		
 		// insert the new pet into the database
 		if ($new_pet->save())
 		{	
@@ -53,23 +81,27 @@
 			$session->message("The new pet cannot be added at this time. ");
 		}
 		
-		// add appropriate vaccinations to the pet
-		$sql = "INSERT INTO `pet_to_vaccination` (`pet_to_vaccination_wk`, `pet_wk`, `vaccination_wk`, `create_dt`) VALUES ";
-		$vacs = "";
-		foreach ($_POST["vaccination"] as $vac)
-		{
-			$vacs["{$vac}"] = "(NULL, '".$new_pet_wk."', '".$vac."', CURRENT_TIMESTAMP)";
-		}
-		$all_vacs = implode(",", $vacs);
-		$sql .= $all_vacs.";";
+		//do the vaccinations if there are some being set
+		if(count($_POST['vaccination']) > 0) {
+			// add appropriate vaccinations to the pet
+			$sql = "INSERT INTO `pet_to_vaccination` (`pet_to_vaccination_wk`, `pet_wk`, `vaccination_wk`, `create_dt`) VALUES ";
+			$vacs = "";
+			foreach ($_POST["vaccination"] as $vac)
+			{
+				$vacs["{$vac}"] = "(NULL, '".$new_pet_wk."', '".$vac."', CURRENT_TIMESTAMP)";
+			}
+			$all_vacs = implode(",", $vacs);
+			$sql .= $all_vacs.";";
 		
-		//if there is an issue updating, immediately redirect
-		if(!$database->query($sql)) {
-			$session->message("There was an issue adding the pet; please try again.");
-			redirect_head(current_url());
+			//if there is an issue updating, immediately redirect
+			if(!$database->query($sql)) {
+				$session->message("There was an issue adding the pet; please try again.");
+				redirect_head(ROOT_URL."admin/".file_name_with_get());
+			}
 		}
 		
-		redirect_head(current_url()."?pet_wk={$new_pet_wk}");
+		//redirect to see new animal
+		redirect_head(ROOT_URL."view_pet.php?pet_wk={$new_pet_wk}");
 	}
 	
 	
@@ -81,9 +113,11 @@
 	
 	<h2>Add a Pet</h2>
 	
-	<form action="<?php echo file_name_with_get(); ?>" method="post">
+	<form action="<?php echo file_name_with_get(); ?>" enctype="multipart/form-data" method="post">
 		Name:<input type="text" name="name" value=""/><br />
-		<p><em>IMAGE UPLOADING COMING SOON</em></p>
+		<!-- default value needed for form -->
+			<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
+		Image: <input type="file" name="file_upload" /><br />
 		Breed: <select name="breed">
 				  <option value="0">Undefined</option>
 				  <?php
