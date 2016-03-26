@@ -24,23 +24,27 @@
 		{
 			$new_pet->name = $_POST["name"];
 		}
+		else
+		{
+			$session->message("");
+		}
 		
 		// check for breed/pet type
 		if (isset($_POST["breed"]))
 		{
-			$new_pet->breed = Breed::find_by_id($_POST["breed"]);
+			$new_pet->breed_wk = $_POST["breed"];
 		}
 		
 		// check for color
 		if (isset($_POST["color"]))
 		{
-			$new_pet->color = Color::find_by_id($_POST["color"]);
+			$new_pet->color_wk = $_POST["color"];
 		}
 		
 		// check for status
 		if (isset($_POST["status"]))
 		{
-			$new_pet->status = Status::find_by_id($_POST["status"]);
+			$new_pet->status_wk = $_POST["status"];
 		}
 		
 		// check for age
