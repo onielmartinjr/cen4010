@@ -66,10 +66,10 @@
 		//if there is an issue updating, immediately redirect
 		if(!$database->query($sql)) {
 			$session->message("There was an issue adding the pet; please try again.");
-			redirect_head(ROOT_URL."admin/".file_name_with_get());
+			redirect_head(current_url());
 		}
 		
-		redirect_head(ROOT_URL."view_pet.php?pet_wk={$new_pet_wk}");
+		redirect_head(current_url."?pet_wk={$new_pet_wk}");
 	}
 	
 	

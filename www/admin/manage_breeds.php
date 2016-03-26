@@ -28,7 +28,6 @@
 			{
 				$session->message("The pet type must have a value to be updated! ");
 				redirect_head(ROOT_URL."admin/manage_breeds.php");
-				die();
 			}
 			
 			// check if the Pet Type already exists
@@ -36,7 +35,6 @@
 			{
 				$session->message("The pet type you are trying to update already exists! ");
 				redirect_head(ROOT_URL."admin/manage_breeds.php");
-				die();
 			}
 		
 			// check if Pet Type name is being updated
@@ -47,13 +45,11 @@
 				{
 					$session->message("The pet type has been successfully updated to ".$type->name."! ");
 					redirect_head(ROOT_URL."admin/manage_breeds.php");
-					die();
 				}
 				else
 				{
 					$session->message("The pet type name cannot be updated at this time. ");
 					redirect_head(ROOT_URL."admin/manage_breeds.php");
-					die();
 				}
 			}
 		}
@@ -72,7 +68,6 @@
 					{
 						$session->message("The breed's updated name must have a text! ");
 						redirect_head(ROOT_URL."admin/manage_breeds.php");
-						die();
 					}
 					
 					// check if the breed already exists for this pet type
@@ -94,7 +89,7 @@
 				}
 			}
 			
-			/* if Pet_Type breed is being added */
+			/* if Pet_Type's breed is being added */
 			if ($_POST["new_breed"] != "")
 			{	
 				// check if the breed already exists for this pet type
@@ -118,7 +113,24 @@
 			}
 			
 			redirect_head(ROOT_URL."admin/manage_breeds.php");
-			die();
+		}
+		
+		/* If Pet_Type is being added */
+		if (isset($_POST["add_pet_type"]))
+		{
+			$new_pet_type = new Pet_Type();
+			$new_pet_type->name = $_POST["name"];
+			
+			if ($new_pet_type->save())
+			{
+				$session->message($session->message."The new pet type {$new_pet_type->name} was successfully created! ");
+				redirect_head(current_url());
+			}
+			else
+			{
+				$session->message("The new pet type was not successfully created. Please try again. ");
+				redirect_head(current_url());
+			}
 		}
 	}
 	
@@ -153,6 +165,13 @@
 		echo "<input type=\"submit\" value=\"save\" name=\"submit_".$type->name."_breeds\"/>";
 		echo "</form><br /><br />";
 	}
+	
+	// Add new pet type
+	echo "<form action=\"".file_name_with_get()."\" method=\"post\">";
+	echo "<label style=\"text-transform:capitalize; font-size:30px; font-weight:bold;\">Add New Pet Type: </label>"; 
+	echo "<input type=\"text\" name=\"name\"><br />";
+	echo "<input type=\"submit\" value=\"Add\" name=\"add_pet_type\">";
+	echo "</form>";
 	
 
 	//this is a special instance, remove the message, if it's set since we set the messages in this form
