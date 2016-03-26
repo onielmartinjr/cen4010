@@ -158,7 +158,7 @@
 ?>
 
 	<!-- form -->
-	<form id="update_page" action="<?php echo file_name_with_get(); ?>" method="post">
+	<form action="<?php echo file_name_with_get(); ?>" method="post">
 		Name: <input type="text" name="name" value="<?php echo $update_pet->name; ?>"><br />
 		<p><em>IMAGE TO COME LATER</em></p>
 		Breed: <select name="breed">

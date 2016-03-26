@@ -31,6 +31,7 @@
 				if (is_admin_or_staff()) {
 					echo 'Admin/Staff Only<br />';
 					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/create_page.php\">Create a New Page</a><br />";
+					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/add_pet.php\">Add a New Pet</a><br />";
 					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_breeds.php\">Manage Breeds and Types</a><br />";
 					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_colors.php\">Manage Colors</a><br />";
 					echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_pet_status.php\">Manage Pet Status</a><br />";
