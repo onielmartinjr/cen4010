@@ -1,7 +1,7 @@
 <?php
 
 	//require the framework
-	require_once "requires/initialize.php";
+	require_once "../requires/initialize.php";
 	
 	// create the page
 	$page = new Page();
@@ -27,7 +27,7 @@
 			if (empty($_POST["pet_type_name"]))
 			{
 				$session->message("The pet type must have a value to be updated! ");
-				redirect_head(ROOT_URL."manage_breeds.php");
+				redirect_head(ROOT_URL."admin/manage_breeds.php");
 				die();
 			}
 			
@@ -35,7 +35,7 @@
 			if (Pet_Type::find_by_name($_POST["pet_type_name"], "name"))
 			{
 				$session->message("The pet type you are trying to update already exists! ");
-				redirect_head(ROOT_URL."manage_breeds.php");
+				redirect_head(ROOT_URL."admin/manage_breeds.php");
 				die();
 			}
 		
@@ -46,13 +46,13 @@
 				if ($type->save())
 				{
 					$session->message("The pet type has been successfully updated to ".$type->name."! ");
-					redirect_head(ROOT_URL."manage_breeds.php");
+					redirect_head(ROOT_URL."admin/manage_breeds.php");
 					die();
 				}
 				else
 				{
 					$session->message("The pet type name cannot be updated at this time. ");
-					redirect_head(ROOT_URL."manage_breeds.php");
+					redirect_head(ROOT_URL."admin/manage_breeds.php");
 					die();
 				}
 			}
@@ -71,7 +71,7 @@
 					if (empty($_POST["{$breed->breed_wk}"]))
 					{
 						$session->message("The breed's updated name must have a text! ");
-						redirect_head(ROOT_URL."manage_breeds.php");
+						redirect_head(ROOT_URL."admin/manage_breeds.php");
 						die();
 					}
 					
@@ -117,15 +117,15 @@
 				}
 			}
 			
-			redirect_head(ROOT_URL."manage_breeds.php");
+			redirect_head(ROOT_URL."admin/manage_breeds.php");
 			die();
 		}
 	}
 	
 	
 	
-	// header
-	require_once "requires/template/header.php";
+	//header template
+	require_once ("../requires/template/header.php");
 	
 
 	// Loop through all of the breeds organized by pet type and create a form 
@@ -158,7 +158,7 @@
 	//this is a special instance, remove the message, if it's set since we set the messages in this form
 	$session->remove_message();
 	
-	// footer
-	require_once "requires/template/footer.php";
+	//footer template
+	require_once "../requires/template/footer.php";
 	
 ?>

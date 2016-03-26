@@ -1,7 +1,7 @@
 <?php
 
 	//require the framework
-	require_once "requires/initialize.php";
+	require_once "../requires/initialize.php";
 	
 	// create the page
 	$page = new Page();
@@ -40,7 +40,7 @@
 			if ($delete_color->delete())
 			{
 				$session->message($session->message."The color " . $delete_color->name . " was successfully deleted! ");
-				redirect_head(ROOT_URL."manage_colors.php");
+				redirect_head(ROOT_URL."admin/manage_colors.php");
 				die();
 			}
 			else
@@ -110,8 +110,7 @@
 				if ($new_color->save())
 				{
 					$session->message($session->message."The color " . $_POST["new_color"] . " was successfully added! ");
-					redirect_head(ROOT_URL."manage_colors.php");
-					die();
+					redirect_head(ROOT_URL."admin/manage_colors.php");
 				}
 				else
 				{
@@ -121,19 +120,16 @@
 		}
 		
 		// redirect for colors(s) were updated but no new color added
-		redirect_head(ROOT_URL."manage_colors.php");
-		die();
+		redirect_head(ROOT_URL."admin/manage_colors.php");
 	}
 	
 	
-	// header
-	require_once "requires/template/header.php";
+	//header template
+	require_once ("../requires/template/header.php");
 	
 ?>	
 	
-	<!-- form to rename and add colors -->
-	<h2>Colors:</h2>
-	<form id="color_management" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+	<form action="<?php echo file_name_with_get(); ?>" method="post">
 		<?php
 		$colors_array = Color::find_all();
 		$count = count($colors_array); 
@@ -154,7 +150,7 @@
 	//this is a special instance, remove the message, if it's set since we set the messages in this form
 	$session->remove_message();
 	
-	// footer
-	require_once "requires/template/footer.php";
+	//footer template
+	require_once "../requires/template/footer.php";
 	
 ?>

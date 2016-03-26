@@ -8,11 +8,12 @@
 class Vaccination extends Database_Object {
 	
 	protected static $table_name = 'vaccination';
-	protected static $db_fields = array('vaccination_wk', 'name', 'create_dt');
+	protected static $db_fields = array('vaccination_wk', 'vaccination_name', 'create_dt');
 	
 	public $vaccination_wk;
-	public $name;
+	public $vaccination_name;
 	public $create_dt;
+
 	
 }
 

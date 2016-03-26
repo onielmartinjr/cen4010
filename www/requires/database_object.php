@@ -2,6 +2,9 @@
 
 abstract class Database_Object {
 
+	//array containing column names NOT to auto-set to lowercase
+	protected static $fields_to_ignore = array('username','body','file_name','url','random_key','variable_name','variable_value','vaccination_name','hashed_password');
+
 	//automatically sets the default fields on new object(s)
 	function __construct() {
 		//only do this if the table contains a field create_dt
@@ -15,10 +18,6 @@ abstract class Database_Object {
 		//only do this if the table contains a field last_update_dt
 		if(in_array("last_update_dt", static::$db_fields)) 
 			$this->last_update_dt = current_timestamp();
-			
-		//only do this if the table contains a field acquired_dt
-		if(in_array("acquired_dt", static::$db_fields)) 
-			$this->acquired_dt = current_timestamp();
 			
 		//only do this if the table contains a field requested_dt
 		if(in_array("requested_dt", static::$db_fields)) 
@@ -35,10 +34,6 @@ abstract class Database_Object {
 		//only do this if the table contains a field is_reset
 		if(in_array("is_reset", static::$db_fields)) 
 			$this->is_reset = 0;
-			
-		//only do this if the table contains a field role_wk
-		if(in_array("role_wk", static::$db_fields)) 
-			$this->role_wk = 1;
 			
 		//if we're in the Page class, set these default values
 		if(get_class($this) == "Page") {
@@ -88,6 +83,7 @@ abstract class Database_Object {
 			$session->message("There is an error with the page you were trying to access.");
 			redirect_head(ROOT_URL);
 		}
+		
 		$sql = "SELECT `".static::$table_name."`.* FROM `".
 			static::$table_name."` WHERE `".static::primary_key_field()."`={$id} LIMIT 1;";
 		$result_array = static::find_by_sql($sql);
@@ -104,6 +100,11 @@ abstract class Database_Object {
 		//if the table contains is_deleted, make sure to include WHERE is_deleted = 0
 		if(in_array("is_deleted", static::$db_fields)) 
 			$sql .= " AND `is_deleted` = 0";
+			
+		//if the table has a `name` column, order the records by the name
+		if(in_array('name', static::$db_fields))
+			$sql .= " ORDER BY `name` ASC";
+		
 		$sql = $sql.";";
 
 		return self::find_by_sql($sql);
@@ -131,7 +132,12 @@ abstract class Database_Object {
 		// More dynamic, short-form approach:
 		foreach($record as $attribute=>$value){
 		  if($object->has_attribute($attribute)) {
-		    $object->$attribute = $value;
+		  
+		  	//auto-default all to uppercase first letter of each word unless if in ignore field
+			if(in_array($attribute, static::$fields_to_ignore))
+				$object->$attribute = $value;
+			else
+				$object->$attribute = ucwords($value);
 		    
 		    //if we see an attribute that is greater than 3 characters long
 		    //AND the attribute's last 3 characters are '_wk'
@@ -172,7 +178,11 @@ abstract class Database_Object {
 		// sanitize the values before submitting
 		// Note: does not alter the actual value of each attribute
 		foreach($this->attributes() as $key => $value){
-	    	$clean_attributes[$key] = $database->escape_value($value);
+			//auto-default all to lowercase EXCEPT the ones defined above
+			if(in_array($key, static::$fields_to_ignore))
+				$clean_attributes[$key] = $database->escape_value($value);
+			else
+				$clean_attributes[$key] = strtolower($database->escape_value($value));
 		}
 		return $clean_attributes;
 	}
@@ -201,26 +211,30 @@ abstract class Database_Object {
 		$sql .= join("', '", array_values($attributes));
 		$sql .= "');";
 		$database->query($sql);
-		return ($database->insert_id()) ? true : false;
+		return ($database->affected_rows() == 1) ? true : false;
 	}
 	
 	public function update() {
 		//updates status to database
 		global $database;
 		
-		//cleanse the attributes
-		$attributes = $this->sanitized_attributes();
-		
 		//update the last_update_dt if the database has that field
 		if(in_array("last_update_dt", static::$db_fields)) 
 			$this->last_update_dt = current_timestamp();
 		
+		//cleanse the attributes
+		$attributes = $this->sanitized_attributes();
+		
 		//form everything into a string
 		$attribute_pairs = array();
 		foreach($attributes as $key => $value) {
-			$attribute_pairs[] = "`{$key}`='{$value}'";
+			//auto-default all to lowercase EXCEPT username
+			if(in_array($key, static::$fields_to_ignore))
+				$attribute_pairs[] = "`{$key}`='{$value}'";
+			else
+				$attribute_pairs[] = "`{$key}`='".strtolower($value)."'";
 		}
-		
+
 		//dynamically create the query
 		$sql = "UPDATE `".static::$table_name."` SET ";
 		$sql .= join(", ", $attribute_pairs);

@@ -65,7 +65,6 @@
 			if($new_user->save()) {
 				$session->message("Your account was created successfully!");
 				redirect_head(ROOT_URL."login.php");
-				die();
 			} else {
 				$session->message("Your account was not created successfully.");
 			}
@@ -78,7 +77,7 @@
 	?>
 	
 	<!-- create new user form -->
-	<form id="create_new_user" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+	<form id="create_new_user" action="<?php echo file_name_with_get(); ?>" method="post">
 		username: <input type="text" name="username" value="<?php if(isset($new_user)) echo $new_user->username; ?>" /> <br />
 		email address: <input type="text" name="email_address" value="<?php if(isset($new_user)) echo $new_user->email_address; ?>" /> <br />
 		password: <input type="password" name="password" /> <br />
