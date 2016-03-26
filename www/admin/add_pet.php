@@ -10,7 +10,7 @@
 	// this page allows ADMINs and STAFFs to add new pets
 	
 	
-	/* Update Pets */
+	/* Add Pet */
 	
 	
 	// Add the pet if the form is submitted
@@ -69,7 +69,7 @@
 			redirect_head(current_url());
 		}
 		
-		redirect_head(current_url."?pet_wk={$new_pet_wk}");
+		redirect_head(current_url()."?pet_wk={$new_pet_wk}");
 	}
 	
 	
