@@ -10,7 +10,7 @@
 	// this page allows ADMINs and STAFFs to add new pets
 	
 	
-	/* Update Pets */
+	/* Add Pet */
 	
 	
 	// Add the pet if the form is submitted

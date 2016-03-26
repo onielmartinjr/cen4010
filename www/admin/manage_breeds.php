@@ -10,7 +10,10 @@
 	// this page allows ADMINs and STAFFs to view breeds, create new breeds,
 	// update current breeds and delete current breeds
 
-	
+	// debug
+	echo "<pre>";
+	print_r($_POST);
+	echo "</pre>";
 	
 	/* Update Fields */
 	// Loop through each of the pet types and update the name or breeds
@@ -19,6 +22,7 @@
 	foreach ($pet_types_array as $type) 
 	{
 		$type_name = str_replace(' ', '_', $type->name); // clean the name
+		
 		/* if Pet_Type name is being updated */
 		if (isset($_POST["submit_".$type_name."_name"]))
 		{
@@ -54,14 +58,122 @@
 			}
 		}
 		
-		/* if Pet_Type breed(s) is/are being updated */
+		
+		/* if Pet_Type is being deleted */
+		if (isset($_POST["delete_".$type_name."_name"]))
+		{
+			$success = true; // track successful breed deletions
+			
+			// Reassign all of the pets associated with each of the breeds
+			// associated with this pet type first. Then
+			// delete all of the breeds associated to this pet type. Then
+			// actually delete the pet type.
+			$assoc_breeds = Breed::find_by_sql("SELECT * FROM `".Breed::$table_name."` WHERE `pet_type_wk` = ".$type->pet_type_wk.";");
+			foreach ($assoc_breeds as $breed)
+			{
+				// get all pets associated with this breed
+				$assoc_pets = Pet::find_by_sql("SELECT * FROM `".Pet::$table_name."` WHERE `breed_wk` = ".$breed->breed_wk.";");
+				foreach ($assoc_pets as $pet)
+				{
+					// reassign the pet to undefined breed and undefined type
+					$pet->breed_wk = 0;
+					
+					if ($pet->save())
+					{
+						$session->message($session->message.$pet->name." now has an undefined breed and type.<br />");
+					}
+					else
+					{
+						$success = false;
+						$session->message($session->message.$pet->type." was not successfully redefined.<br />");
+					}
+				}
+				
+				// now delete the breed
+				if ($breed->delete())
+				{
+					$session->message($session->message.$breed->name." has been successfully deleted.<br />");
+				}
+				else
+				{
+					$success = false;
+					$session->message($session->message.$breed->name." was not successfully deleted.<br />");
+				}
+			}
+			
+			if ($success)
+			{
+				if ($type->delete())
+				{
+					$session->message($session->message.$type->name." was successfully deleted!<br />");
+				}
+				else
+				{
+					$session->message($session->message.$type->name." was not successfully deleted. Please try again.<br />");
+				}
+			}
+			else
+			{
+				$session->message($session->message.$type->name." cannot be deleted due to remaining associated breeds and/or pets.<br />");
+			}
+			
+			redirect_head(current_url());
+		}
+		
+		
+		/* if Pet_Type breed(s) is/are being updated or deleted*/
 		if (isset($_POST["submit_".$type->name."_breeds"]))
 		{
 			$breeds_array = Breed::find_by_sql("SELECT * FROM `".Breed::$table_name."` WHERE `pet_type_wk` = ".$type->pet_type_wk.";");
 			foreach ($breeds_array as $breed) 
 			{
+				// check if the breed is being deleted
+				if (isset($_POST["delete_".$breed->breed_wk]))
+				{
+					$success = true; // tracks if pets are successfully saved
+					// Reassign all pets associated with this breed to the undefined
+					// breed associated with the pet type
+					$undefined_breed = Breed::find_by_sql("SELECT * FROM `".Breed::$table_name."` WHERE `pet_type_wk` = ".$breed->pet_type_wk." AND `name` = 'undefined' LIMIT 1;");
+					if (!$undefined_breed) // if no undefined breed for this pet type
+					{
+						$undefined_breed = Breed::find_by_id("0");
+					}
+					$pets_array = Pet::find_by_sql("SELECT * FROM `".Pet::$table_name."` WHERE `breed_wk` = ".$breed->breed_wk.";");
+					
+					foreach ($pets_array as $pet)
+					{
+						$pet->breed_wk = $undefined_breed->breed_wk;
+						
+						if ($pet->save())
+						{
+							$session->message($session->message.$pet->name."'s breed has been successfully beed reassigned to undefined.<br />");
+						}
+						else
+						{
+							$success = false;
+							$session->message($session->message.$pet->name."'s breed was not able to be reassigned.<br />");
+						}
+					}
+					
+					// now delete the actual breed
+					if ($success)
+					{
+						if ($breed->delete())
+						{
+							$session->message($session->message."The breed {$breed->name} was successfully deleted!<br />");
+						}
+						else
+						{
+							$session->message($session->message."The breed {$breed->name} was not deleted. Please try again.<br />");
+						}
+					} 
+					else
+					{
+						$session->message($session->message."Unable to delete the {$breed->name} breed because pets are still associated with it.<br />");
+					}
+				}
 				// check if the name is being updated
-				if ($breed->name != $_POST["{$breed->breed_wk}"])
+				elseif ($breed->name != $_POST["{$breed->breed_wk}"])
 				{
 					// check if empty
 					if (empty($_POST["{$breed->breed_wk}"]))
@@ -89,6 +201,7 @@
 				}
 			}
 			
+			
 			/* if Pet_Type's breed is being added */
 			if ($_POST["new_breed"] != "")
 			{	
@@ -115,6 +228,7 @@
 			redirect_head(ROOT_URL."admin/manage_breeds.php");
 		}
 		
+		
 		/* If Pet_Type is being added */
 		if (isset($_POST["add_pet_type"]))
 		{
@@ -140,6 +254,8 @@
 	require_once ("../requires/template/header.php");
 	
 
+	/* Form */
+	
 	// Loop through all of the breeds organized by pet type and create a form 
 	// to update their names. No delete functionality yet. Admin must ensure
 	// no pets are associated to a particular breed or pet type before hard delete.
@@ -150,16 +266,18 @@
 		echo "<label style=\"text-transform:capitalize; font-size:30px; font-weight:bold;\">{$type->name}</label>"; 
 		echo "update to:<input type=\"text\" name=\"pet_type_name\" value=\"".$type->name."\" />";
 		echo "<input type=\"submit\" value=\"Update Pet Type\" name=\"submit_".$type->name."_name\"/>";
+		echo "<input type=\"submit\" value=\"Delete Pet Type\" name=\"delete_".$type->name."_name\"/>";
 		echo "</form><br /><br />";
 		
 		$breeds_array = Breed::find_by_sql("SELECT * FROM `".Breed::$table_name."` WHERE `pet_type_wk` = ".$type->pet_type_wk.";");
 		
-		// update form
+		// update/delete form
 		echo "<form action=\"".file_name_with_get()."\" method=\"post\">";
 		$count = count($breeds_array);
 		for ($i = 0; $i < $count; $i++)
 		{
-			echo $i+1 . ": <input type=\"text\" name=\"".$breeds_array[$i]->breed_wk."\" value=\"".$breeds_array[$i]->name."\"><br />";
+			echo $i+1 . ": <input type=\"text\" name=\"".$breeds_array[$i]->breed_wk."\" value=\"".$breeds_array[$i]->name."\">";
+			echo "Delete:<input type=\"checkbox\" name=\"delete_".$breeds_array[$i]->breed_wk."\" value=\"delete\" /><br />";
 		}
 		echo "Add new breed:<input type=\"text\" name=\"new_breed\" value=\"\"><br />";
 		echo "<input type=\"submit\" value=\"save\" name=\"submit_".$type->name."_breeds\"/>";
