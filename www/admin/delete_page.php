@@ -25,13 +25,6 @@
 		redirect_head(ROOT_URL);
 	}
 	
-	// check if the page is deleted
-	if ($page_found->is_deleted == "1") 
-	{
-		$session->message("The page you are trying to delete has already been deleted.");
-		redirect_head(ROOT_URL);
-	}
-	
 	//make sure we're not deleting the home page or about us page
 	if ($page_found == '1' || $page_found == '2') {
 		$session->message("You cannot delete the following page: ".$page_found->name.".");
