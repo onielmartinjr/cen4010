@@ -82,7 +82,7 @@
 		redirect_head(file_name_without_get());
 		
 	}
-	
+
 	//grab the set of pets to display
 	$sql = "SELECT `p`.* FROM `pet` AS `p` ";
 	$sql .= "INNER JOIN `breed` AS `b` ON `b`.`breed_wk` = `p`.`breed_wk` ";
