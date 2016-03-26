@@ -93,14 +93,21 @@
 			$all_vacs = implode(",", $vacs);
 			$sql .= $all_vacs.";";
 		
+<<<<<<< HEAD
 			//if there is an issue updating, immediately redirect
 			if(!$database->query($sql)) {
 				$session->message("There was an issue adding the pet; please try again.");
 				redirect_head(ROOT_URL."admin/".file_name_with_get());
 			}
+=======
+		//if there is an issue updating, immediately redirect
+		if(!$database->query($sql)) {
+			$session->message("There was an issue adding the pet; please try again.");
+			redirect_head(current_url());
+>>>>>>> d23702022ebc3b6135654f81b254c00370e20a09
 		}
 		
-		redirect_head(ROOT_URL."view_pet.php?pet_wk={$new_pet_wk}");
+		redirect_head(current_url."?pet_wk={$new_pet_wk}");
 	}
 	
 	
