@@ -17,6 +17,7 @@
 		public $pet_order_by;
 		public $user_where;
 		public $user_order_by;
+		public $login_attempt;
 		
 		function __construct() {
 			session_start();
