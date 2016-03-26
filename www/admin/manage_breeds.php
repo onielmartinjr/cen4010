@@ -10,7 +10,10 @@
 	// this page allows ADMINs and STAFFs to view breeds, create new breeds,
 	// update current breeds and delete current breeds
 
-	
+	// debug
+	echo "<pre>";
+	print_r($_POST);
+	echo "</pre>";
 	
 	/* Update Fields */
 	// Loop through each of the pet types and update the name or breeds
@@ -19,6 +22,7 @@
 	foreach ($pet_types_array as $type) 
 	{
 		$type_name = str_replace(' ', '_', $type->name); // clean the name
+		
 		/* if Pet_Type name is being updated */
 		if (isset($_POST["submit_".$type_name."_name"]))
 		{
@@ -53,6 +57,69 @@
 				}
 			}
 		}
+		
+		
+		/* if Pet_Type is being deleted */
+		if (isset($_POST["delete_".$type_name."_name"]))
+		{
+			$success = true; // track successful breed deletions
+			
+			// Reassign all of the pets associated with each of the breeds
+			// associated with this pet type first. Then
+			// delete all of the breeds associated to this pet type. Then
+			// actually delete the pet type.
+			$assoc_breeds = Breed::find_by_sql("SELECT * FROM `".Breed::$table_name."` WHERE `pet_type_wk` = ".$type->pet_type_wk.";");
+			foreach ($assoc_breeds as $breed)
+			{
+				// get all pets associated with this breed
+				$assoc_pets = Pet::find_by_sql("SELECT * FROM `".Pet::$table_name."` WHERE `breed_wk` = ".$breed->breed_wk.";");
+				foreach ($assoc_pets as $pet)
+				{
+					// reassign the pet to undefined breed and undefined type
+					$pet->breed_wk = 0;
+					
+					if ($pet->save())
+					{
+						$session->message($session->message.$pet->name." now has an undefined breed and type.<br />");
+					}
+					else
+					{
+						$success = false;
+						$session->message($session->message.$pet->type." was not successfully redefined.<br />");
+					}
+				}
+				
+				// now delete the breed
+				if ($breed->delete())
+				{
+					$session->message($session->message.$breed->name." has been successfully deleted.<br />");
+				}
+				else
+				{
+					$success = false;
+					$session->message($session->message.$breed->name." was not successfully deleted.<br />");
+				}
+			}
+			
+			if ($success)
+			{
+				if ($type->delete())
+				{
+					$session->message($session->message.$type->name." was successfully deleted!<br />");
+				}
+				else
+				{
+					$session->message($session->message.$type->name." was not successfully deleted. Please try again.<br />");
+				}
+			}
+			else
+			{
+				$session->message($session->message.$type->name." cannot be deleted due to remaining associated breeds and/or pets.<br />");
+			}
+			
+			redirect_head(current_url());
+		}
+		
 		
 		/* if Pet_Type breed(s) is/are being updated */
 		if (isset($_POST["submit_".$type->name."_breeds"]))
@@ -89,6 +156,7 @@
 				}
 			}
 			
+			
 			/* if Pet_Type's breed is being added */
 			if ($_POST["new_breed"] != "")
 			{	
@@ -114,6 +182,7 @@
 			
 			redirect_head(ROOT_URL."admin/manage_breeds.php");
 		}
+		
 		
 		/* If Pet_Type is being added */
 		if (isset($_POST["add_pet_type"]))
@@ -150,6 +219,7 @@
 		echo "<label style=\"text-transform:capitalize; font-size:30px; font-weight:bold;\">{$type->name}</label>"; 
 		echo "update to:<input type=\"text\" name=\"pet_type_name\" value=\"".$type->name."\" />";
 		echo "<input type=\"submit\" value=\"Update Pet Type\" name=\"submit_".$type->name."_name\"/>";
+		echo "<input type=\"submit\" value=\"Delete Pet Type\" name=\"delete_".$type->name."_name\"/>";
 		echo "</form><br /><br />";
 		
 		$breeds_array = Breed::find_by_sql("SELECT * FROM `".Breed::$table_name."` WHERE `pet_type_wk` = ".$type->pet_type_wk.";");
