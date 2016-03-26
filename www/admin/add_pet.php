@@ -16,59 +16,42 @@
 	// Add the pet if the form is submitted
 	if(isset($_POST["submit"])) 
 	{ 
+		// debug
+		echo "<pre>";
+		print_r($_POST);
+		echo "</pre>";
+		
 		// create the new pet 
 		$new_pet = new Pet();
 		
 		// check for name
 		if (isset($_POST["name"]))
-		{
-			$new_pet->name = $_POST["name"];
-		}
-		else
-		{
-			$session->message("");
-		}
+		$new_pet->name = $_POST["name"];
 		
 		// check for breed/pet type
 		if (isset($_POST["breed"]))
-		{
-			$new_pet->breed_wk = $_POST["breed"];
-		}
+		$new_pet->breed_wk = $_POST["breed"];
 		
 		// check for color
-		if (isset($_POST["color"]))
-		{
-			$new_pet->color_wk = $_POST["color"];
-		}
+		$new_pet->color_wk = $_POST["color"];
 		
 		// check for status
-		if (isset($_POST["status"]))
-		{
-			$new_pet->status_wk = $_POST["status"];
-		}
+		$new_pet->status_wk = $_POST["status"];
 		
 		// check for age
-		if (isset($_POST["age"]))
-		{
-			$new_pet->age = $_POST["age"];
-		}
+		$new_pet->age = $_POST["age"];
 		
 		// check for weight 
-		if (isset($_POST["weight"]))
-		{
-			$new_pet->weight = $_POST["weight"];
-		}
+		$new_pet->weight = $_POST["weight"];
 		
 		// check for rescued
-		if (isset($_POST["rescued"]))
-		{
-			$new_pet->is_rescued = $_POST["rescued"];
-		}
+		$new_pet->is_rescued = $_POST["rescued"];
 		
 		// insert the new pet into the database
 		if ($new_pet->save())
-		{
+		{	
 			$session->message($new_pet->name." has been successfully added! ");
+			$new_pet_wk = $database->insert_id();
 		}
 		else
 		{
@@ -76,21 +59,19 @@
 		}
 		
 		// add appropriate vaccinations to the pet
-		if (isset($_POST["vaccination"]))
+		echo $database->insert_id();
+		foreach ($_POST["vaccination"] as $vac)
 		{
-			foreach ($_POST["vaccination"] as $vac)
-			{
-				$sql = "INSERT INTO `pet_to_vaccination` (`pet_to_vaccination_wk`, `pet_wk`, `vaccination_wk`, `create_dt`) ";
-				$sql .= "VALUES (NULL, '".$database->insert_id()."', '".$value."', CURRENT_TIMESTAMP);";
-			}
-			
-			//if there is an issue updating, immediately redirect
-			if(!$database->query($sql)) {
-				$session->message("There was an issue adding the pet; please try again.");
-				redirect_head(ROOT_URL."admin/".file_name_with_get());
-			}
+			echo $vac."<br />";
+			$sql = "INSERT INTO `pet_to_vaccination` (`pet_to_vaccination_wk`, `pet_wk`, `vaccination_wk`, `create_dt`) ";
+			$sql .= "VALUES (NULL, '".$new_pet_wk."', '".$vac."', CURRENT_TIMESTAMP);";
 		}
 		
+		//if there is an issue updating, immediately redirect
+		if(!$database->query($sql)) {
+			$session->message("There was an issue adding the pet; please try again.");
+			redirect_head(ROOT_URL."admin/".file_name_with_get());
+		}
 	}
 	
 	
