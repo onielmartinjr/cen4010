@@ -26,4 +26,11 @@
 	//turn off all warnings
 	error_reporting(E_ALL ^ E_STRICT);
 	
+	//root base location
+	if($am_i_local) {
+		define("BASE",$_SERVER['DOCUMENT_ROOT']."/cen4010/www/");
+	} else {
+		define("BASE",$_SERVER['DOCUMENT_ROOT']);
+	}
+	
 ?>

@@ -2,7 +2,7 @@
 
 	//require the framework
 	require_once "../requires/initialize.php";
-	
+
 	$page = new Page();
 	$page->name = "Update Pet";
 	$page->is_admin_only = true;
@@ -39,6 +39,17 @@
 	$pets_vaccinations = array();
 	foreach($update_pet->vaccination AS $value) {
 		$pets_vaccinations[$value->vaccination_wk] = $value->vaccination_name;
+	}
+	
+	//check to see if they wish to use the default image
+	if(isset($_GET['use_default_image'])) {
+		if($_GET['use_default_image'] == 'true') {
+			$update_pet->image_wk = 0;
+			$update_pet->save();
+			
+			$session->message("The image was successfuly reset to the default.");
+			redirect_head(ROOT_URL."view_pet.php?pet_wk=".$update_pet->pet_wk);
+		}
 	}
 	
 	//with the form submission, basic process is:
@@ -129,7 +140,30 @@
 			}
 		}
 		
-		//update all new form fields
+		//now that we're done with the vaccinations, we need to proces the image
+		$default_image = new Image();
+		$default_image->get_form_data($_FILES['file_upload']);
+		
+		//if there is no file, that is fine - we can skip since we're updating
+		if(!(Image::$error_dictionary[$default_image->error] == 'No file.')) {
+			$default_image->check_errors(true);
+			//save the image record to the database
+			if(!$default_image->save()) {
+				$session->message("There was an issue: ".$database->last_error);
+				redirect_head(current_url());
+			}
+			//get the key, and associate it to the image record
+			$default_image->image_wk = $database->insert_id();
+			//now we move the file and save
+			$default_image->move_file();
+		
+			//if the image changed, set it
+			if($default_image) {
+				$update_pet->image_wk = $default_image->image_wk;
+			}
+		}
+		
+		//update all form fields
 		$update_pet->name = $_POST["name"];
 		$update_pet->breed_wk = $_POST["breed"];
 		$update_pet->color_wk = $_POST["color"];
@@ -158,9 +192,12 @@
 ?>
 
 	<!-- form -->
-	<form action="<?php echo file_name_with_get(); ?>" method="post">
+	<form action="<?php echo file_name_with_get(); ?>" enctype="multipart/form-data" method="post">
 		Name: <input type="text" name="name" value="<?php echo $update_pet->name; ?>"><br />
-		<p><em>IMAGE TO COME LATER</em></p>
+			<!-- default value needed for form -->
+			<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
+		Image: <input type="file" name="file_upload" /><br />
+			<a href="<?php echo current_url(); ?>&use_default_image=true" style="margin-left:3em;" >Use Default Image</a><br />
 		Breed: <select name="breed">
 				  <option value="0" <?php if($update_pet->breed_wk == '0') echo 'selected'; ?>>Undefined</option>
 				  <?php

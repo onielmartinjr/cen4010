@@ -99,7 +99,7 @@
 ?>
 
 	<h3><?php echo $pet->name; ?></h3>
-	<p><em>IMAGE TO COME LATER</em><br /></p>
+	<p><img src="uploads/<?php echo $pet->image_wk->filename; ?>"><br /></p>
 	<strong>Pet Type:</strong> <?php echo $pet->breed_wk->pet_type_wk->name; ?><br />
 	<strong>Breed:</strong> <?php echo $pet->breed_wk->name; ?><br />
 	<strong>Color:</strong> <?php echo $pet->color_wk->name; ?><br />

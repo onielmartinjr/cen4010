@@ -101,6 +101,7 @@
 		//there are pets to display
 		$page->body = "<table style=\"width:100%\">
 							<tr>
+								<th></th>
 								<th><a href=\"".file_name_without_get()."?toggle=name\">Name</a></th>
 								<th><a href=\"".file_name_without_get()."?toggle=pet_type\">Pet Type</a></th>		
 								<th><a href=\"".file_name_without_get()."?toggle=breed\">Breed</a></th>
@@ -121,6 +122,7 @@
 		//loop through all pets
 		foreach($pets as $value) {
 			$page->body .= "<tr>
+								<td><img src=\"uploads/".$value->image_wk->filename."\" style=\"width:75px;height:75px;\" ></td>
 								<td><a href=\"".ROOT_URL."view_pet.php?pet_wk=".$value->pet_wk."\">".$value->name."</a></td>
 								<td>".$value->breed_wk->pet_type_wk->name."</td>		
 								<td>".$value->breed_wk->name."</td>
