@@ -45,7 +45,7 @@
 				echo 'Users Only<br />';
 				echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/delete_user.php\">Delete my Account</a><br />";
 				echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/update_user.php\">Update my Account</a><br />";
-				echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/member1.php\">Member 1</a><br />";
+				echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/manage_watch_lists.php\">Manage Watch Lists</a><br />";
 				echo "<a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/logout.php\">Logout</a><br />";
 			}
 			

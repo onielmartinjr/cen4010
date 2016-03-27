@@ -8,14 +8,13 @@
 class Watch_List_Detail extends Database_Object {
 	
 	protected static $table_name = 'watch_list_detail';
-	protected static $db_fields = array('watch_list_detail_wk', 'watch_list_wk', 'watch_list_column_wk',
-										'value1', 'value2', 'create_dt');
+	protected static $db_fields = array('watch_list_detail_wk', 'watch_list_wk', 'column_name',
+										'value', 'create_dt');
 	
 	public $watch_list_detail_wk;
 	public $watch_list_wk;
-	public $watch_list_column_wk;
-	public $value1;
-	public $value2;
+	public $column_name;
+	public $value;
 	public $create_dt;
 	
 }

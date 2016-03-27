@@ -38,7 +38,6 @@
 	require_once "database_classes/user.php";
 	require_once "database_classes/vaccination.php";
 	require_once "database_classes/watch_list.php";
-	require_once "database_classes/watch_list_column.php";
 	require_once "database_classes/watch_list_detail.php";
 	
 	/*******************************
