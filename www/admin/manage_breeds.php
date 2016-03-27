@@ -30,14 +30,14 @@
 			// check if empty
 			if (empty($_POST["pet_type_name"]))
 			{
-				$session->message("The pet type must have a value to be updated! ");
+				$session->message("The pet type must have a value to be updated!<br />");
 				redirect_head(ROOT_URL."admin/manage_breeds.php");
 			}
 			
 			// check if the Pet Type already exists
 			if (Pet_Type::find_by_name($_POST["pet_type_name"], "name"))
 			{
-				$session->message("The pet type you are trying to update already exists! ");
+				$session->message("The pet type you are trying to update already exists!<br />");
 				redirect_head(ROOT_URL."admin/manage_breeds.php");
 			}
 		
@@ -47,12 +47,12 @@
 				$type->name = $_POST["pet_type_name"];
 				if ($type->save())
 				{
-					$session->message("The pet type has been successfully updated to ".$type->name."! ");
+					$session->message("The pet type has been successfully updated to ".$type->name."!<br />");
 					redirect_head(ROOT_URL."admin/manage_breeds.php");
 				}
 				else
 				{
-					$session->message("The pet type name cannot be updated at this time. ");
+					$session->message("The pet type name cannot be updated at this time.<br />");
 					redirect_head(ROOT_URL."admin/manage_breeds.php");
 				}
 			}
@@ -136,24 +136,16 @@
 					$undefined_breed = Breed::find_by_sql("SELECT * FROM `".Breed::$table_name."` WHERE `pet_type_wk` = ".$breed->pet_type_wk." AND `name` = 'undefined' LIMIT 1;");
 					if (!$undefined_breed) // if no undefined breed for this pet type
 					{
-						$undefined_breed = Breed::find_by_id("0");
+						$undefined_breed = Breed::find_by_id(0);
 					}
-					$pets_array = Pet::find_by_sql("SELECT * FROM `".Pet::$table_name."` WHERE `breed_wk` = ".$breed->breed_wk.";");
 					
-					foreach ($pets_array as $pet)
-					{
-						$pet->breed_wk = $undefined_breed->breed_wk;
-						
-						if ($pet->save())
-						{
-							$session->message($session->message.$pet->name."'s breed has been successfully beed reassigned to undefined.<br />");
-						}
-						else
-						{
-							$success = false;
-							$session->message($session->message.$pet->name."'s breed was not able to be reassigned.<br />");
-						}
-					}
+					// debug
+					echo "undefined breed = ";
+					echo "<pre>";
+					print_r($undefined_breed);
+					echo "</pre><br />";
+					
+					$database->query("UPDATE `".Pet::$table_name."` SET `breed_wk` = ".$undefined_breed[0]->breed_wk." WHERE `breed_wk` = ".$breed->breed_wk.";");					
 					
 					// now delete the actual breed
 					if ($success)
@@ -185,30 +177,30 @@
 					// check if the breed already exists for this pet type
 					if (Breed::find_by_sql("SELECT * FROM `".Breed::$table_name."` WHERE `pet_type_wk` = ".$type->pet_type_wk." AND `name` = '".$_POST["{$breed->breed_wk}"]."';"))
 					{
-						$session->message($session->message."The breed ".$_POST["{$breed->breed_wk}"]." already exists and was not updated. ");
+						$session->message($session->message."The breed ".$_POST["{$breed->breed_wk}"]." already exists and was not updated.<br />");
 					}
 					$breed->name = $_POST["{$breed->breed_wk}"];
 					
 					// update the breed name
 					if ($breed->save())
 					{
-						$session->message($session->message."Breed was successfully updated to ".$breed->name."! ");
+						$session->message($session->message."Breed was successfully updated to ".$breed->name."!<br />");
 					}
 					else
 					{
-						$session->message($session->message."Breed cannot be updated to ".$breed->name." at this time. ");
+						$session->message($session->message."Breed cannot be updated to ".$breed->name." at this time.<br />");
 					}
 				}
 			}
 			
 			
-			/* if Pet_Type's breed is being added */
+			/* if breed is being added to a pet type*/
 			if ($_POST["new_breed"] != "")
 			{	
 				// check if the breed already exists for this pet type
 				if (Breed::find_by_sql("SELECT * FROM `".Breed::$table_name."` WHERE `pet_type_wk` = ".$type->pet_type_wk." AND `name` = '".$_POST["new_breed"]."';"))
 				{
-					$session->message($session->message."The breed ".$_POST["new_breed"]." already exists and was not added. ");
+					$session->message($session->message."The breed ".$_POST["new_breed"]." already exists and was not added.<br />");
 				}
 				
 				// add new breed
@@ -217,11 +209,11 @@
 				$new_breed->pet_type_wk = $type->pet_type_wk;
 				if ($new_breed->save())
 				{
-					$session->message($session->message."Breed ".$new_breed->name." was successfully added! ");
+					$session->message($session->message."Breed ".$new_breed->name." was successfully added!<br />");
 				}
 				else
 				{
-					$session->message($session->message."Breed ".$new_breed->name." cannot be added at this time. ");
+					$session->message($session->message."Breed ".$new_breed->name." cannot be added at this time.<br />");
 				}
 			}
 			
@@ -237,12 +229,28 @@
 			
 			if ($new_pet_type->save())
 			{
-				$session->message($session->message."The new pet type {$new_pet_type->name} was successfully created! ");
+				// get the new pet type's wk
+				$new_wk = $database->insert_id();
+				
+				// create an undefined breed for the new pet type
+				$undefined_breed = new Breed();
+				$undefined_breed->name = "undefined";
+				$undefined_breed->pet_type_wk = $new_wk;
+				if ($undefined_breed->save())
+				{
+					$session->message($session->message."New undefined breed created for new pet type.<br />");
+				}
+				else
+				{
+					$session->message($session->message."Creation of undefined breed for new pet type was unsuccessful.<br />");
+				}
+				
+				$session->message($session->message."The new pet type {$new_pet_type->name} was successfully created!<br />");
 				redirect_head(current_url());
 			}
 			else
 			{
-				$session->message("The new pet type was not successfully created. Please try again. ");
+				$session->message("The new pet type was not successfully created. Please try again.<br />");
 				redirect_head(current_url());
 			}
 		}
