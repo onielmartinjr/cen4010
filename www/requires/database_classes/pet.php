@@ -182,12 +182,17 @@ function generate_pet_order_by() {
 }
 
 //function to display the pet table based on results
-function display_pet_table($sql) {
+function display_pet_table($sql, $is_folder = false) {
 	global $database;
 	global $session;
 	$return = "";
 	
 	$pets = Pet::find_by_sql($sql);
+	
+	//debug
+	echo "<pre>";
+	print_r($pets);
+	echo "</pre>";
 	
 	//only display the table with results if
 	//there are more than 0 pets
@@ -216,7 +221,10 @@ function display_pet_table($sql) {
 		//loop through all pets
 		foreach($pets as $value) {
 			$return .= "<tr>
-								<td><img src=\"uploads/".$value->image_wk->filename."\" style=\"width:75px;height:75px;\" ></td>
+								<td><img src=\"";
+				if($is_folder) 
+					$return .= 	"../";
+			$return .= 			"uploads/".$value->image_wk->filename."\" style=\"width:75px;height:75px;\" ></td>
 								<td><a href=\"".ROOT_URL."view_pet.php?pet_wk=".$value->pet_wk."\">".$value->name."</a></td>
 								<td>".$value->breed_wk->pet_type_wk->name."</td>		
 								<td>".$value->breed_wk->name."</td>

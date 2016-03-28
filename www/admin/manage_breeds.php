@@ -9,11 +9,7 @@
 	$page->is_admin_only = true;
 	// this page allows ADMINs and STAFFs to view breeds, create new breeds,
 	// update current breeds and delete current breeds
-
-	// debug
-	echo "<pre>";
-	print_r($_POST);
-	echo "</pre>";
+	
 	
 	/* Update Fields */
 	// Loop through each of the pet types and update the name or breeds
