@@ -181,6 +181,7 @@ function generate_pet_order_by() {
 	return $sql;
 }
 
+
 //function to display the pet table based on results
 function display_pet_table($sql, $is_folder = false) {
 	global $database;
@@ -188,11 +189,16 @@ function display_pet_table($sql, $is_folder = false) {
 	$return = "";
 	
 	$pets = Pet::find_by_sql($sql);
+	$sql  = "SELECT * FROM `pet_wish_list` WHERE `user_wk` = ".$session->user_wk.";";
+	$pwl  = Pet_Wish_List::find_by_sql($sql);
 	
-	//debug
-	echo "<pre>";
-	print_r($pets);
-	echo "</pre>";
+	// loop through all of the pet wish list elements (if any) and get their wk's
+	$wish_array = array();
+	foreach ($pwl as $wish_elem)
+	{
+		$wish_array[] = $wish_elem->pet_wk->pet_wk;
+	}
+	
 	
 	//only display the table with results if
 	//there are more than 0 pets
@@ -217,13 +223,13 @@ function display_pet_table($sql, $is_folder = false) {
 		}
 			
 		$return .= "</tr>";
-							
+		
+		
 		//loop through all pets
 		foreach($pets as $value) {
-			$return .= "<tr>
+			$return .= "<tr id=\"".$value."_row\">
 								<td><img src=\"";
-				if($is_folder) 
-					$return .= 	"../";
+			if($is_folder) 		$return .= 	"../";
 			$return .= 			"uploads/".$value->image_wk->filename."\" style=\"width:75px;height:75px;\" ></td>
 								<td><a href=\"".ROOT_URL."view_pet.php?pet_wk=".$value->pet_wk."\">".$value->name."</a></td>
 								<td>".$value->breed_wk->pet_type_wk->name."</td>		
@@ -233,6 +239,19 @@ function display_pet_table($sql, $is_folder = false) {
 								<td>".$value->age."</td>
 								<td>".$value->weight."</td>
 								<td>".date("m/d/Y h:i A", strtotime($value->create_dt))."</td>";
+			
+			// quick option to add/remove pet from wish list
+			if ($session->is_logged_in)
+			{	
+				if (in_array($value->pet_wk, $wish_array)) // if the pet is already on the wish list
+				{
+					$return .= "<td><input id=\"".$value->pet_wk."\" type=\"button\" onclick=\"wish_list(".$value->pet_wk.", this.id)\" value=\"Remove from Wish List\" /></td>";
+				}
+				else // if the pet is not on the wish list
+				{
+					$return .= "<td><input id=\"".$value->pet_wk."\" type=\"button\" onclick=\"wish_list(".$value->pet_wk.", this.id)\" value=\"Add to Wish List!\" /></td>";
+				}
+			}
 			
 			//if you're an admin or staff, display the ability to
 			//immediately update the pet
