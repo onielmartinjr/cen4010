@@ -22,8 +22,9 @@ class Page extends Database_Object {
 	public $is_user_only;
 	public $is_admin_only;
 	
-	//this is solely used to keep track of additional styles needed per page
+	//this is solely used to keep track of additional code needed per page
 	public $style;
+	public $script;
 	
 }
 

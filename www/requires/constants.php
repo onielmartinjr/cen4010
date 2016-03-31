@@ -12,8 +12,8 @@
 		define("DB_HOST","localhost");
 		define("ROOT_URL","http://localhost/cen4010/www/");
 		define("DB_USER","root");
-		define("DB_PASSWORD","omandcm1");
-		define("DB_DB","cen4010");
+		define("DB_PASSWORD","microwave");
+		define("DB_DB","cen_4010");
 	} else {
 		//for the internet
 		define("DB_HOST","localhost");

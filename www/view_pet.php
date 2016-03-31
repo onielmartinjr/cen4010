@@ -6,6 +6,38 @@
 	//construct the page
 	$page = new Page();
 	$page->name = "View a Pet";
+	//set the AJAX code
+	$page->script = "<script>
+		function wish_list(pet, clicked_id)
+		{
+			var doc_root = \"".ROOT_URL."\";
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (xhttp.readyState == 4 && xhttp.status == 200)
+				{	
+					var response = xhttp.responseText.trim();
+					var msg_elem = document.getElementById(\"ajax_message\");
+					var wl_button = document.getElementById(clicked_id);
+					
+					// display the message
+					msg_elem.innerHTML = response;
+					
+					// change the text of the button
+					if (wl_button.innerHTML == \"Add to Wish List!\") // if the pet was added, change to delete
+					{
+						wl_button.innerHTML = \"Remove from Wish List\";
+					}
+					else // if the pet was deleted, remove row from the table
+					{
+						wl_button.innerHTML = \"Add to Wish List!\";
+					}
+				}
+			};
+			xhttp.open(\"GET\", doc_root + \"ajax_wish_list.php?p=\" + pet, true);
+			xhttp.send();
+		};
+
+		</script>";
 	
 	// check if pet_wk is set
 	if (!isset($_GET["pet_wk"])) 
@@ -100,6 +132,8 @@
 
 	<h3><?php echo $pet->name; ?></h3>
 	<p><img src="uploads/<?php echo $pet->image_wk->filename; ?>"><br /></p>
+	<p id="ajax_message" style="color: red; font-family: courier;"></p><br />
+	<button id="add_wl" onclick="wish_list(<?php echo $pet->pet_wk ?>, 'add_wl')">Add to Wish List!</button><br />
 	<strong>Pet Type:</strong> <?php echo $pet->breed_wk->pet_type_wk->name; ?><br />
 	<strong>Breed:</strong> <?php echo $pet->breed_wk->name; ?><br />
 	<strong>Color:</strong> <?php echo $pet->color_wk->name; ?><br />
