@@ -18,6 +18,39 @@
 						tr:nth-child(even) {background: #DDD}
 						tr:nth-child(odd) {background: #FFF}
 					</style>";
+					
+	//set the AJAX code
+	$page->script = "<script>
+function wish_list(pet, clicked_id)
+{
+	var doc_root = \"".ROOT_URL."\";
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200)
+		{	
+			var response = xhttp.responseText.trim();
+			var msg_elem = document.getElementById(\"ajax_message\");
+			var wl_button = document.getElementById(clicked_id);
+			
+			// display the message
+			msg_elem.innerHTML = response;
+			
+			// change the text of the button
+			if (wl_button.value == \"Add to Wish List!\") // if the pet was added, change to delete
+			{
+				wl_button.value = \"Remove from Wish List\";
+			}
+			else // if the pet was deleted, change to add
+			{
+				wl_button.value = \"Add to Wish List!\";
+			}
+		}
+	};
+	xhttp.open(\"GET\", doc_root + \"ajax_wish_list.php?p=\" + pet, true);
+	xhttp.send();
+};
+
+</script>";
 	
 	//if the filtering criteria is changed, process it here
 	if(isset($_POST['submit'])) {
@@ -99,6 +132,9 @@
 	
 	//include the header
 	require_once "requires/template/header.php";
+	
+	// temporary messages section
+	 echo "<p id=\"ajax_message\" style=\"color: red; font-family: courier;\"></p>";
 
 ?>
 
