@@ -8,7 +8,6 @@
 
 	<title><?php echo (isset($website_settings['organization_name']) ? 
 		$website_settings['organization_name'].' - ' : '').$page->name; ?></title>
-	<script src="<?php echo ROOT_URL."requires/template/jquery.js"; ?>"></script>
 	<style>
 		a:link{color:#3522f4}
 		a:active{color:#3522f4}
