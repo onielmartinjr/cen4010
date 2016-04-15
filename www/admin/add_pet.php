@@ -111,14 +111,14 @@
 ?>
 	
 	
-	<h2>Add a Pet</h2>
 	
-	<form action="<?php echo file_name_with_get(); ?>" enctype="multipart/form-data" method="post">
-		Name:<input type="text" name="name" value=""/><br />
+	<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_with_get(); ?>" enctype="multipart/form-data" method="post" ><fieldset class="registration-form">
+		<h3>Add a Pet</h3><br>
+		Name: <br><div class="form-group"><input type="text" class="form-control" name="name" value=""/></div>
 		<!-- default value needed for form -->
-			<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
-		Image: <input type="file" name="file_upload" /><br />
-		Breed: <select name="breed">
+			<input type="hidden" class="form-control" name="MAX_FILE_SIZE" value="10000000" />
+		Image:  <br><div class="form-group"><input type="file" class="btn btn-default btn-file btn-md" name="file_upload" /></div>
+		Breed:  <br><div class="form-group"><select name="breed" class="form-control"></div>
 				  <option value="0">Undefined</option>
 				  <?php
 				  		
@@ -136,8 +136,8 @@
 				  		}
 				  		
 				  ?>
-			   </select><br />
-		Color: <select name="color">
+			   </select></div>
+		Color:  <br><div class="form-group"><select name="color" class="form-control">
 					<option value="0">Undefined</option>
 				  <?php
 				  		
@@ -151,8 +151,8 @@
 				  		}
 				  		
 				  ?>
-			   </select><br />
-		Status: <select name="status">
+			   </select></div>
+		Status:  <br><div class="form-group"><select name="status" class="form-control">
 					<option value="0" >Undefined</option>
 				  <?php
 				  		
@@ -166,10 +166,10 @@
 				  		}
 				  		
 				  ?>
-			   </select><br />
-		Age: <input type="text" name="age" value="0"><br />
-		Weight: <input type="text" name="weight" value="0.0"><br />
-		Vaccination(s): <br />
+			   </select></div>
+		Age:  <br><div class="form-group"><input type="text" name="age" class="form-control" value="0"></div>
+		Weight:  <br><div class="form-group"><input type="text" name="weight" class="form-control" value="0.0"></div>
+		Vaccination(s): <br>
 			<?php 
 	
 				//we need to display all available records
@@ -177,17 +177,17 @@
 				
 		 		//loop through all items
 		 		foreach($to_display AS $value) {
-		  			echo "<input style=\"margin-left:1.70em;\" type=\"checkbox\" name=\"vaccination[]\" value=\"".$value->vaccination_wk."\"";
-		  			echo "> ".$value->vaccination_name."<br />";
+		  			echo " <br><div class=\"form-group center\"><input style=\"margin-left:1.70em;\" type=\"checkbox\" class=\"form-control\" name=\"vaccination[]\" value=\"".$value->vaccination_wk."\"";
+		  			echo "> ".$value->vaccination_name."</div>";
 		  		}
 	
 			 ?>
-		Is it Rescued?: 
-			<input type="radio" name="rescued" value="1">Yes 
-			<input type="radio" name="rescued" value="0" checked>No<br />
+		Is it Rescued?:  <br><div class="form-group">
+			<input type="radio" name="rescued" value="1">&nbsp;&nbsp;Yes &nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" name="rescued" value="0" checked>&nbsp;&nbsp;No</div>
 
-		<input type="submit" value="submit" name="submit" />
-	</form>
+		<div class="form-group"><button type="submit" value="submit" name="submit" class="btn btn-success btn-md btn-block">Submit</button></div>
+	</fieldset></form></section>
 	
 
 <?php

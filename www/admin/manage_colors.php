@@ -128,21 +128,21 @@
 	require_once ("../requires/template/header.php");
 	
 ?>	
-	
-	<form action="<?php echo file_name_with_get(); ?>" method="post">
+	<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_with_get(); ?>" method="post" ><fieldset class="registration-form">
+		<h3>Manage Colors</h3><br>
 		<?php
 		$colors_array = Color::find_all();
 		$count = count($colors_array); 
 		
-		for ($i = 0; $i < $count; $i++)
-		{
-			echo $i+1 . ": <input type=\"text\" name=\"" . $i . "\" value=\"" . $colors_array[$i]->name . "\">";
-			echo "<a href=\"manage_colors.php?delete_color_wk=" . $colors_array[$i]->color_wk . "\">Delete</a><br />";
+		for ($i = 0; $i < $count; $i++){
+			echo "<div class=\"form-group\"><input type=\"text\" class=\"form-control\" name=\"" . $i . "\" value=\"" . $colors_array[$i]->name . "\">";
+			echo "<a href=\"manage_colors.php?delete_color_wk=" . $colors_array[$i]->color_wk . "\">Delete</a> </div>";
 		}
 		?>
-		Add new color:<input type="text" name="new_color" value=""><br />
-		<input type="submit" value="save" name="submit"/>
-	</form>
+		<br>
+		Add new color:<input type="text" name="new_color" class="form-control" value=""><br />
+		<div class="form-group"><button type="submit" value="submit" name="submit" class="btn btn-success btn-md btn-block">Submit</button></div>
+	</fieldset></form></section>
 	
 	
 <?php

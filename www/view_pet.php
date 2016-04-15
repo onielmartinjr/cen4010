@@ -128,12 +128,18 @@
 
 	require_once "requires/template/header.php";
 	
-?>
-
+?>	<section id="blog" class="container">
+	<div class="blog">
+	<div class="blog-item">
+	<img class="img-responsive img-blog" width="100%" src="uploads/<?php echo $pet->image_wk->filename; ?>">
+	<div class="blog-content">
+	<div class=\"entry-meta\">
+		<span><i class="icon-calendar">&nbsp; <?php echo date("m/d/Y h:i A", strtotime($pet->create_dt)); ?></i><span>
+		<span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-comment">&nbsp; <?php echo count($pet->comment); ?></i><span>
+	</div><br>
 	<h3><?php echo $pet->name; ?></h3>
-	<p><img src="uploads/<?php echo $pet->image_wk->filename; ?>"><br /></p>
-	<p id="ajax_message" style="color: red; font-family: courier;"></p><br />
-	<button id="add_wl" onclick="wish_list(<?php echo $pet->pet_wk ?>, 'add_wl')">Add to Wish List!</button><br />
+	<p id="ajax_message" style="color: red; font-family: courier;"></p>
+	<div class="form-group"> <button id="add_wl" class="btn btn-success btn-md col-xs-4" onclick="wish_list(<?php echo $pet->pet_wk ?>, 'add_wl')">Add to Wish List!</button><br /></div><br>
 	<strong>Pet Type:</strong> <?php echo $pet->breed_wk->pet_type_wk->name; ?><br />
 	<strong>Breed:</strong> <?php echo $pet->breed_wk->name; ?><br />
 	<strong>Color:</strong> <?php echo $pet->color_wk->name; ?><br />
@@ -156,14 +162,13 @@
 	<strong>Date Added:</strong> <?php echo date('F d, Y h:i:s A', strtotime($pet->create_dt)); ?><br />
 	<strong>Is it Rescued?:</strong> <?php echo ($pet->is_rescued == '1' ? 'Yes' : 'No'); ?><br />
 	
-
 <?php
 	
 	//display the links to update the pet for admins/staff
 	if(is_admin_or_staff()) {
-		echo "<br /><br />";
-		echo "<a href=\"".ROOT_URL."admin/update_pet.php?pet_wk=" . $pet->pet_wk . "\">Update Pet</a><br />";
-		echo "<a href=\"".ROOT_URL."admin/delete_pet.php?pet_wk=" . $pet->pet_wk . "\">Delete Pet</a>";
+		echo "<br>";
+		echo "<div class=\"form-group\"><a class=\"btn btn-success btn-md col-xs-4\" href=\"".ROOT_URL."admin/update_pet.php?pet_wk=" . $pet->pet_wk . "\">Update Pet</a></div><br><br>";
+		echo "<div class=\"form-group\"><a class=\"btn btn-success btn-md col-xs-4\" href=\"".ROOT_URL."admin/delete_pet.php?pet_wk=" . $pet->pet_wk . "\">Delete Pet</a></div><br>";
 	}
 	
 
@@ -172,36 +177,42 @@
 	
 		
 	//we're going to display the comments here
+	echo "<div id=\"comments\" >
+			<div id=\"comments-list\"><h3> ".count($pet->comment)." Comment(s)</h3>";
 	if(empty($pet->comment)) {
 		//if there are no comments for this pet
 		echo "<p><em>There are no comments.</em></p>";
 	} else {
 		//loop through each comment
-		foreach($pet->comment AS $value) {
-			echo "<p><strong>".$value->user_wk->username."</strong> @ ".date('m/d/y - h:i:s A', strtotime($value->create_dt));
+		foreach($pet->comment AS $value) { 
+		?>
 			
-			//flag comments section
-			//display the links to update the pet for admins/staff
-			if($session->is_logged_in)	{
-				echo " <a href=\"".file_name_with_get()."&flag_comment_wk=".$value->comment_wk."\"><img src=\"".ROOT_URL."requires/template/flag.png\" atl=\"Flag\"></a>";
-			}
-			
-			echo "<br />".$value->body;
-			echo "<p>";
+			<div class="media"><div class="pull-left"><img class="avatar img-circle" src="<?php echo ROOT_URL;?>/UI-links/images/blog/avatar3.png" alt=""></div>
+			<div class="media-body"><div class="well"><div class="media-heading"><strong><?php echo $value->user_wk->username; ?></strong>&nbsp; <small><?php echo date('m/d/y - h:i:s A', strtotime($value->create_dt)); ?> </small>
+			<div class="pull-right">
+			<?php if($session->is_logged_in){
+				echo "<a href=\"".file_name_with_get()."&flag_comment_wk=".$value->comment_wk."\"><img src=\"".ROOT_URL."requires/template/flag.png\" atl=\"Flag\"></a>";
+				} ?>
+			</div></div><p><?php echo $value->body; ?></p></div></div></div>
+		<?php
 		}
 	}
-	
+	echo "</div>";
 	
 	//now we're displaying the form to create new comments
 	//only display this form if the user is logged in
 	if($session->is_logged_in) {
-		echo "<br />
+		echo "
+		
 	<!-- form -->
-	<form action=\"".file_name_with_get()."\" method=\"post\">
-		<textarea name=\"body\" cols=\"45\" rows=\"5\" placeholder=\"enter a new comment\"/></textarea><br />
-		<input type=\"submit\" value=\"submit\" name=\"submit\"/>
-	</form>";
+	<div id=\"comment-form\" ><form action=\"".file_name_with_get()."\" method=\"post\">
+		<div width=\"100%\" ><div class=\"form-group\" ><textarea name=\"body\" style=\"resize: none; width:100%;\" class=\"form-control\" rows=\"5\" placeholder=\"enter a new comment\"/></textarea></div>
+		<input type=\"submit\" class=\"btn btn-danger\" value=\"submit\" name=\"submit\"/>
+	</form></div>";
+	
 	}
+	
+	echo '</div></div></div></section>';
 	
 	//include the footer
 	require_once "requires/template/footer.php";

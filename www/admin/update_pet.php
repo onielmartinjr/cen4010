@@ -192,13 +192,14 @@
 ?>
 
 	<!-- form -->
-	<form action="<?php echo file_name_with_get(); ?>" enctype="multipart/form-data" method="post">
-		Name: <input type="text" name="name" value="<?php echo $update_pet->name; ?>"><br />
+	<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_with_get(); ?>" enctype="multipart/form-data" method="post" ><fieldset class="registration-form">
+		<h3>Update Pet</h3><br>
+		Name: <br><div class="form-group"><input type="text" class="form-control" name="name" value="<?php echo $update_pet->name; ?>"></div>
 			<!-- default value needed for form -->
 			<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
-		Image: <input type="file" name="file_upload" /><br />
-			<a href="<?php echo current_url(); ?>&use_default_image=true" style="margin-left:3em;" >Use Default Image</a><br />
-		Breed: <select name="breed">
+		Image: <br><div class="form-group"><input type="file" name="file_upload" class="btn btn-default btn-file btn-md" /><br />
+			<a href="<?php echo current_url(); ?>&use_default_image=true" style="margin-left:3em;" >Use Default Image</a></div>
+		Breed: <br><div class="form-group"><select name="breed" class="form-control">
 				  <option value="0" <?php if($update_pet->breed_wk == '0') echo 'selected'; ?>>Undefined</option>
 				  <?php
 				  		
@@ -221,8 +222,8 @@
 				  		}
 				  		
 				  ?>
-			   </select><br />
-		Color: <select name="color">
+			   </select></div>
+		Color: <br><div class="form-group"><select name="color" class="form-control">
 					<option value="0" <?php if($update_pet->color_wk == '0') echo 'selected'; ?>>Undefined</option>
 				  <?php
 				  		
@@ -241,8 +242,8 @@
 				  		}
 				  		
 				  ?>
-			   </select><br />
-		Status: <select name="status">
+			   </select></div>
+		Status: <br><div class="form-group"><select name="status" class="form-control">
 					<option value="0" <?php if($update_pet->status_wk == '0') echo 'selected'; ?>>Undefined</option>
 				  <?php
 				  		
@@ -261,9 +262,9 @@
 				  		}
 				  		
 				  ?>
-			   </select><br />
-		Age: <input type="text" name="age" value="<?php echo $update_pet->age; ?>"><br />
-		Weight: <input type="text" name="weight" value="<?php echo $update_pet->weight; ?>"><br />
+			   </select></div>
+		Age: <br><div class="form-group"><input type="text" name="age" class="form-control" value="<?php echo $update_pet->age; ?>"></div>
+		Weight: <br><div class="form-group"><input type="text" name="weight" class="form-control" value="<?php echo $update_pet->weight; ?>"></div>
 		Vaccination(s): <br />
 			<?php 
 	
@@ -278,17 +279,17 @@
 		  			if(isset($pets_vaccinations[$value->vaccination_wk]))
 		  				echo ' checked';
 		  			
-		  			echo "> ".$value->vaccination_name."<br />";
+		  			echo "> ".$value->vaccination_name."<br><br>";
 		  		}
 	
 			 ?>
-		Date Added: <input type="text" name="create_dt" value="<?php echo date('m/d/Y h:i:s A', strtotime($update_pet->create_dt)); ?>"><br />
-		Is it Rescued?: 
-			<input type="radio" name="rescued" value="1"<?php if($update_pet->is_rescued == '1') echo 'checked="checked"'; ?>> Yes 
-			<input type="radio" name="rescued" value="0"<?php if($update_pet->is_rescued == '0') echo 'checked="checked"'; ?>> No<br />
+		Date Added:<br><div class="form-group"><input type="text" name="create_dt" class="form-control" value="<?php echo date('m/d/Y h:i:s A', strtotime($update_pet->create_dt)); ?>"></div>
+		Is it Rescued?: &nbsp;&nbsp;
+			<input type="radio" name="rescued" value="1"<?php if($update_pet->is_rescued == '1') echo 'checked="checked"'; ?>> Yes &nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" name="rescued" value="0"<?php if($update_pet->is_rescued == '0') echo 'checked="checked"'; ?>> No<br><br>
 
-		<input type="submit" value="submit" name="submit" />
-	</form>
+		<div class="form-group"><button type="submit" value="submit" name="submit" class="btn btn-success btn-md btn-block">Submit</button></div>
+	</fieldset></form></section>
 
 <?php
 

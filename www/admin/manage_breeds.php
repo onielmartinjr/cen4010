@@ -258,42 +258,48 @@
 	require_once ("../requires/template/header.php");
 	
 
+	// Add new pet type
+	echo "<section class=\"container \"><form class=\"center\" role=\"form\" action=\"".file_name_with_get()."\" method=\"post\"><fieldset class=\"registration-form\">";
+	echo "<label style=\"text-transform:capitalize; font-size:30px; font-weight:bold;\">Add New Pet Type: </label>"; 
+	echo "<input type=\"text\" class=\"form-control\" name=\"name\"><br />";
+	echo "<input type=\"submit\" class=\"btn btn-success btn-md btn-block\" value=\"Add\" name=\"add_pet_type\">";
+	echo "</fieldset></form></section>";
+	
+	
 	/* Form */
 	
 	// Loop through all of the breeds organized by pet type and create a form 
 	// to update their names. No delete functionality yet. Admin must ensure
 	// no pets are associated to a particular breed or pet type before hard delete.
+	echo "<section class=\"container center\">";
 	foreach ($pet_types_array as $type) 
 	{
 		// create an update form for each breed within this pet type
-		echo "<form action=\"".file_name_with_get()."\" method=\"post\">";
-		echo "<label style=\"text-transform:capitalize; font-size:30px; font-weight:bold;\">{$type->name}</label>"; 
-		echo "update to:<input type=\"text\" name=\"pet_type_name\" value=\"".$type->name."\" />";
-		echo "<input type=\"submit\" value=\"Update Pet Type\" name=\"submit_".$type->name."_name\"/>";
-		echo "<input type=\"submit\" value=\"Delete Pet Type\" name=\"delete_".$type->name."_name\"/>";
-		echo "</form><br /><br />";
+		
+		echo "<div class=\"container center\" ><div class=\"row\" ><fieldset class=\"registration-form\"> <div class=\"col-xs-6\"><form class=\"center\" role=\"form\" action=\"".file_name_with_get()."\" method=\"post\"> ";
+		echo "<label style=\"text-transform:capitalize; font-size:30px; font-weight:bold;\">{$type->name}</label><br>"; 
+		echo "update to: <div class=\"form-group\"><input type=\"text\" class=\"form-control\" name=\"pet_type_name\" value=\"".$type->name."\" /></div>";
+		echo "<div class=\"form-group\"><input type=\"submit\" class=\"btn btn-success btn-md btn-block\" value=\"Update Pet Type\" name=\"submit_".$type->name."_name\"/></div>";
+		echo "<div class=\"form-group\"><input type=\"submit\" class=\"btn btn-success btn-md btn-block\" value=\"Delete Pet Type\" name=\"delete_".$type->name."_name\"/></div>";
+		echo "</form></div>";
 		
 		$breeds_array = Breed::find_by_sql("SELECT * FROM `".Breed::$table_name."` WHERE `pet_type_wk` = ".$type->pet_type_wk.";");
 		
 		// update/delete form
-		echo "<form action=\"".file_name_with_get()."\" method=\"post\">";
+		echo "<div class=\"col-xs-6\" ><br><br><form action=\"".file_name_with_get()."\" method=\"post\"> <fieldset class=\"registration-form\">";
 		$count = count($breeds_array);
 		for ($i = 0; $i < $count; $i++)
 		{
-			echo $i+1 . ": <input type=\"text\" name=\"".$breeds_array[$i]->breed_wk."\" value=\"".$breeds_array[$i]->name."\">";
-			echo "Delete:<input type=\"checkbox\" name=\"delete_".$breeds_array[$i]->breed_wk."\" value=\"delete\" /><br />";
+			echo "<div class=\"form-group row\"><input type=\"text\" class=\"form-control\" name=\"".$breeds_array[$i]->breed_wk."\" value=\"".$breeds_array[$i]->name."\">";
+			echo "Delete:<input type=\"checkbox\" name=\"delete_".$breeds_array[$i]->breed_wk."\" value=\"delete\" /></div>";
 		}
-		echo "Add new breed:<input type=\"text\" name=\"new_breed\" value=\"\"><br />";
-		echo "<input type=\"submit\" value=\"save\" name=\"submit_".$type->name."_breeds\"/>";
-		echo "</form><br /><br />";
+		echo "<div class=\"form-group\">Add new breed:<input type=\"text\" class=\"form-control\" name=\"new_breed\" value=\"\"></div>";
+		echo "<div class=\"form-group\"><input type=\"submit\" class=\"btn btn-success btn-md btn-block\" value=\"save\" name=\"submit_".$type->name."_breeds\"/></div>";
+		echo "</fieldset></form>";
+		echo "</div></fieldset></div></div> <hr> ";
 	}
+	echo "</section>";
 	
-	// Add new pet type
-	echo "<form action=\"".file_name_with_get()."\" method=\"post\">";
-	echo "<label style=\"text-transform:capitalize; font-size:30px; font-weight:bold;\">Add New Pet Type: </label>"; 
-	echo "<input type=\"text\" name=\"name\"><br />";
-	echo "<input type=\"submit\" value=\"Add\" name=\"add_pet_type\">";
-	echo "</form>";
 	
 
 	//this is a special instance, remove the message, if it's set since we set the messages in this form

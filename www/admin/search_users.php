@@ -10,12 +10,13 @@
 	//set the style for the table
 	$page->style = "<style>
 						table, th, td {
-							border: 1px solid black;
+							border: 2px solid white;
 							border-collapse: collapse;
 						}
 						th, td {
 							padding: 5px;
 						}
+						tr:hover {background: #2ecc71 !important;}
 						tr:nth-child(even) {background: #DDD}
 						tr:nth-child(odd) {background: #FFF}
 					</style>";
@@ -87,6 +88,7 @@
 	$sql .= ";";
 	$users = User::find_by_sql($sql);
 	
+		
 	//display filters
 	$page->body = "<p><a href=\"".file_name_without_get()."?type=all\">All</a> | <a href=\"".file_name_without_get()."?type=users\">Active Users</a> | <a href=\"".file_name_without_get()."?type=staff\">Active Staff</a> | <a href=\"".file_name_without_get()."?type=admin\">Active Admin</a> | <a href=\"".file_name_without_get()."?type=is_deleted\">Disabled</a></p>";
 	
@@ -123,8 +125,10 @@
 	//include the header
 	require_once "../requires/template/header.php";
 	
+	echo "<section class=\"container\">";
 	//display the page
 	echo $page->body;
+	echo "</section>";
 
 	//include the footer
 	require_once "../requires/template/footer.php";

@@ -106,23 +106,22 @@
 	require_once ("../requires/template/header.php");
 	
 ?>
-	
-	<form action="<?php echo file_name_with_get(); ?>" method="post">
-		
+	<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_with_get(); ?>" method="post" ><fieldset class="registration-form">
+		<h3>Manage Pet Status</h3><br>
 		<?php
-		
 			//loop through all statuses, display them to the UI
 			for($i = 0; $i < count($all_statuses); $i++) {
-				echo $i+1 . ": <input type=\"text\" name=\"". $all_statuses[$i]->status_wk . "\" value=\"". $all_statuses[$i]->name ."\">";
-				echo " <a href=\"". file_name_with_get() ."?delete_pet_status_wk=". $all_statuses[$i]->status_wk ."\">Delete</a>";
-				echo "<br />";
+				echo "<div class=\"form-group\">";
+					echo "<input type=\"text\" class=\"form-control\" name=\"". $all_statuses[$i]->status_wk . "\" value=\"". $all_statuses[$i]->name ."\">";
+					echo "<a href=\"". file_name_with_get() ."?delete_pet_status_wk=". $all_statuses[$i]->status_wk ."\">Delete</a>";
+				echo "</div>";
 			}
-			
 		?>
-		New Status: <input type="text" name="new_status" value=""><br />
+		<br>
+		<div class="form-group">New Status: <input type="text" name="new_status" class="form-control" value=""></div>
 		
-		<input type="submit" value="submit" name="submit" />
-	</form>
+		<div class="form-group"><button type="submit" value="submit" name="submit" class="btn btn-success btn-md btn-block">Submit</button></div>
+	</fieldset></form></section>
 	
 	
 <?php

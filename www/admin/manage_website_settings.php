@@ -108,10 +108,10 @@
 	require_once ("../requires/template/header.php");
 	
 ?>
-	
-	<form action="<?php echo file_name_with_get(); ?>" method="post">
-		Organization Name: <input type="text" name="organization_name" value="<?php echo isset($website_settings['organization_name']) ? $website_settings['organization_name'] : ''; ?>"><br />
-		Time Zone: <select name="time_zone">
+	<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_with_get(); ?>" method="post" ><fieldset class="registration-form">
+		<h2>Manage Website Settings</h2>
+		Organization Name: <br><div class="form-group"><input type="text" name="organization_name" class="form-control" value="<?php echo isset($website_settings['organization_name']) ? $website_settings['organization_name'] : ''; ?>"></div>
+		Time Zone: <br><div class="form-group"><select name="time_zone" class="form-control">
 					  <option value="" <?php if(!isset($website_settings['time_zone'])) echo 'selected'; ?>> </option>
 					  <option value="America/Anchorage" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/Anchorage') echo 'selected'; } ?>>Alaska</option>
 					  <option value="America/Chicago" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/Chicago') echo 'selected'; } ?>>Central</option>
@@ -121,10 +121,10 @@
 					  <option value="America/Denver" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/Denver') echo 'selected'; } ?>>Mountain</option>
 					  <option value="America/Phoenix" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/Phoenix') echo 'selected'; } ?>>Mountain no DST</option>
 					  <option value="America/Los_Angeles" <?php if(isset($website_settings['time_zone'])) { if($website_settings['time_zone'] == 'America/Los_Angeles') echo 'selected'; } ?>>Pacific</option>
-				  </select><br />
-		Address: <input type="text" name="address" value="<?php echo isset($website_settings['address']) ? $website_settings['address'] : ''; ?>"><br />
-		City: <input type="text" name="city" value="<?php echo isset($website_settings['city']) ? $website_settings['city'] : ''; ?>"><br />
-		State: <select name="state">
+				  </select></div>
+		Address: <br><div class="form-group"><input type="text" name="address" class="form-control" value="<?php echo isset($website_settings['address']) ? $website_settings['address'] : ''; ?>"></div>
+		City: <br><div class="form-group"><input type="text" name="city" class="form-control" value="<?php echo isset($website_settings['city']) ? $website_settings['city'] : ''; ?>"></div>
+		State: <br><div class="form-group"><select name="state" class="form-control">
 					  <option value="" <?php if(!isset($website_settings['state'])) echo 'selected'; ?>> </option>
 					  <?php
 					  		
@@ -152,17 +152,17 @@
 					  			echo ">".$value."</option>";
 					  		}
 					  ?>
-				  </select><br />
-		Zip Code: <input type="text" name="zip_code" value="<?php echo isset($website_settings['zip_code']) ? $website_settings['zip_code'] : ''; ?>"><br />
-		E-mail Address: <input type="text" name="email_address" value="<?php echo isset($website_settings['email_address']) ? $website_settings['email_address'] : ''; ?>"><br />
-		Phone Number: <input type="text" name="phone_number" value="<?php echo isset($website_settings['phone_number']) ? $website_settings['phone_number'] : ''; ?>"><br />
-		FaceBook Link: <input type="text" name="facebook_link" value="<?php echo isset($website_settings['facebook_link']) ? $website_settings['facebook_link'] : ''; ?>"><br />
-		Twitter Link: <input type="text" name="twitter_link" value="<?php echo isset($website_settings['twitter_link']) ? $website_settings['twitter_link'] : ''; ?>"><br />
-		Instagram Link: <input type="text" name="instagram_link" value="<?php echo isset($website_settings['instagram_link']) ? $website_settings['instagram_link'] : ''; ?>"><br />
-		YouTube Link: <input type="text" name="youtube_link" value="<?php echo isset($website_settings['youtube_link']) ? $website_settings['youtube_link'] : ''; ?>"><br />
+				  </select></div>
+		Zip Code: <br><div class="form-group"><input type="text" name="zip_code" class="form-control" value="<?php echo isset($website_settings['zip_code']) ? $website_settings['zip_code'] : ''; ?>"></div>
+		E-mail Address: <br><div class="form-group"><input type="text" name="email_address" class="form-control" value="<?php echo isset($website_settings['email_address']) ? $website_settings['email_address'] : ''; ?>"></div>
+		Phone Number: <br><div class="form-group"><input type="text" name="phone_number" class="form-control" value="<?php echo isset($website_settings['phone_number']) ? $website_settings['phone_number'] : ''; ?>"></div>
+		FaceBook Link: <br><div class="form-group"><input type="text" name="facebook_link" class="form-control" value="<?php echo isset($website_settings['facebook_link']) ? $website_settings['facebook_link'] : ''; ?>"></div>
+		Twitter Link: <br><div class="form-group"><input type="text" name="twitter_link" class="form-control" value="<?php echo isset($website_settings['twitter_link']) ? $website_settings['twitter_link'] : ''; ?>"></div>
+		Instagram Link: <br><div class="form-group"><input type="text" name="instagram_link" class="form-control" value="<?php echo isset($website_settings['instagram_link']) ? $website_settings['instagram_link'] : ''; ?>"></div>
+		YouTube Link: <br><div class="form-group"><input type="text" name="youtube_link" class="form-control" value="<?php echo isset($website_settings['youtube_link']) ? $website_settings['youtube_link'] : ''; ?>"></div>
 		
-		<input type="submit" value="submit" name="submit"/>
-	</form>
+		<div class="form-group"><button type="submit" value="submit" name="submit" class="btn btn-success btn-md btn-block">Submit</button></div>
+	</fieldset></form></section>
 	
 	
 <?php

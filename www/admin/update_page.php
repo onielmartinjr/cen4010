@@ -48,16 +48,18 @@
 ?>
 
 	<!-- form -->
-	<form id="update_page" action="<?php echo file_name_with_get(); ?>" method="post">
-		Page Name: <input type="text" name="page_name" value="<?php echo $update_page->name; ?>"<?php
+	<section id="registration" class="container"><form class="center" role="form" id="update_page" action="<?php echo file_name_with_get(); ?>" method="post" ><fieldset class="registration-form">
+		<h3>Update Page</h3><br>
+		Page Name: <br><div class="form-group"><input type="text" name="page_name" class="form-control" value="<?php echo $update_page->name; ?>"<?php
 			//if looking at home page or about us page, disable this field
 			if($update_page == '1' || $update_page == '2')
 				echo ' readonly';
-		?>/> <br /> <br />
-		Page Content: <textarea rows="5" cols="40" name="page_content"><?php echo $update_page->body; ?></textarea> <br /> <br />
+		?>/> </div>
+		Page Content: <br><div class="form-group"><textarea rows="5" cols="40" class="form-control" name="page_content"><?php echo $update_page->body; ?></textarea> </div>
 		<input type="hidden" value="<?php echo $update_page->page_wk; ?>" name="page_wk" />
-		<input type="submit" value="submit" name="submit" />
-	</form>
+		
+		<div class="form-group"><button type="submit" value="submit" name="submit" class="btn btn-success btn-md btn-block">Submit</button></div>
+	</fieldset></form></section>
 
 <?php
 

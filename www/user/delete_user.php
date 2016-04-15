@@ -39,12 +39,11 @@
 	require_once ("../requires/template/header.php");
 	
 ?>	
-	
-	<form id="confirm_delete" action="<?php echo file_name_with_get(); ?>" method="post">
-		<label>Are you sure you want to delete your account?</label> <br />
-		<input type="submit" value="No, keep my account!" name="deny" />
-		<input type="submit" value="Yes, delete my account" name="confirm" />
-	</form>
+	<section class="container"><form class="center" role="form"  id="confirm_delete" action="<?php echo file_name_with_get(); ?>" method="post" ><fieldset class="registration-form">
+		<label>Are you sure you want to delete your account?</label> <br>
+		<input type="submit" value="No, keep my account!" class="btn btn-success btn-md btn-block" name="deny" />
+		<input type="submit" value="Yes, delete my account" class="btn btn-success btn-md btn-block" name="confirm" />
+	</fieldset></form></section>
 	
 <?php
 	

@@ -65,10 +65,11 @@
 		
 ?>
 
+<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_without_get(); ?>" method="post"><fieldset class="registration-form">
+<h3>Create New Watch List</h3><br>
 <p><em>Please enter your new list criteria.</em></p>
-<form action="<?php echo file_name_without_get(); ?>" method="post">
-		Watch List Name <input type="text" name="name" /><br /><br />
-		Pet Type <br /><?php
+		Watch List Name <br><div class="form-group"><input type="text" class="form-control" name="name" /></div><br>
+		Pet Type <br><div class="form-group text-left"><?php
 				  		
 				  		//we need to display all available items
 				  		//do a concatenation of the pet type and the breed
@@ -85,8 +86,8 @@
 				  		
 				  		echo '</select>';
 				  		
-				  ?>
-		Breed <br /><?php
+				  ?></div>
+		Breed <br><div class="form-group text-left"><?php
 				  		
 				  		//we need to display all available items
 				  		//do a concatenation of the pet type and the breed
@@ -103,8 +104,8 @@
 				  		
 				  		echo '</select>';
 				  		
-				  ?>
-		Color <br /><?php
+				  ?></div>
+		Color <br><div class="form-group text-left"><?php
 				  		
 				  		//we need to display all available items
 				  		//do a concatenation of the pet type and the breed
@@ -119,8 +120,8 @@
 				  		}
 				  		echo '</select>';
 				  		
-				  ?>
-		Status <br /><?php
+				  ?></div>
+		Status <br><div class="form-group text-left"><?php
 				  		
 				  		//we need to display all available items
 				  		//do a concatenation of the pet type and the breed
@@ -135,11 +136,11 @@
 				  		}
 				  		echo '</select>';
 				  		
-				  ?>
-		Age <input type="text" name="age_min" maxlength="4" size="5" value="" > years to <input type="text" name="age_max" maxlength="4" size="5" value="" > years<br>
-		Weight <input type="text" name="weight_min" maxlength="5" size="5" value="" > lbs to <input type="text" name="weight_max" maxlength="5" size="5" value="" > lbs<br>
-		<input type="submit" name="submit" value="submit">
-</form>
+				  ?></div>
+		Age <br><br><div class="row"><div class="col-xs-4"><input type="text" class="form-control" name="age_min" maxlength="4" size="5" value=""  ></div><div class="col-xs-1" style="padding-top:5px !important;"><span>to&nbsp;&nbsp;</span></div><div class="col-xs-4"><input type="text" class="form-control" name="age_max" maxlength="4" size="5" value="" ></div><div class="col-xs-1" style="padding-top:5px !important;"><span>years</span></div></div>
+		<br>Weight <br><br><div class="row"><div class="col-xs-4"><input type="text" class="form-control" name="weight_min" maxlength="5" size="5" value="" ></div><div class="col-xs-1" style="padding-top:5px !important;"><span>to&nbsp;&nbsp;</span></div><div class="col-xs-4"><input type="text" class="form-control" name="weight_max" maxlength="5" size="5" value="" ></div><div class="col-xs-1" style="padding-top:5px !important;"><span>lbs</span></div></div><br>
+		<div class="form-group"><button type="submit" value="submit" name="submit" class="btn btn-success btn-md btn-block">Submit</button></div>
+	</fieldset></form></section>
 <?php
 
 	//footer template

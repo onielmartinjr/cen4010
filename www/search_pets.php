@@ -128,7 +128,10 @@ function wish_list(pet, clicked_id)
 	$sql .= ";";
 	
 	//grab the body of pets
-	$page->body = display_pet_table($sql);
+	$page->body = display_pet_blog($sql);
+	
+	//page body object
+	//$pageObj = find_by_sql($sql);
 	
 	//include the header
 	require_once "requires/template/header.php";
@@ -138,6 +141,7 @@ function wish_list(pet, clicked_id)
 
 ?>
 
+<div class="container"><div class="row"><div class="col-xs-3">
 <!-- form to limit search criteria -->
 <form action="<?php echo file_name_without_get(); ?>" method="post">
 	<fieldset>
@@ -167,7 +171,7 @@ function wish_list(pet, clicked_id)
 				  			}
 				  			
 				  			
-				  			echo ">".$value->name."<br />";
+				  			echo ">&nbsp;&nbsp;".$value->name."<br />";
 				  		}
 				  		echo '</select>';
 				  		
@@ -197,7 +201,7 @@ function wish_list(pet, clicked_id)
 				  			}
 				  				
 				  			
-				  			echo ">".$value->name."<br />";
+				  			echo ">&nbsp;".$value->name."<br />";
 				  		}
 				  		echo '</select>';
 				  		
@@ -226,7 +230,7 @@ function wish_list(pet, clicked_id)
 				  			}
 				  			
 				  			
-				  			echo ">".$value->name."<br />";
+				  			echo ">&nbsp;&nbsp;".$value->name."<br />";
 				  		}
 				  		echo '</select>';
 				  		
@@ -255,51 +259,61 @@ function wish_list(pet, clicked_id)
 				  			}
 				  				
 				  			
-				  			echo ">".$value->name."<br />";
+				  			echo ">&nbsp;&nbsp;".$value->name."<br />";
 				  		}
 				  		echo '</select>';
 				  		
 				  ?>
-		Age <input type="text" name="age_min" maxlength="4" size="5" value="<?php
+		
+		<br>
+		Age (years) <br><div class="row"><div class="col-xs-4"><input type="text" class="form-control" name="age_min" maxlength="4" size="5" value="<?php
 		//this will determine whether or not this item is checked
 		if(isset($session->pet_where)) {
 			if(isset($session->pet_where['age_min'])) {
 				echo $session->pet_where['age_min'];
 			}
 		}
-		?>" > years to <input type="text" name="age_max" maxlength="4" size="5" value="<?php
+		?>" ></div><div class="col-xs-1" style="padding-top:5px !important;"><span>to&nbsp;&nbsp;</span></div><div class="col-xs-4"><input type="text" class="form-control" name="age_max" maxlength="4" size="5" value="<?php
 		//this will determine whether or not this item is checked
 		if(isset($session->pet_where)) {
 			if(isset($session->pet_where['age_max'])) {
 				echo $session->pet_where['age_max'];
 			}
 		}
-		?>" > years<br>
-		Weight <input type="text" name="weight_min" maxlength="5" size="5" value="<?php
+		?>" ></div>
+		</div>
+		Weight (lbs) <br><div class="row"><div class="col-xs-4"><input type="text" class="form-control" name="weight_min" maxlength="5" size="5" value="<?php
 		//this will determine whether or not this item is checked
 		if(isset($session->pet_where)) {
 			if(isset($session->pet_where['weight_min'])) {
 				echo $session->pet_where['weight_min'];
 			}
 		}
-		?>" > lbs to <input type="text" name="weight_max" maxlength="5" size="5" value="<?php
+		?>" ></div><div class="col-xs-1" style="padding-top:5px !important;"><span>to&nbsp;&nbsp;</span></div><div class="col-xs-4"><input type="text" class="form-control" name="weight_max" maxlength="5" size="5" value="<?php
 		//this will determine whether or not this item is checked
 		if(isset($session->pet_where)) {
 			if(isset($session->pet_where['weight_max'])) {
 				echo $session->pet_where['weight_max'];
 			}
 		}
-		?>" > lbs<br>
-		<input type="submit" name="submit" value="submit">&nbsp;&nbsp;<input type="submit" name="submit" value="reset"><br />
+		?>" ></div>
+		</div>
+		<br><input type="submit" name="submit" class="btn btn-success btn-md btn-block" value="submit">
+		<br><input type="submit" name="submit" class="btn btn-success btn-md btn-block" value="reset">
 	</fieldset>
-</form><br />
-
-<?php
 	
-	//display the page
-	echo $page->body;
+</form>
 
-	//include the footer
-	require_once "requires/template/footer.php";
-	
+
+</div><div <div class="col-xs-9">
+<legend>Results</legend><br>
+
+<?php echo $page->body; 
+
+//var_dump($pageObj); //display the page
 ?>
+	
+</div></div></div>
+	
+<?php require_once "requires/template/footer.php"; ?>
+	

@@ -102,8 +102,8 @@
 	$sql .= ";";
 
 	
-	// display the pet table
-	 $page->body = display_pet_table($sql, true);
+	// display the pet blocks
+	 $page->body = display_pet_blog($sql, true);
 	 
 	 // include the header
 	 require_once "../requires/template/header.php";
@@ -112,7 +112,10 @@
 	 echo "<p id=\"ajax_message\" style=\"color: red; font-family: courier;\"></p>";
 	 
 	 // display the page
+	 echo "<section class=\"container\"><div class=\"row\"><div class=\"col-xs-9\">";
+	 echo "<h3>Wish List</h3><hr>";
 	 echo $page->body;
+	 echo "</div></div></section>";
 	 
 	
 	// remove the message

@@ -75,6 +75,8 @@ class Image extends Database_Object {
 	
 	//move the file to the actual location
 	public function move_file() {
+		global $session;
+		
 		//pre-append the key to the beggining, followed by an underscore
 		//this ensures image uniqueness and no overrides
 		$this->filename = $this->image_wk."_".basename($this->filename);
