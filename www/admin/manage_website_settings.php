@@ -156,6 +156,10 @@
 		Zip Code: <br><div class="form-group"><input type="text" name="zip_code" class="form-control" value="<?php echo isset($website_settings['zip_code']) ? $website_settings['zip_code'] : ''; ?>"></div>
 		E-mail Address: <br><div class="form-group"><input type="text" name="email_address" class="form-control" value="<?php echo isset($website_settings['email_address']) ? $website_settings['email_address'] : ''; ?>"></div>
 		Phone Number: <br><div class="form-group"><input type="text" name="phone_number" class="form-control" value="<?php echo isset($website_settings['phone_number']) ? $website_settings['phone_number'] : ''; ?>"></div>
+		<br /><h2>Site Content</h2>
+		Main Site Heading: <br><div class="form-group"><input type="text" name="main_site_heading" class="form-control" value="<?php echo isset($website_settings['main_site_heading']) ? $website_settings['main_site_heading'] : ''; ?>"></div>
+		Main Site Text: <br><div class="form-group"><input type="text" name="main_site_text" class="form-control" value="<?php echo isset($website_settings['main_site_text']) ? $website_settings['main_site_text'] : ''; ?>"></div>
+		<br /><h2>Social Media</h2>
 		FaceBook Link: <br><div class="form-group"><input type="text" name="facebook_link" class="form-control" value="<?php echo isset($website_settings['facebook_link']) ? $website_settings['facebook_link'] : ''; ?>"></div>
 		Twitter Link: <br><div class="form-group"><input type="text" name="twitter_link" class="form-control" value="<?php echo isset($website_settings['twitter_link']) ? $website_settings['twitter_link'] : ''; ?>"></div>
 		Instagram Link: <br><div class="form-group"><input type="text" name="instagram_link" class="form-control" value="<?php echo isset($website_settings['instagram_link']) ? $website_settings['instagram_link'] : ''; ?>"></div>
