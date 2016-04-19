@@ -50,7 +50,7 @@
 		$page->body .= "</p>";
 	} else {
 		//there are no watch lists returned
-		$page->body .= "<p>You currently don't have any watch lists.</p>";
+		$page->body .= "<p><em>You currently don't have any watch lists.</em></p>";
 	}
 		
 	//header template

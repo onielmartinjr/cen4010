@@ -54,10 +54,10 @@
 					
 					// all logged in users
 					echo "<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"> Users <i class=\"icon-angle-down\"></i></a><ul class=\"dropdown-menu\">";
+					echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/manage_watch_lists.php\">Watch Lists</a></li>";
 					echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/wish_list.php\">Wish List</a></li>";
 					echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/delete_user.php\">Delete my Account</a></li>";
 					echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/update_user.php\">Update my Account</a></li>";
-					echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/manage_watch_lists.php\">Manage Watch Lists</a></li>";
 					echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/logout.php\">Logout</a></li>";
 					echo "</ul></li>";
 					
