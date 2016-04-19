@@ -27,6 +27,7 @@
 		$new_user->last_name = $_POST['last_name'];
 		$new_user->phone_number = return_numeric($_POST['phone_number']);
 		$new_user->is_notifications_enabled = $_POST['email_notifications'];
+		$new_user->role_wk = 1; //default to a role of 1
 		
 		//make sure the username does not already exist
 		if(User::find_by_name($database->escape_value($new_user->username), "username")) {
