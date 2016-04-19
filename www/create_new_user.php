@@ -27,7 +27,6 @@
 		$new_user->last_name = $_POST['last_name'];
 		$new_user->phone_number = return_numeric($_POST['phone_number']);
 		$new_user->is_notifications_enabled = $_POST['email_notifications'];
-		$new_user->role_wk = 1; //default to a role of 1
 		
 		//make sure the username does not already exist
 		if(User::find_by_name($database->escape_value($new_user->username), "username")) {
@@ -78,18 +77,19 @@
 	?>
 	
 	<!-- create new user form -->
-	<form id="create_new_user" action="<?php echo file_name_with_get(); ?>" method="post">
-		username: <input type="text" name="username" value="<?php if(isset($new_user)) echo $new_user->username; ?>" /> <br />
-		email address: <input type="text" name="email_address" value="<?php if(isset($new_user)) echo $new_user->email_address; ?>" /> <br />
-		password: <input type="password" name="password" /> <br />
-		confirm password: <input type="password" name="confirmed_password" /> <br />
-		first name: <input type="text" name="first_name" value="<?php if(isset($new_user)) echo $new_user->first_name; ?>" /> <br />
-		last name: <input type="text" name="last_name" value="<?php if(isset($new_user)) echo $new_user->last_name; ?>" /> <br />
-		phone number: <input type="text" name="phone_number" value="<?php if(isset($new_user)) echo $new_user->phone_number; ?>" /> <br />
-		receive email notifications: <input type="radio" name="email_notifications" value="0"<?php if(isset($new_user)) { if($new_user->is_notifications_enabled == "0") echo " checked"; } ?>>No
-			<input type="radio" name="email_notifications" value="1"<?php if(isset($new_user)) { if($new_user->is_notifications_enabled == "1") echo " checked"; } else echo " checked"; ?>>Yes<br />
-		<input type="submit" value="submit" name="submit"/>
-	</form>
+	<section id="registration" class="container"><form class="center" role="form" id="create_new_user" action="<?php echo file_name_with_get(); ?>" method="post" ><fieldset class="registration-form x-md-12">
+		<h3>Create New User</h3>
+		username: <br><div class="form-group"> <input type="text" class="form-control"name="username" value="<?php if(isset($new_user)) echo $new_user->username; ?>" /> </div>
+		email address: <br><div class="form-group"> <input type="text" class="form-control"name="email_address" value="<?php if(isset($new_user)) echo $new_user->email_address; ?>" /> </div>
+		password: <br><div class="form-group"><input type="password" name="password" class="form-control"/> </div>
+		confirm password: <br><div class="form-group"> <input type="password" name="confirmed_password" class="form-control"/> </div>
+		first name: <br><div class="form-group"> <input type="text" name="first_name" class="form-control" value="<?php if(isset($new_user)) echo $new_user->first_name; ?>" /></div>
+		last name: <br><div class="form-group"> <input type="text" name="last_name" class="form-control" value="<?php if(isset($new_user)) echo $new_user->last_name; ?>" /> </div>
+		phone number: <br><div class="form-group"> <input type="text" name="phone_number" class="form-control" value="<?php if(isset($new_user)) echo $new_user->phone_number; ?>" /> </div>
+		receive email notifications: <br><input type="radio" name="email_notifications" value="0"<?php if(isset($new_user)) { if($new_user->is_notifications_enabled == "0") echo " checked"; } ?>>&nbsp;No &nbsp;&nbsp;
+			<input type="radio" name="email_notifications" value="1"<?php if(isset($new_user)) { if($new_user->is_notifications_enabled == "1") echo " checked"; } else echo " checked"; ?>>&nbsp;Yes <br>
+		<br><div class="form-group"><button type="submit" value="submit" name="submit" class="btn btn-success btn-md btn-block">Submit</button></div>
+	</fieldset></form></section><!--/#registration-->
 	
 <?php
 

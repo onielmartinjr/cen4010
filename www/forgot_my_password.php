@@ -81,11 +81,11 @@
 ?>
 	
 	<!-- form -->
-	<form action="<?php echo file_name_with_get(); ?>" method="post">
+	<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_with_get(); ?>" method="post"><fieldset class="registration-form">
 		<p>Please enter the Email Address associated with your account.</p>
-		<input type="text" name="email_address" value="<?php if(isset($_POST['submit'])) echo $_POST['email_address']; ?>"/> <br />
-		<input type="submit" value="submit" name="submit"/>
-	</form>
+		<div class="form-group"><input type="text" name="email_address" class="form-control" value="<?php if(isset($_POST['submit'])) echo $_POST['email_address']; ?>"/> </div>
+		<div class="form-group"><button type="submit" value="submit" name="submit" class="btn btn-success btn-md btn-block">Submit</button></div>
+	</fieldset></form></section><!--/#registration-->
 
 <?php
 
