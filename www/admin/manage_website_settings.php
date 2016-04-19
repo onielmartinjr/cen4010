@@ -145,8 +145,8 @@
 					  			
 					  			//if the value is selected, display it
 					  			if(isset($website_settings['state'])) { 
-					  				if($website_settings['state'] == $value) 
-					  					echo 'selected'; 
+					  				if($website_settings['state'] == $key) 
+					  					echo 'selected="selected"'; 
 					  			} 
 					  			
 					  			echo ">".$value."</option>";

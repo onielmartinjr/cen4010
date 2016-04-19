@@ -10,8 +10,8 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="carousel-content center centered">
-								<h2 class="boxed animation animated-item-1">Lorem ipsum dolor sit amet</h2><br>
-								<p class="boxed animation animated-item-2">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+								<h2 class="boxed animation animated-item-1">Welcome to our site!</h2><br>
+								<p class="boxed animation animated-item-2">Fall in love with one of our adorable pets!</p>
 							</div>
 						</div>
 					</div>
@@ -22,8 +22,8 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="carousel-content center centered">
-								<h2 class="boxed animation animated-item-1">Lorem ipsum dolor sit amet</h2><br>
-								<p class="boxed animation animated-item-2">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+								<h2 class="boxed animation animated-item-1">Welcome to our site!</h2><br>
+								<p class="boxed animation animated-item-2">Fall in love with one of our adorable pets!</p>
 								<!--<a class="btn btn-md animation animated-item-3" href="#">Learn More</a>-->
 							</div>
 						</div>
