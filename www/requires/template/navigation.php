@@ -51,9 +51,19 @@
 				}
 				else 
 				{
+					
+					// all logged in users
+					echo "<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"> Users <i class=\"icon-angle-down\"></i></a><ul class=\"dropdown-menu\">";
+					echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/wish_list.php\">Wish List</a></li>";
+					echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/delete_user.php\">Delete my Account</a></li>";
+					echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/update_user.php\">Update my Account</a></li>";
+					echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/manage_watch_lists.php\">Manage Watch Lists</a></li>";
+					echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/logout.php\">Logout</a></li>";
+					echo "</ul></li>";
+					
 					// Admin and Staff Only Pages 
 					if (is_admin_or_staff()) {
-						echo "<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"> Admin/Staff Only <i class=\"icon-angle-down\"></i></a><ul class=\"dropdown-menu\">";
+						echo "<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"> Admin/Staff <i class=\"icon-angle-down\"></i></a><ul class=\"dropdown-menu\">";
 						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/create_page.php\">Add a New Page</a></li>";
 						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/add_pet.php\">Add a New Pet</a></li>";
 						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_breeds.php\">Manage Breeds and Types</a></li>";
@@ -62,23 +72,13 @@
 						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_vaccinations.php\">Manage Vaccinations</a></li>";
 						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_website_settings.php\">Manage Web Site Settings</a></li>";
 						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/search_users.php\">Search Users</a></li>";
-						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/logout.php\">Logout</a></li>";
 						
 						echo "</ul></li>";
 					}
-					else{
-						// all logged in users
-						echo "<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"> Users Only <i class=\"icon-angle-down\"></i></a><ul class=\"dropdown-menu\">";
-						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/wish_list.php\">Wish List</a></li>";
-						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/delete_user.php\">Delete my Account</a></li>";
-						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/update_user.php\">Update my Account</a></li>";
-						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/manage_watch_lists.php\">Manage Watch Lists</a></li>";
-						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."user/logout.php\">Logout</a></li>";
-						echo "</ul></li>";
-					}
+					
 					if(isset($session->user_wk)){
 						$user = User::find_by_id($session->user_wk);
-						echo "<li><a style=\"padding-left:1.45em; color:#2ecc71;\"> Signed in as: ".$user->username." </a></li>";
+						echo "<li><a style=\"padding-left:1.45em; color:#2ecc71;\"> ".$user->username." </a></li>";
 					}					
 				}
 			?>	

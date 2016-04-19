@@ -107,12 +107,11 @@
 	require_once "requires/template/header.php";
 		
 ?>
-	<p>Your username is: <strong><?php echo $the_key->user_wk->username; ?></strong></p>
 	<!-- form -->
 	<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_with_get(); ?>" method="post"><fieldset class="registration-form">
-		<p>Please enter and confirm your new password.</p>
+		<p>Your username is: <strong><?php echo $the_key->user_wk->username; ?></strong></p>
+		<br /><p>Please enter and confirm your new password.</p>
 		<div class="form-group has-feedback"><input type="password" name="password" value="" placeholder="Password" class="form-control has-error has-success" /></div>
-		<br>
 		<div class="form-group has-feedback"><input type="password" name="confirmed_password" value="" placeholder="Retype Password" class="form-control has-error has-success" /> </div>
 		<div class="form-group"><button type="submit" value="submit" name="submit" class="btn btn-success btn-md btn-block">Submit</button></div>
 	</fieldset></form></section><!--/#registration-->
