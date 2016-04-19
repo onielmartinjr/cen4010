@@ -34,7 +34,7 @@
 	<section id="registration" class="container"><form class="center" role="form"  id="create_page" action="<?php echo file_name_without_get(); ?>" method="post" ><fieldset class="registration-form">
 		<h3>Add a Page</h3><br>
 		Page Name: <br><div class="form-group"><input type="text" class="form-control" name="page_name" value="<?php echo (isset($new_page) ? $new_page->name : ''); ?>" /> </div>
-		Page Content: <br><div class="form-group"><textarea rows="5" cols="40" class="form-control"name="page_content"><?php echo (isset($new_page) ? $new_page->body : ''); ?></textarea> </div>
+		Page Content: <br><div class="form-group"><textarea rows="5" cols="100" class="ckeditor" name="page_content"><?php echo (isset($new_page) ? $new_page->body : ''); ?></textarea> </div>
 		<div class="form-group"><button type="submit" value="submit" name="submit" class="btn btn-success btn-md btn-block">Submit</button></div>
 	</fieldset></form></section>
 	

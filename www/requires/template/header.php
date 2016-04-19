@@ -10,7 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-	<link href="<?php echo ROOT_URL;?>UI-links/css/bootstrap.min.css" rel="stylesheet">
+    <script src="<?php echo ROOT_URL;?>ckeditor/ckeditor.js"></script>  
+    <link href="<?php echo ROOT_URL;?>UI-links/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo ROOT_URL;?>UI-links/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo ROOT_URL;?>UI-links/css/prettyPhoto.css" rel="stylesheet">
     <link href="<?php echo ROOT_URL;?>UI-links/css/animate.css" rel="stylesheet">
