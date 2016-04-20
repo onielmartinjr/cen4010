@@ -59,6 +59,18 @@
 			}
 		}
 		
+		// if user is the last admin or staff, cannot delete account
+		if($is_deleted == '1' && $the_user->is_deleted == '0')
+		{
+			//only do this check if we're disabling an account
+			$user_array = User::find_by_sql("SELECT * FROM `user` WHERE `role_wk` = " . $the_user->role_wk . " AND `is_deleted` = 0;"); // find all of the ADMINs
+			if (count($user_array) <= 1) // if last ADMIN of last STAFF account...
+			{
+				$session->message("You are the last " . $user->role_wk->name . "!<br />Another " . $user->role_wk->name . " account must be created before this one can be disabled.");
+				redirect_head("search_users.php");
+			}
+		}
+		
 		//only save the user if there are no errors
 		if(empty($session->message)) {
 			$the_user->email_address = $email_address;
