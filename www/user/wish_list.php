@@ -113,7 +113,6 @@
 	 
 	 // display the page
 	 echo "<section class=\"container\"><div class=\"row\"><div class=\"col-xs-9\">";
-	 echo "<h3>Wish List</h3><hr>";
 	 echo $page->body;
 	 echo "</div></div></section>";
 	 

@@ -377,10 +377,11 @@ function display_pet_blog($sql, $is_folder = false) {
 				$return .= "</div><div class=\"row\">";
 		}
 							
-		
+		$return .= "</div>";	
 	}
-	$return .= "</div></section>";
+	
 	$return .= "<p><em>Your search returned ".count($pets)." pet(s).</em></p>";
+	$return .= "</section>";
 	
 	return $return;
 }

@@ -14,14 +14,16 @@
 		// if the pet is already on the user's wish list
 		if ($pwl)
 		{
+			
 			if ($pwl[0]->delete()) // if the wish list entry was successfully deleted
 			{
-				echo "This pet has been removed from your wish list.";
+				echo "";
 			}
 			else // if the wish list entry was not successfully deleted
 			{
-				echo "Unable to remove this pet from your wish list. Please try again.";
+				echo "";
 			}
+			
 		}
 		else // if the pet is not on the user's wish list, add it
 		{
@@ -31,11 +33,11 @@
 			
 			if ($new_wish->save()) // if the wish list addition saved successfully
 			{
-				echo "This pet has been added to your wish list!";
+				echo "";
 			}
 			else // if the wish list addition does not save successfully
 			{
-				echo "Unable to add this pet to your wishlist. Please try again.";
+				echo "";
 			}
 		}
 	}
