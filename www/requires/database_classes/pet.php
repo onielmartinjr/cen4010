@@ -323,7 +323,12 @@ function display_pet_blog($sql, $is_folder = false) {
 		$return .= "<section class=\"blog\" style=\"width:100%\"><div class=\"row\">";
 		foreach($pets as $value) {
 			$value->get_my_comments();
-			$return .= "	<div class=\"col-xs-6\">
+			$return .= "	<div class=\"";
+			if(is_mobile())
+				$return .= "col-xs-11";
+			else
+				$return .= "col-xs-6";
+			$return .= "\">
 							<div id=\"".$value."_row\" class=\"blog-item\">
 								<a href=\"".ROOT_URL."view_pet.php?pet_wk=".$value->pet_wk."\"><img class=\"img-responsive img-blog\" src=\"";
 			if($is_folder) 		$return .= 	"../";
@@ -363,7 +368,12 @@ function display_pet_blog($sql, $is_folder = false) {
 			
 			$rowCutter++;
 			//end current row and start new - visually if content = 2
-			if($rowCutter%2 == 0)
+			if(is_mobile())
+				$mod_by = 1;
+			else
+				$mod_by = 2;
+				
+			if($rowCutter%$mod_by == 0)
 				$return .= "</div><div class=\"row\">";
 		}
 							
