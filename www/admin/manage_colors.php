@@ -129,7 +129,6 @@
 	
 ?>	
 	<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_with_get(); ?>" method="post" ><fieldset class="registration-form">
-		<h3>Manage Colors</h3><br>
 		<?php
 		$colors_array = Color::find_all();
 		$count = count($colors_array); 

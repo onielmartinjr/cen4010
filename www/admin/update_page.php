@@ -48,7 +48,6 @@
 ?>
 	<!-- form -->
 	<section id="registration" class="container"><form class="center" role="form" id="update_page" action="<?php echo file_name_with_get(); ?>" method="post" ><fieldset class="registration-form">
-		<h3>Update Page</h3><br>
 		Page Name: <br><div class="form-group"><input type="text" name="page_name" class="form-control" value="<?php echo $update_page->name; ?>"<?php
 			//if looking at home page or about us page, disable this field
 			if($update_page == '1' || $update_page == '2')

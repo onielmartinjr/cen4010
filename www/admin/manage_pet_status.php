@@ -107,7 +107,6 @@
 	
 ?>
 	<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_with_get(); ?>" method="post" ><fieldset class="registration-form">
-		<h3>Manage Pet Status</h3><br>
 		<?php
 			//loop through all statuses, display them to the UI
 			for($i = 0; $i < count($all_statuses); $i++) {

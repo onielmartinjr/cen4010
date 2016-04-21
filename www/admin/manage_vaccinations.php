@@ -107,7 +107,6 @@
 	
 ?>
 	<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_with_get(); ?>" method="post" ><fieldset class="registration-form">
-		<h3>Manage Vaccinations</h3><br>
 		<?php
 		
 			//loop through all vaccinations, display them to the UI

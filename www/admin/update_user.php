@@ -101,7 +101,6 @@
 	
 	<!-- update user form -->
 	<section id="registration" class="container"><form class="center" role="form" id="update_user" action="<?php echo file_name_with_get(); ?>" method="post" ><fieldset class="registration-form">
-		<h3>Update User</h3><br>
 		Email address: <br><div class="form-group"><input type="text" class="form-control" name="email_address" value="<?php echo $the_user->email_address; ?>" /> </div>
 		Role: <br><div class="form-group"><select class="form-control" name="role_wk">
 					<?php

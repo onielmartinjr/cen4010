@@ -109,7 +109,6 @@
 	
 ?>
 	<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_with_get(); ?>" method="post" ><fieldset class="registration-form">
-		<h2>Manage Website Settings</h2>
 		Organization Name: <br><div class="form-group"><input type="text" name="organization_name" class="form-control" value="<?php echo isset($website_settings['organization_name']) ? $website_settings['organization_name'] : ''; ?>"></div>
 		Time Zone: <br><div class="form-group"><select name="time_zone" class="form-control">
 					  <option value="" <?php if(!isset($website_settings['time_zone'])) echo 'selected'; ?>> </option>

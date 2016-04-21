@@ -54,7 +54,6 @@
 
 	
 	<section class="container"><form class="center" role="form" id="confirm_delete" id="confirm_delete" action="<?php echo file_name_with_get(); ?>" method="post" ><fieldset class="registration-form">
-		<h3>Delete Pet</h3><br>
 		<label>Are you sure you want to delete the <strong><?php echo $pet_found->name; ?></strong> pet?</label> <br />
 		<input type="submit" value="No, this was a mistake!" class="btn btn-success btn-md btn-block" name="deny" />
 		<input type="submit" value="Yes, delete the pet." class="btn btn-success btn-md btn-block" name="confirm" />

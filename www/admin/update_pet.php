@@ -193,7 +193,6 @@
 
 	<!-- form -->
 	<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_with_get(); ?>" enctype="multipart/form-data" method="post" ><fieldset class="registration-form">
-		<h3>Update Pet</h3><br>
 		Name: <br><div class="form-group"><input type="text" class="form-control" name="name" value="<?php echo $update_pet->name; ?>"></div>
 			<!-- default value needed for form -->
 			<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
