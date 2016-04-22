@@ -135,13 +135,7 @@
 						$undefined_breed = Breed::find_by_id(0);
 					}
 					
-					// debug
-					echo "undefined breed = ";
-					echo "<pre>";
-					print_r($undefined_breed);
-					echo "</pre><br />";
-					
-					$database->query("UPDATE `".Pet::$table_name."` SET `breed_wk` = ".$undefined_breed[0]->breed_wk." WHERE `breed_wk` = ".$breed->breed_wk.";");					
+					$database->query("UPDATE `".Pet::$table_name."` SET `breed_wk` = ".$undefined_breed->breed_wk." WHERE `breed_wk` = ".$breed->breed_wk.";");					
 					
 					// now delete the actual breed
 					if ($success)
