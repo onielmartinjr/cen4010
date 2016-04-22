@@ -390,7 +390,7 @@ function display_pet_blog($sql, $is_folder = false) {
 //function to return list of 6 latest pet objects for homepage slider
 function get_slider_pets(){
 	
-	$six_pets = Pet::find_by_sql("SELECT * FROM pet ORDER BY create_dt DESC LIMIT 6;");
+	$six_pets = Pet::find_by_sql("SELECT * FROM pet WHERE is_deleted = 0 ORDER BY create_dt DESC LIMIT 17;");
 	return $six_pets;
 }
 
