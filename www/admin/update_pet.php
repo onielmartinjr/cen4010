@@ -176,6 +176,7 @@
 		// if the object successfully updates, go to view it
 		if ($update_pet->save())
 		{
+			initiate_watch_list($update_pet->pet_wk, "updated");
 			$session->message("The pet was updated successfully!");
 			redirect_head(ROOT_URL . "view_pet.php?pet_wk=" . $update_pet->pet_wk);
 		}

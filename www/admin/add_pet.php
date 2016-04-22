@@ -73,6 +73,7 @@
 		// insert the new pet into the database
 		if ($new_pet->save())
 		{	
+			initiate_watch_list($database->insert_id(), "added");
 			$session->message($new_pet->name." has been successfully added! ");
 			$new_pet_wk = $database->insert_id();
 		}

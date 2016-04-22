@@ -4,7 +4,7 @@ abstract class Database_Object {
 
 	//array containing column names NOT to auto-set to lowercase
 	protected static $fields_to_ignore = array('username','body','file_name','url','random_key',
-		'variable_name','variable_value','vaccination_name','hashed_password','email_address');
+		'variable_name','variable_value','vaccination_name','hashed_password','email_address','column_name');
 
 	//automatically sets the default fields on new object(s)
 	function __construct() {
