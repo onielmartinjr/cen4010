@@ -222,20 +222,23 @@
 				// get the new pet type's wk
 				$new_wk = $database->insert_id();
 				
+				$session->message($session->message."The new pet type {$new_pet_type->name} was successfully created!<br />");
+				
 				// create an undefined breed for the new pet type
 				$undefined_breed = new Breed();
 				$undefined_breed->name = "undefined";
 				$undefined_breed->pet_type_wk = $new_wk;
+				
 				if ($undefined_breed->save())
 				{
 					$session->message($session->message."New undefined breed created for new pet type.<br />");
 				}
 				else
 				{
+					//die($database->last_error);
 					$session->message($session->message."Creation of undefined breed for new pet type was unsuccessful.<br />");
 				}
 				
-				$session->message($session->message."The new pet type {$new_pet_type->name} was successfully created!<br />");
 				redirect_head(current_url());
 			}
 			else
@@ -277,7 +280,7 @@
 		echo "<div class=\"form-group\"><input type=\"submit\" class=\"btn btn-success btn-md btn-block\" value=\"Delete Pet Type\" name=\"delete_".$type->name."_name\"/></div>";
 		echo "</form></div>";
 		
-		$breeds_array = Breed::find_by_sql("SELECT * FROM `".Breed::$table_name."` WHERE `pet_type_wk` = ".$type->pet_type_wk.";");
+		$breeds_array = Breed::find_by_sql("SELECT * FROM `".Breed::$table_name."` WHERE `pet_type_wk` = ".$type->pet_type_wk." ORDER BY `name` ASC;");
 		
 		// update/delete form
 		echo "<div class=\"col-xs-6\" ><br><br><form action=\"".file_name_with_get()."\" method=\"post\"> <fieldset class=\"registration-form\">";
