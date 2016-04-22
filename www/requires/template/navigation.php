@@ -71,6 +71,7 @@
 						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_pet_status.php\">Manage Pet Status</a></li>";
 						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_vaccinations.php\">Manage Vaccinations</a></li>";
 						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/manage_website_settings.php\">Manage Web Site Settings</a></li>";
+						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/report.php\">Report</a></li>";
 						echo "<li><a style=\"padding-left:1.45em;\" href=\"".ROOT_URL."admin/search_users.php\">Search Users</a></li>";
 						
 						echo "</ul></li>";

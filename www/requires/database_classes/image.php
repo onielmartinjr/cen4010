@@ -81,7 +81,7 @@ class Image extends Database_Object {
 		//this ensures image uniqueness and no overrides
 		$this->filename = $this->image_wk."_".basename($this->filename);
 		
-
+		//die($this->temp_path."<br />".BASE."uploads/".$this->filename); //debug
 		if(!move_uploaded_file($this->temp_path, BASE."uploads/".$this->filename)) {
 			//remove the record from the database
 			$this->delete();

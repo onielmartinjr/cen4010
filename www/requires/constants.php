@@ -30,7 +30,7 @@
 	if($am_i_local) {
 		define("BASE",$_SERVER['DOCUMENT_ROOT']."/cen4010/www/");
 	} else {
-		define("BASE",$_SERVER['DOCUMENT_ROOT']);
+		define("BASE",$_SERVER['DOCUMENT_ROOT']."/");
 	}
 	
 ?>
