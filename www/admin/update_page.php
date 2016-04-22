@@ -52,7 +52,7 @@
 			//if looking at home page or about us page, disable this field
 			if($update_page == '1' || $update_page == '2')
 				echo ' readonly';
-		?>/> </div>
+		?> required/> </div>
 		Page Content: <br><div class="form-group"><textarea rows="5" cols="150" class="ckeditor" name="page_content" ><?php echo $update_page->body; ?></textarea> </div>
 		<input type="hidden" value="<?php echo $update_page->page_wk; ?>" name="page_wk" />
 		

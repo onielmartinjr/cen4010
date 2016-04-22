@@ -113,7 +113,7 @@
 	
 	
 	<section id="registration" class="container"><form class="center" role="form" action="<?php echo file_name_with_get(); ?>" enctype="multipart/form-data" method="post" ><fieldset class="registration-form">
-		Name: <br><div class="form-group"><input type="text" class="form-control" name="name" value=""/></div>
+		Name: <br><div class="form-group"><input type="text" class="form-control" name="name" value="" required/></div>
 		<!-- default value needed for form -->
 			<input type="hidden" class="form-control" name="MAX_FILE_SIZE" value="10000000" />
 		Image:  <br><div class="form-group"><input type="file" class="btn btn-default btn-file btn-md" name="file_upload" /></div>
